@@ -18,25 +18,36 @@
  - 행아웃 내용은 녹화떠서 다른 기여자를 위해 남기자. 
 
 ### 라우터 
- || 이름        | 메소드 | 내용 || 
- | /           | GET  | 루트 | 
- | /signin     | GET  | 로그인 |
- | /signup     | GET  | 회원가입 | 
- | /admin      | GET  | 관리자 |
- | /board /:id | GET  |
- | /boards/    |      |
+
+| 이름        | 메소드 | 내용        | 
+| ----------- | ------ | ----        |
+| /           | GET    | 루트        | 
+| /signin     | GET    | 로그인      |
+| /signup     | GET    | 회원가입    | 
+| /admin      | GET    | 관리자      |
+| /board /:id | GET    |             |
+| /boards/    |        |             |
 
 ### 모델링
  - 게시판 (Board, MVP)
-  || id | name || 
+| 아이디 | 이름 |
+| ---- | --- |
+| id | name | 
+|  | vchar(256) | 
 
  - 글 (Post, MVP)
-  || id | title | content | writer | created_at | updated_at | read_count | like_count | comment_count ||
-  | 아이디 | 제목 | 작성자 | 작성일 | 최종수정일 | 조회수 | 좋아요 | 댓글수 |
+
+| 아이디 | 제목  | 내용    | 작성자 | 작성일     | 최종수정일 | 조회수     | 좋아요     | 댓글수 |
+| ------ | ----  | ------  | ------ | ---------- | ------     | ------     | ------     | ------------- |
+| id     | title | content | writer | created_at | updated_at | read_count | like_count | comment_count |
+|        | vchar(256) | text | vchar(80) | datetime | datetime | int | int | int |
 
  - 댓글 (Comment, MVP): 수정기능은 없다. 
-  || id | post_id | comment | writer | created_at ||
-  | 아이디 | 부모 아이디 | 댓글 | 작성자 | 작성일
+
+| 아이디 | 부모 아이디 | 댓글    | 작성자 | 작성일     | 
+| -------|-------------|------   |--------|-------     |
+| id     | post_id     | comment | writer | created_at |
+|        |             | text  | vchar(80) | datetime |
 
  - 공유 방식 (Not MVP)
   SNS나 메신저로 글을 공유하면 https://url/router/hashcode 이런 URL의 Agent를 확인해서 
