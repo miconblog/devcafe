@@ -6,7 +6,7 @@ module.exports = ReactComponent = React.createClass({
 
     return (
       <div>
-        React Go
+        React Ready!!
       </div>
     );
   }

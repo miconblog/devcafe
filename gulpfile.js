@@ -17,7 +17,7 @@ var serverFiles = [
     './server/server.js',
     './server/routes/*.js',
     './components/*.jsx',
-    './server/views/*.jade'
+    './server/views/**/*.hbs'
 ];
 
 gulp.task( 'server:start', function() {

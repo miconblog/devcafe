@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
 
   console.log(" ===> ", content);
 
-  res.render('index', { title: 'Express', react_content: content });
+  res.render('home', { title: 'Express', react_content: content });
 });
 
 module.exports = router;
