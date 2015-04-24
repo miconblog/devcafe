@@ -1,4 +1,4 @@
-# 현업에서 일하는 개발자를 위한 커뮤니티 DevCafe
+# 현업 개발자를 위한 커뮤니티 DevCafe
 
 ## Why is DevCafe
  1. 이거 왜 하는 거죠?
@@ -38,15 +38,11 @@
 테스트는 제가 잘 몰라서 테스트 고수의 참여를 기대합니다.
 
 ## 참여 방법
-추후 일정이 정해지면 공지합니다.
+[트렐로](https://trello.com/b/eclEx1N5/devcafe) 보드에 있는 계획들을 참고해서 내가 기여할수있는 것들이 있다면, 
+주저말고 [페이스북 그룹](https://www.facebook.com/groups/380191595497850)에 가입신청을 하세요. 
 
 ## 기여방법
- - 이슈등록, 테스트, 문서화, 영문화, 코드 개발 기타 등등
+ - 사이트 디자인, 이슈등록, 테스트, 문서화, 영문화, 코드 개발, 기타 등등
 
-## 트렐로
-https://trello.com/b/eclEx1N5/devcafe
-
-## 페이스북 그룹
-https://www.facebook.com/groups/380191595497850/
-
- 
+## 개발에 필요한 문서들
+ - https://github.com/miconblog/devcafe/tree/master/docs
