@@ -4,7 +4,7 @@ var gulp   = require( 'gulp' ),
 
 var options = {
     server: {
-        path: './bin/www',
+        path: './server/bin/www',
         execArgv: [ '--harmony' ]
     },
     bs: {
@@ -13,15 +13,13 @@ var options = {
 };
 
 var serverFiles = [
-    './bin/www',
-    './server.js',
-    './routes/*.js'
+    './server/bin/www',
+    './server/server.js',
+    './server/routes/*.js',
+    './components/*.jsx'
 ];
 
 gulp.task( 'server:start', function() {
-
-    // TODO: 변경사항을 감시할 Client 코드 추가
-    gulp.watch("public/css/*.css").on('change', bs.reload);
 
     server.listen( options.server, function( error ) {
         if( ! error ) bs( options.bs );
@@ -36,5 +34,11 @@ gulp.task( 'server:restart', function() {
 });
 
 gulp.task( 'default', [ 'server:start' ], function() {
+    
+    // 서버사이드 파일 감지
     gulp.watch( serverFiles, [ 'server:restart' ] )
+
+    // 클라이언트 사이드 파일 감지
+    gulp.watch("./client/css/*.css").on('change', bs.reload);
+    gulp.watch("./client/js/*.js").on('change', bs.reload);
 });
