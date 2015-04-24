@@ -1,9 +1,18 @@
 var express = require('express');
 var router = express.Router();
 
+var JSX = require('node-jsx').install({extension: '.jsx', harmony: true}),
+    React = require('react'),
+    ReactComponent = React.createFactory(require('../../components/ReactComponent.jsx'));
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+
+  var content = React.renderToString(ReactComponent());
+
+  console.log(" ===> ", content);
+
+  res.render('index', { title: 'Express', react_content: content });
 });
 
 module.exports = router;
