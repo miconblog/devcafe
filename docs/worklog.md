@@ -2,6 +2,8 @@
  - express application generator로 서버 코드 생성
  - 서버 시작 코드(app.js)는 server.js로 변경
  - 개발환경 설정을 위한 gulp task 설정: develop-server, browser-sync 적용
+ - React 컴포넌트 적용
+ - 서버사이드 템플릿 Jade에서 handlebars로 교체
 
 
 ## 2015-04-21
