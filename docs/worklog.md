@@ -1,3 +1,9 @@
+## 2015-04-24
+ - express application generator로 서버 코드 생성
+ - 서버 시작 코드(app.js)는 server.js로 변경
+ - 개발환경 설정을 위한 gulp task 설정: develop-server, browser-sync 적용
+
+
 ## 2015-04-21
  - MVP 개발을 위한 범위와 개발 스택 자료 조사
  - 라우터와 모델링 대충 끄적임.
