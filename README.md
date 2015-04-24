@@ -31,7 +31,7 @@
 ## 개발 스택
  - MySQL (or MongoDB, Postgresql)
  - Redis
- - Nodejs
+ - Nodejs + Express
  - React
  - Gulp
 
