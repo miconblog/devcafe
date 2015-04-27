@@ -18,6 +18,8 @@
     ```
 
 ## 문서 목록
-
+ 1. [작업 노트](https://github.com/miconblog/devcafe/blob/master/docs/worklog): 회의록이나 변경사항 및 기타 작업들을 모두 요약 정리
+ 2. [디렉토리 폴더 구조](https://github.com/miconblog/devcafe/blob/master/docs/directory-structure.md)
+ 3. [참고자료](https://github.com/miconblog/devcafe/blob/master/docs/reference.md): 자료조사한 내용이나 개발중에 고민한 내용들을 정리
 
 

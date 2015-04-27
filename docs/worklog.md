@@ -1,3 +1,33 @@
+## 2015-04-27
+ - 회의록 정리 및 문서 정리
+
+#### 첫 정기 미팅 정리
+ - 점심먹으며 간단히 자기 소개 및 현황 공유
+ - browerify와 webpack에 대한 자료 공유 by 현동
+ - 현재까지 커밋된 내용 리뷰 by 병대 
+ - 매주 행아웃 회의 (이번주는 금요일 오후 10시 )
+ - 채팅창은 단체 카톡으로 (카톡방 생성 완료)
+ - MVP 버전은 심플하게 페이지 기반으로 만들자. (Flux 패턴이나 React-Route 같은 클라이언트 라우팅은 일단 보류!)
+
+#### 이번주 목표
+ - 성묵, 병대: DB 스카마 고민
+ - 민중: 이메일 인증, Nodemail, Parse.com 
+ - 현동: Github 인증
+ - 이번주 금요일 10시 행아웃 미팅
+
+#### MVP 버전
+ - 회사 메일로 회원 인증
+ - 게시판 & 댓글
+ - 간단한 스킨
+
+
+## 2015-04-26
+ - gulp 테스크 정리 (require-dir 모듈을 이용해 태스크별로 파일 분리)
+ - React를 클라이언트에서도 사용하기 위해 browserify 적용
+  - 파일이 변경되면 build를 진행해서 모든 react compoment를 bundle.js로 컴파일해준다.
+ - React에 ES6 문법을 적용하기 위해 babelify 적용 
+ - 서버에서 렌더링한 React 컴포넌트와 클라이언트 렌더링을 싱크하기 위해 트릭이 좀 필요함. [정리 문서 참고](https://github.com/miconblog/devcafe/blob/master/docs/reference.md)
+
 ## 2015-04-24
  - express application generator로 서버 코드 생성
  - 서버 시작 코드(app.js)는 server.js로 변경
