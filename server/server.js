@@ -6,11 +6,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var RedisStore = require('connect-redis')(session);
 var exphbs = require('express-handlebars');
-
-var routes = require('./routes/index');
-var users = require('./routes/users');
-
 var app = express();
 
 // view engine setup
@@ -28,10 +26,24 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({ 
+  secret: '모두의 커뮤니티, devcafe', 
+  store : new RedisStore({
+    ttl: 30 * 60
+  }),
+  saveUninitialized: true,
+  resave: true
+}));
 app.use(express.static( path.resolve(__dirname, '../client') ));
 
-app.use('/', routes);
-app.use('/users', users);
+
+// 파이프라인 구성
+// [session]-[syncProps]-[router]
+//          \
+//           [authentication]
+require('./routes')(app);
+app.use(require('./libs/sync-properties'));
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

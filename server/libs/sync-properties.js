@@ -1,5 +1,4 @@
-var express = require('express');
-var router = express.Router();
+'use strict';
 
 var JSX = require('node-jsx').install({extension: '.jsx', harmony: true}),
     React = require('react'),
@@ -9,21 +8,15 @@ function safeStringify(obj) {
   return JSON.stringify(obj).replace(/<\/script/g, '<\\/script').replace(/<!--/g, '<\\!--')
 }
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  var syncProps = {
-    title: 'Express!!!'
-  }
-
+module.exports = function(req, res){
+  
   var markup = React.renderToString(
-    App(syncProps)
+    App(req.syncProps)
   );
 
   res.render('home', { 
-    markup: markup,
-    props : safeStringify(syncProps)
+    markup: markup ,
+    props : safeStringify(req.syncProps)
   });
 
-});
-
-module.exports = router;
+}
