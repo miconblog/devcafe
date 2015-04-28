@@ -1,14 +1,20 @@
 ## 프로젝트 폴더 구조
 현재 다른 프로젝트들의 Practice들을 참고 하고 있어요. 정리해서 최종 확정하겠습니다. 
 
-````
-    components/         서버와 클라이언트가 동시에 사용할수있는 React 컴포넌트, 확장자는 jsx다. 
-    
+```` 
     client/             사용자에게 노출되는 클라이언트 소스
       ---- css/
       ---- js/
       ---- images/
       ---- default.html 서버없이 클라이언트만 독립적으로 호스팅할때 사용하는 html 파일
+
+    flux/ 
+      ---- components/  React 컴포런트, 확장자는 jsx
+      ---- actions/
+      ---- constants/
+      ---- dispatchers/
+      ---- stores/
+      index.jsx         React 메인
 
     server/             서버 소스, express 제너레이터로 생성한 구조를 그대로 따른다.
       ---- bin/

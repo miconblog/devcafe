@@ -4,7 +4,8 @@ var watchFiles = [
   './server/server.js',
   './server/routes/*.js',
   './server/views/**/*.hbs',
-  './components/*.jsx',
+  './flux/components/*.jsx',
+  './flux/**/*.js',
   './client/css/*.css',
   './client/js/*.js'
 ];

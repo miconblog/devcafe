@@ -1,6 +1,6 @@
 var React = require('react');
 
-var ReactComponent = React.createClass({
+var App = React.createClass({
   getInitialState() {
     return {
       title: this.props.title
@@ -21,4 +21,4 @@ var ReactComponent = React.createClass({
 
 });
 
-module.exports = ReactComponent;
+module.exports = App;

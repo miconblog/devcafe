@@ -8,9 +8,9 @@ var config = {
   settings: {
     transform: ['reactify', 'babelify']
   },
-  src: './components/index.jsx',
+  src: './flux/index.jsx',
   dest: './client/js',
-  outputName: 'bundle.js',
+  outputName: 'bundle.js'
 };
 
 var bundler = watchify(browserify(config.src, watchify.args));

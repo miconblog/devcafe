@@ -3,7 +3,7 @@ var router = express.Router();
 
 var JSX = require('node-jsx').install({extension: '.jsx', harmony: true}),
     React = require('react'),
-    ReactComponent = React.createFactory(require('../../components/ReactComponent.jsx'));
+    App = React.createFactory(require('../../flux/components/App.jsx'));
 
 function safeStringify(obj) {
   return JSON.stringify(obj).replace(/<\/script/g, '<\\/script').replace(/<!--/g, '<\\!--')
@@ -12,11 +12,11 @@ function safeStringify(obj) {
 /* GET home page. */
 router.get('/', function(req, res, next) {
   var syncProps = {
-    title: 'Express'
+    title: 'Express!!!'
   }
 
   var markup = React.renderToString(
-    ReactComponent(syncProps)
+    App(syncProps)
   );
 
   res.render('home', { 
