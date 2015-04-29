@@ -2,13 +2,13 @@
 
 module.exports = function(app) {
 
-  //app.use('/boards', require('./app/board'));
+  app.use('/users', require('./app/user'));
 
   /* GET home page. */
   app.get('/', function(req, res, next) {
 
     req.syncProps = {
-      title: 'Express',
+      title: 'Express!!',
       path: 'home'
     }
 

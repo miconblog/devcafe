@@ -80,5 +80,16 @@ React.render(ReactComponent(props), document.getElementById('main'));
 #### 참고문서
  - http://www.crmarsh.com/react-ssr/
 
+## package.json에 있는 tilde(~)과 caret(^)의 차이
+npm update 명령어 수행시 모듈을 업데이트 할수있는데 아래와 같은 방식으로 업데이트 된다.
+물결(~)은 최신 패치 버전 1.2.x
+꺽쇠(^)는 최신 마이너 버전 1.x.x
+
+메이저 버전 업데이트는 많은 변동이 있으므로 수동으로 해야함. 
+
+#### 참고 문서
+http://fredkschott.com/post/2014/02/npm-no-longer-defaults-to-tildes/
+
+
 ## React + Flux 관련 문서
 http://fluxxor.com/

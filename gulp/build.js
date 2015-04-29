@@ -2,7 +2,9 @@ var gulp = require('gulp');
 var watchFiles = [
   './server/bin/www',
   './server/server.js',
-  './server/routes/*.js',
+  './server/routes.js',
+  './server/app/**/*.js',
+  './server/libs/**/*.js',
   './server/views/**/*.hbs',
   './flux/components/*.jsx',
   './flux/**/*.js',

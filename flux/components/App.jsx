@@ -1,4 +1,5 @@
 var React = require('react');
+var UserList = require('./UserList.jsx');
 
 var App = React.createClass({
   getInitialState() {
@@ -8,13 +9,11 @@ var App = React.createClass({
   },
 
   render() {
-
-    console.log("=====> ", this.state, this.props)
-
     return (
       <div>
         <h1> Welcome to {this.state.title} & React </h1>
         <p>React Ready!!</p>
+        <UserList users={this.props.users} />
       </div>
     );
   }

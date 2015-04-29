@@ -38,11 +38,11 @@ app.use(express.static( path.resolve(__dirname, '../client') ));
 
 
 // 파이프라인 구성
-// [session]-[syncProps]-[router]
+// [session]-[property-sync]-[router]
 //          \
 //           [authentication]
 require('./routes')(app);
-app.use(require('./libs/sync-properties'));
+app.use(require('./libs/pipe-react-property-sync'));
 
 
 // catch 404 and forward to error handler
