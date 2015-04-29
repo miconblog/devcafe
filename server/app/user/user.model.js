@@ -5,7 +5,7 @@ var crypto = require('crypto');
 
 var User = sequelize.define('user', {
   
-  username: {
+  name: {
     type: Sequelize.STRING
   },
 

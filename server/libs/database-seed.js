@@ -7,14 +7,14 @@ module.exports = function(cb){
     // Table created
 
     User.create({
-      username: 'Sohn ByungDae',
+      name: 'Sohn ByungDae',
       email: 'miconblog@gmail.com',
       password: '1234'
     });
     
     User.create({
     
-      username: 'Lim SungMook',
+      name: 'Lim SungMook',
       password: '1234'
     
     }).catch(function(err){
@@ -23,7 +23,7 @@ module.exports = function(cb){
 
     User.create({
     
-      username: 'Kim HyunDong',
+      name: 'Kim HyunDong',
       password: '11'
     
     }).catch(function(err){
@@ -32,7 +32,7 @@ module.exports = function(cb){
     
     User.create({
       
-      username: 'Kim MinJung',
+      name: 'Kim MinJung',
       password: '1234'
 
     }).catch(function(err){

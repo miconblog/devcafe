@@ -14,7 +14,7 @@ var UserList = React.createClass({
       <div>
         <h4>User List</h4>
         {this.props.users.map(function(user, i){
-          return <div key={user.id}>{user.id} {user.username} {user.email} </div>
+          return <div key={user.id}>{user.id} {user.name} {user.email} </div>
         })}
 
       </div>

@@ -1,9 +1,12 @@
+## 2015-04-30
+ - 데이터 모델링 문서 추가
+
 ## 2015-04-29
  - DB ORM 적용을 위해 sequelize + mysql 추가
-  ㅡ 로컬에 mysql 서버가 미리 설치되어 있어야함. 
+  - 로컬에 mysql 서버가 미리 설치되어 있어야함. 
   - 설치후 아래 명령 실행해서 사용할 유저와 데이터 베이스 미리 생성해 둘것!
 ```     
-     $> mysql -uroot database-init.sql 
+     $> mysql -uroot < database-init.sql 
 ```
   - 유저 모델링 및 패스워드 암호화 적용
   - 데이터베이스 테스트를 위한 seed 데이터 추가 (나중에 제거하거나 개발 모드에서만 동작하도록 코드 변경 필요)
@@ -60,40 +63,3 @@
  - 충분히 얘기하고 문서 만들고 리뷰하자. 
  - 오프라인이 안되면 온라인 행아웃으로 하자. 
  - 행아웃 내용은 녹화떠서 다른 기여자를 위해 남기자. 
-
-### 라우터 
-
-| 이름        | 메소드 | 내용        | 
-| ----------- | ------ | ----        |
-| /           | GET    | 루트        | 
-| /signin     | GET    | 로그인      |
-| /signup     | GET    | 회원가입    | 
-| /admin      | GET    | 관리자      |
-| /board /:id | GET    |             |
-| /boards/    |        |             |
-
-### 모델링
- - 게시판 (Board, MVP)
-| 아이디 | 이름 |
-| ---- | --- |
-| id | name | 
-|  | vchar(256) | 
-
- - 글 (Post, MVP)
-
-| 아이디 | 제목  | 내용    | 작성자 | 작성일     | 최종수정일 | 조회수     | 좋아요     | 댓글수 |
-| ------ | ----  | ------  | ------ | ---------- | ------     | ------     | ------     | ------------- |
-| id     | title | content | writer | created_at | updated_at | read_count | like_count | comment_count |
-|        | vchar(256) | text | vchar(80) | datetime | datetime | int | int | int |
-
- - 댓글 (Comment, MVP): 수정기능은 없다. 
-
-| 아이디 | 부모 아이디 | 댓글    | 작성자 | 작성일     | 
-| -------|-------------|------   |--------|-------     |
-| id     | post_id     | comment | writer | created_at |
-|        |             | text  | vchar(80) | datetime |
-
- - 공유 방식 (Not MVP)
-  SNS나 메신저로 글을 공유하면 https://url/router/hashcode 이런 URL의 Agent를 확인해서 
-  - 웹에서 접근하면 Facebook 페이지로 보내고, 
-  - 앱에서 접근했다면 앱링크로 앱을 열어주고, 앱이 없다면 스토어로 보낸다.
