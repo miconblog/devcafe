@@ -3,6 +3,7 @@
 module.exports = function(app) {
 
   app.use('/users', require('./app/user'));
+  app.use('/boards', require('./app/user'));
 
   /* GET home page. */
   app.get('/', function(req, res, next) {

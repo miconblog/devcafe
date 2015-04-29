@@ -1,25 +1,75 @@
 'use strict';
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize('mysql://dev:devcafeuser@localhost:3306/devcafe');
+var sequelize = require('../../libs/sequelize-instance');
+var crypto = require('crypto');
 
 var User = sequelize.define('user', {
-  firstName: {
-    type: Sequelize.STRING,
-    field: 'first_name' // Will result in an attribute that is firstName when user facing but first_name in the database
-  },
-  lastName: {
+  
+  username: {
     type: Sequelize.STRING
-  }
-}, {
-  freezeTableName: true // Model tableName will be the same as the model name
-});
+  },
 
-User.sync({force: true}).then(function () {
-  // Table created
-  return User.create({
-    firstName: 'John',
-    lastName: 'Hancock'
-  });
+  hashedPassword: {
+    type: Sequelize.STRING,
+    validate: {
+     // allowNull: false, 
+     // notEmpty: true, 
+    }
+  },
+
+  salt: {
+    type: Sequelize.STRING
+  },
+
+  authData: {
+    type: Sequelize.TEXT
+  },
+
+  email: {
+    type: Sequelize.STRING
+  },
+
+  emailVerified: {
+    type: Sequelize.BOOLEAN
+  }
+
+}, {
+
+  getterMethods: {
+    //password : function()  { return this.hashedPassword }
+  },
+  setterMethods: {
+    password: function(password) { 
+      this.salt = User.makeSalt();
+      this.setDataValue('hashedPassword', User.encryptPassword(password, this.salt));
+    },
+  },
+  
+  classMethods: {
+    
+    makeSalt: function() {
+      return crypto.randomBytes(16).toString('base64');
+    }, 
+
+    encryptPassword: function(password, salt) {
+      if (!password || !salt) return '';
+      
+      salt = new Buffer(salt, 'base64');
+      
+      return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
+    },   
+  },
+
+  instanceMethods: {
+
+    
+    authenticate: function(plainText) {
+      return User.encryptPassword(plainText, this.salt) === this.hashedPassword;
+    },
+
+  },
+
+  freezeTableName: true // Model tableName will be the same as the model name
 });
 
 module.exports = User;

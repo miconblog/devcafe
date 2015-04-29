@@ -1,8 +1,12 @@
 # 개발 시작하기
 
 ### How to install & develop
+로컬에 MySQL 서버가 실행되어 있어야한다. 
+```
     $> npm install
+    $> mysql < datebase-init.sql
     $> gulp
+```
 
 ### 커밋 규칙
  1. 가급적 한글로 적는다. 

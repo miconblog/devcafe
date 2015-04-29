@@ -13,7 +13,7 @@ var App = React.createClass({
       <div>
         <h1> Welcome to {this.state.title} & React </h1>
         <p>React Ready!!</p>
-        <UserList users={this.props.users} />
+        { this.props.path === 'users' ? <UserList users={this.props.users} /> : false }
       </div>
     );
   }

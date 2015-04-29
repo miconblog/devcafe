@@ -3,8 +3,6 @@ var React = require('react');
 var UserList = React.createClass({
   getInitialState() {
 
-    
-
     return {
       users: this.props.users
     }
@@ -15,7 +13,10 @@ var UserList = React.createClass({
     return (
       <div>
         <h4>User List</h4>
-        <p>{this.state.users}</p>
+        {this.props.users.map(function(user, i){
+          return <div key={user.id}>{user.id} {user.username} {user.email} </div>
+        })}
+
       </div>
     );
   }
