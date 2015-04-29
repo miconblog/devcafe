@@ -11,7 +11,7 @@
  > 블라이드나 컴퍼니는 개발자들만의 대화는 사실 어려워요. 예를 들면 코드를 올려놓고 리뷰를 받는다던가 개발과 관련된 질의를 하기도 힘듭니다. 하지만 DevCafe가 있다면 스터디 구인도 좀더 쉬울꺼라 생각합니다.  
  
  4. 이걸 하면 뭐가 좋쵸?
- > 몰라요. 해봐야 알듯... 
+ > 몰라요. 해봐야 알듯...,.. 해보니까 재밌어요. React+Flux 공부 엄청 됩니다. FullSatck이라 DB나 AWS 공부도 엄청 될껍니다. 
 
  5. 참여하고 싶은데 어떻게 하죠?
  > [페이스북 그룹](https://www.facebook.com/groups/380191595497850/)에 일단 가입신청하세요. 차후 커미터 정책은 initial code를 커밋한 이후에 고민해보겠습니다. 
@@ -29,17 +29,33 @@
  7. 코드를 삽입할 경우 라인바이 라인으로 코드 리뷰(댓글) 가능
 
 ## 개발 스택
- - MySQL (or MongoDB, Postgresql)
- - Redis
- - Nodejs + Express
- - React
+ - MySQL + sequelize (ORM)
+ - Nodejs + Express + Redis-session 
+ - React + Flux
  - Gulp
+ - Test(Mocha): 테스트는 제가 잘 몰라서 테스트 고수의 참여를 기대합니다.
+ - AWS: EC2(1Core, 1GB), t2.micro, Free Tiar 
+```
+    // MVP - 서버가 죽기 전까지는 이렇게!!
+    ROUTE53 - EC2:EIP( [ Nginx:80 / NODE:3000 / DB:3360 ] ) 
 
-테스트는 제가 잘 몰라서 테스트 고수의 참여를 기대합니다.
+    // NEXT STEP - 이렇게 확장할수있는 날이 올까? ㅎㅎ 
+    ROUTE53 - ELB -- [EC2] -- [RDS]:master
+                  \_ [EC2] _/ 
+                  \_ [S3]
+                  
+    // GOAL
+    ROUTE53 ---- ELB -- [EC2] -- [RDS]:master
+            \      \_ [EC2] _/ 
+             \ 
+              \_ CloudFront -- [S3]
+```
 
 ## 참여 방법
-[트렐로](https://trello.com/b/eclEx1N5/devcafe) 보드에 있는 계획들을 참고해서 내가 기여할수있는 것들이 있다면, 
+ - [트렐로](https://trello.com/b/eclEx1N5/devcafe) 보드에 있는 계획들을 참고해서 내가 기여할수있는 것들이 있다면, 
 주저말고 [페이스북 그룹](https://www.facebook.com/groups/380191595497850)에 가입신청을 하세요. 
+ - 현재 커미터는 4명입니다. 
+ - 앞으로 커미터는 pull requset나 patch 기여도를 봐서 스카웃 하겠습니다. 
 
 ## 기여방법
  - 사이트 디자인, 이슈등록, 테스트, 문서화, 영문화, 코드 개발, 기타 등등
