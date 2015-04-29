@@ -52,7 +52,7 @@
   - Comment.belongsTo(Post) -> postId가 Comment에 삽입됨.
 
 | 댓글 | 작성자[FK] | 소속 포스트[FK] | 작성일 |
-| --- | --- | --- |
+| --- | --- | --- | --- |
 | comment | writerId | postId | created_at |
 | TEXT | N/A | N/A | DATE |
 
