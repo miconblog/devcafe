@@ -1,3 +1,3 @@
 var gulp   = require( 'gulp' );
 
-gulp.task( 'default', [ 'build', 'server:start' ]);
+gulp.task( 'default', [ 'dbcheck', 'build', 'server:start' ]);
