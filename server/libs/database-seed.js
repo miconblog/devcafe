@@ -1,7 +1,16 @@
 'use strict';
 var User = require('../app/user/user.model');
+var Board = require('../app/board/board.model');
 
 module.exports = function(cb){
+
+  Board.sync({force: true}).then(function(){
+
+    Board.create({
+      name: 'skp'
+    })
+
+  });
 
   User.sync({force: true}).then(function () {
     // Table created
