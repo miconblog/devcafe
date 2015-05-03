@@ -5,19 +5,20 @@
 
 'use strict';
 
-var Board = require('./board.model');
+var Post = require('./post.model');
 var renderReact = require('../../libs/render-react');
 
 exports.index = function(req, res) {
 
 
-  Board.findAll().then(function (boards) {
+  Post.findAll().then(function (posts) {
 
     res.render('board', renderReact({
       title: 'Express Board',
-      path: 'boards',
-      boards: boards
+      path: 'posts',
+      posts: posts
     }));
+
 
   });
 };

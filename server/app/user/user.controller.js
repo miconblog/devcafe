@@ -6,12 +6,13 @@
 'use strict';
 
 var User = require('./user.model');
+var renderReact = require('../../libs/render-react');
 
 /**
  * Get list of users
  * restriction: 'admin'
  */
-exports.index = function(req, res, next) {
+exports.index = function(req, res) {
 
 
   User.find({
@@ -42,13 +43,11 @@ exports.index = function(req, res, next) {
     //   collection.push(user.get({plain: true}))
     // });
 
-    req.syncProps = {
-      title: 'Express',
-      path: 'users',
-      users: JSON.parse(JSON.stringify(users))
-    }
-
-    next();
+    res.render('home', renderReact({
+      title: 'Express User',
+      path : 'users',
+      users: users
+    }));
 
   });
 };

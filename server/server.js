@@ -41,12 +41,8 @@ require('./libs/database-seed.js')(function(){
 
 
   // 파이프라인 구성
-  // [session]-[property-sync]-[router]
-  //          \
-  //           [authentication]
+  // [session]-[authentication]-[router]    
   require('./routes')(app);
-  app.use(require('./libs/pipe-render-react'));
-
 
   // catch 404 and forward to error handler
   app.use(function(req, res, next) {
@@ -61,6 +57,7 @@ require('./libs/database-seed.js')(function(){
   // will print stacktrace
   if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
+
       res.status(err.status || 500);
       res.render('error', {
         message: err.message,

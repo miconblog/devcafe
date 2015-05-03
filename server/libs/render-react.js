@@ -8,15 +8,15 @@ function safeStringify(obj) {
   return JSON.stringify(obj).replace(/<\/script/g, '<\\/script').replace(/<!--/g, '<\\!--')
 }
 
-module.exports = function(req, res){
+module.exports = function(props){
   
   var markup = React.renderToString(
-    App(req.syncProps)
+    App(props)
   );
-
-  res.render('home', { 
+  
+  return {
     markup: markup ,
-    props : safeStringify(req.syncProps)
-  });
+    props : safeStringify(props)
+  }
 
 }

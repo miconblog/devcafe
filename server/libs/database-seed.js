@@ -1,6 +1,7 @@
 'use strict';
 var User = require('../app/user/user.model');
 var Board = require('../app/board/board.model');
+var Post = require('../app/post/post.model');
 
 module.exports = function(cb){
 
@@ -11,6 +12,18 @@ module.exports = function(cb){
     })
 
   });
+
+
+  Post.sync({force: true}).then(function(){
+
+    Post.create({
+      title: '글쓰기 테스트',
+      content: '이것은 본문입니다.'
+    })
+
+  });
+
+
 
   User.sync({force: true}).then(function () {
     // Table created
