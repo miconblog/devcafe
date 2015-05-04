@@ -12,7 +12,11 @@ var exphbs = require('express-handlebars');
 var app = express();
 
 
-require('./libs/database-seed.js')(function(){
+require('./libs/database-seed.js')()
+.then(function(){
+
+  console.log("\n\nInitialized Test DataBase\n\n");
+
   // view engine setup
   app.set('views', path.join(__dirname, 'views'));
   app.engine('hbs', exphbs({
@@ -38,7 +42,6 @@ require('./libs/database-seed.js')(function(){
     resave: true
   }));
   app.use(express.static( path.resolve(__dirname, '../client') ));
-
 
   // 파이프라인 구성
   // [session]-[authentication]-[router]    

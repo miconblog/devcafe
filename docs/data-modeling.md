@@ -37,19 +37,23 @@
 | STRING, Unique | STRING |
 
 ## 포스트 모델 (Post, MVP)
- - 관계1: 포스트를 작성하는 사람이 포스트를 소유한다.
-  - Post.belongsTo(User, {as:writer}) -> writerId가 Post 에 추가됨.
+ - 포스트는 게시판(Board)을 참조하고 있으므로 게시판을 지우려면 해당 글을 모두 지워야한다. 
+ - 포스트를 작성한 글쓴이가 탈퇴해도 해당글은 일정기간 남기고(idDeleted=1) 일괄 삭제한다. 
 
-| 제목 | 내용 | 게시판[FK] | 작성자[FK] | 작성일(자동생성) | 수정일(자동생성) | 조회수 | 좋아요 | 댓글수 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| title | content | boardId | writerId | createdAt | updatedAt | read_count | like_count | comment_count |
-| STRING | TEXT | N/A | N/A | DATE | DATE | INTEGER | INTEGER | INTEGER |
+| 게시판[FK] | 작성자 아이디 | 제목 | 내용 | 작성자 | 작성일(자동생성) | 수정일(자동생성) | 조회수 | 좋아요 | 댓글수 | 삭제예정 | 
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| boardId | writerId | title | content | writer | createdAt | updatedAt | readCount | likeCount | commentCount | isDeleted |
+| N/A | N/A | STRING | TEXT | STRING | DATE | DATE | INTEGER | INTEGER | INTEGER | BOOLEAN |
 
 ## 댓글 모델 (Comment, MVP)
- - 관계1: 댓글을 쓴 사람이 댓글을 소유한다.
-  - Comment.belongsTo(User, {as:writer}) -> writeId가 Comment에 삽입됨. 
- - 관계2: 댓글은 포스트에 소속된다. 
-  - Comment.belongsTo(Post) -> postId가 Comment에 삽입됨.
+ - 댓글은 포스트에만 달리지만 해당 포스트가 삭제되면 자동으로 삭제된다.
+ - 관계1. 댓글은 삭제해도 포스트에 영향을 주면 안된다. 따라서 댓글이 삭제될때 관련 레퍼랜스로 트리거 되는 constraints는 없다!
+```   
+    Comment.belongsTo(Post, {
+      constraints: false
+
+    }); 
+```
 
 | 댓글 | 작성자[FK] | 소속 포스트[FK] | 작성일 |
 | --- | --- | --- | --- |
