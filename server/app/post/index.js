@@ -5,5 +5,6 @@ var controller = require('./post.controller');
 var router = express.Router();
 
 router.get('/', controller.index);
+router.get('/:id', controller.detail);
 
 module.exports = router;

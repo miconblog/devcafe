@@ -7,6 +7,8 @@
 
 var User = require('./user.model');
 var renderReact = require('../../libs/render-react');
+var React = require('react'),
+    UserList = React.createFactory(require('../../../flux/components/UserList.jsx'));
 
 /**
  * Get list of users
@@ -31,7 +33,6 @@ exports.index = function(req, res) {
       });
     } 
 
-
   });
 
 
@@ -43,7 +44,7 @@ exports.index = function(req, res) {
     //   collection.push(user.get({plain: true}))
     // });
 
-    res.render('home', renderReact({
+    res.render('user', renderReact(UserList, {
       title: 'Express User',
       path : 'users',
       users: users

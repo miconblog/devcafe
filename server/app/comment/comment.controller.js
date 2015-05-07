@@ -7,13 +7,15 @@
 
 var Comment = require('./comment.model');
 var renderReact = require('../../libs/render-react');
+var React = require('react'),
+    App = React.createFactory(require('../../../flux/components/App.jsx'));
 
 exports.index = function(req, res) {
 
 
   Comment.findAll().then(function (comments) {
 
-    res.render('comment', renderReact({
+    res.render('comment', renderReact(App, {
       title: 'Express Comment',
       path: 'comments',
       comments: comments

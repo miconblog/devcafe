@@ -7,10 +7,12 @@
 
 //var Home = require('./home.model');
 var renderReact = require('../../libs/render-react');
+var React = require('react'),
+    Home = React.createFactory(require('../../../flux/components/Home.jsx'));
 
 exports.index = function(req, res) {
 
-  res.render('home', renderReact({
+  res.render('home', renderReact(Home, {
     title: 'Express Home',
     path: 'home'
   }));

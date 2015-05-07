@@ -11,6 +11,9 @@ var RedisStore = require('connect-redis')(session);
 var exphbs = require('express-handlebars');
 var app = express();
 
+// for complie .jsx
+var JSX = require('node-jsx').install({extension: '.jsx', harmony: true});
+
 
 require('./libs/database-seed.js')()
 .then(function(){

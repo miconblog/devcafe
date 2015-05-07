@@ -1,21 +1,21 @@
 'use strict';
 
-var JSX = require('node-jsx').install({extension: '.jsx', harmony: true}),
-    React = require('react'),
-    App = React.createFactory(require('../../flux/components/App.jsx'));
-
+var React = require('react');
+   
 function safeStringify(obj) {
   return JSON.stringify(obj).replace(/<\/script/g, '<\\/script').replace(/<!--/g, '<\\!--')
 }
 
-module.exports = function(props){
-  
+module.exports = function(Compoment, props){
+
   var markup = React.renderToString(
-    App(props)
+    Compoment(props)
   );
+
+  console.log(markup);
   
   return {
-    markup: markup ,
+    markup: markup,
     props : safeStringify(props)
   }
 
