@@ -15,7 +15,7 @@ var App = React.createClass({
     return (
       <div>
         <h1> Home Component (state.title: {this.state.title})</h1>
-        <Signin path={this.props.path} />
+        <Signin path={this.props.path} message={this.props.message}/>
       </div>
     );
   }

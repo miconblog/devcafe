@@ -1,6 +1,6 @@
 /**
  * 모델 문서 참고
- * http://docs.sequelizejs.com/en/1.7.0/docs/models/#models
+ * http://docs.sequelizejs.com/en/latest/docs/models/#models
  */
 
 'use strict';
