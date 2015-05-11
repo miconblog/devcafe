@@ -7,8 +7,6 @@ var Q = require('q');
 
 module.exports = function(){
   var deferred = Q.defer();
-  var testUser;
-
   // Board.hasMany(Post);
   // Post.belongsTo(User, {as:'writer'});
   // Comment.belongsTo(User, {as:'writer'});

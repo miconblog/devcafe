@@ -14,6 +14,8 @@ gulp.task( 'dbcheck', function(done) {
   connection.connect(function(err) {
     if (err) {
       gutil.log(gutil.colors.red('MySQL Server is not running, Please start server!'));
+      connection.end();
+      done();
       process.exit(1);
       return;
     }

@@ -18,3 +18,12 @@ exports.index = function(req, res) {
   }));
 
 };
+
+exports.register = function(req, res) {
+
+  res.render('home', renderReact(Home, {
+    title: '회원가입',
+    path: 'signin'
+  }));
+
+};

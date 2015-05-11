@@ -2,6 +2,7 @@ var React = require('react');
 var UserList = require('./UserList.jsx');
 var BoardList = require('./BoardList.jsx');
 var PostList = require('./PostList.jsx');
+var Signin = require('./Signin.jsx');
 
 var App = React.createClass({
   getInitialState() {
@@ -13,8 +14,8 @@ var App = React.createClass({
   render() {
     return (
       <div>
-        <h1> Welcome to {this.state.title} & React </h1>
-        <p>React Ready!!</p>
+        <h1> Home Component (state.title: {this.state.title})</h1>
+        <Signin path={this.props.path} />
       </div>
     );
   }

@@ -15,7 +15,7 @@ var app = express();
 var JSX = require('node-jsx').install({extension: '.jsx', harmony: true});
 
 
-require('./libs/database-seed.js')()
+require('./libs/database-relation.js')()
 .then(function(){
 
   console.log("\n\nInitialized Test DataBase\n\n");
