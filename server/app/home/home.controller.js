@@ -30,6 +30,16 @@ exports.signin = function(req, res) {
 
 };
 
+exports.signout = function(req, res) {
+
+  req.session.destroy(function(err) {
+    console.log("destroying session");
+  });
+  return res.redirect('/');
+
+
+};
+
 exports.signup = function(req, res) {
 
   res.render('home', renderReact(Home, {

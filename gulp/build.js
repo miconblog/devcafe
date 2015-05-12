@@ -12,7 +12,7 @@ var watchFiles = [
   './client/js/*.js'
 ];
 
-gulp.task('build', ['browserify', 'browserify-user', 'styles' /** 'html' */], function() {
+gulp.task('build', ['browserify', 'styles' /** 'html' */], function() {
 
   gulp.watch( watchFiles, [ 'server:restart' ] )
 

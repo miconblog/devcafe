@@ -37,7 +37,7 @@ require('./libs/database-relation.js')()
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(cookieParser());
   app.use(session({ 
-    secret: '모두의 커뮤니티, devcafe', 
+    secret: 'devcafe', 
     store : new RedisStore({
       ttl: 30 * 60
     }),
@@ -45,9 +45,16 @@ require('./libs/database-relation.js')()
     resave: true
   }));
   app.use(express.static( path.resolve(__dirname, '../client') ));
+   
+  // 라우터로 넘기기 전에 인증정보 확인
+  app.use(function(req, res, next){
+    if( req.session.isAuthenticated ) {
+      res.locals.user = req.session.user;
+    }
+    next();
+  });
 
-  // 파이프라인 구성
-  // [session]-[authentication]-[router]    
+  // 라우터 처리
   require('./routes')(app);
 
   // catch 404 and forward to error handler
@@ -63,7 +70,6 @@ require('./libs/database-relation.js')()
   // will print stacktrace
   if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
-
       res.status(err.status || 500);
       res.render('error', {
         message: err.message,

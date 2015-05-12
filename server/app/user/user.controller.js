@@ -43,12 +43,6 @@ exports.index = function(req, res) {
 
   User.findAll().then(function (users) {
    
-    // var collection = [];
-
-    // users.forEach(function(user){
-    //   collection.push(user.get({plain: true}))
-    // });
-
     res.render('user', renderReact(UserList, {
       title: 'Express User',
       path : 'users',
@@ -57,7 +51,6 @@ exports.index = function(req, res) {
 
   });
 };
-
 
 exports.authenticate = function(req, res) {
 
@@ -70,11 +63,15 @@ exports.authenticate = function(req, res) {
 
     if( user.authenticate(password) ) {
       
-      res.render('home', renderReact(Home, {
-        title: 'Express authenticate Okay!',
-        path : 'home',
-        auth : user.get({plain:true})
-      }));
+      var data = user.get({plain:true});
+      delete data.hashedPassword;
+      delete data.salt;
+
+      req.session.isAuthenticated = true;
+      req.session.user = data;
+      req.session.save();
+
+      res.redirect("/");
 
     } else { 
 
@@ -87,8 +84,6 @@ exports.authenticate = function(req, res) {
     }
 
   });
-
-
 
 };
 
@@ -110,6 +105,8 @@ exports.create = function(req, res) {
     } else {
       message = '등록된 이메일('+ user.email+')로 가입확인 메일을 보냈습니다.'
 
+
+      // 인증링크 생성
       transporter.sendMail({
         from: 'miconblog@gmail.com',
         to: user.email,
@@ -121,7 +118,7 @@ exports.create = function(req, res) {
 
     res.render('home', renderReact(Home, {
       title: '회원가입',
-      path: 'signin',
+      path: 'signup',
       message: message
     }));
 

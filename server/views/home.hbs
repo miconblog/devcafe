@@ -2,10 +2,17 @@
 <ul>
   <li><a href="/users">사용자 목록</a></li>
   <li><a href="/boards">게시판 목록</a></li>
+
+  {{#if user }}
+  <li><a href="/signout">로그아웃</a></li>
+  {{else}}
   <li><a href="/signup">회원가입</a></li>
   <li><a href="/signin">로그인</a></li>
+  {{/if}}
+
 </ul>
 
+<div>{{test}}</div>
 <div id="main">{{{ markup }}}</div>
 
 <!-- script type="text/javascript" src="/js/user-bundle.js"></script -->

@@ -11,10 +11,10 @@ module.exports = function(Compoment, props){
   var markup = React.renderToString(
     Compoment(props)
   );
-  
+
   return {
     markup: markup,
     props : safeStringify(props)
-  }
+  };
 
 }
