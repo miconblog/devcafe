@@ -88,6 +88,9 @@ require('./libs/database-relation.js')()
     });
   });
 
-});
+})
+.catch(function(err){
+  console.log(err.message, err.stack);
+})
 
 module.exports = app;

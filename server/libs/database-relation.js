@@ -4,6 +4,7 @@ var Board = require('../app/board/board.model');
 var Post = require('../app/post/post.model');
 var Comment = require('../app/comment/comment.model');
 var Q = require('q');
+Q.longStackSupport = true;
 
 module.exports = function(){
   var deferred = Q.defer();
