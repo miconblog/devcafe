@@ -21,11 +21,20 @@ exports.index = function(req, res) {
 
 };
 
-exports.register = function(req, res) {
+exports.signin = function(req, res) {
+
+  res.render('home', renderReact(Home, {
+    title: '로그인',
+    path: 'signin'
+  }));
+
+};
+
+exports.signup = function(req, res) {
 
   res.render('home', renderReact(Home, {
     title: '회원가입',
-    path: 'signin'
+    path: 'signup'
   }));
 
 };

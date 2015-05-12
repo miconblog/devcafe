@@ -2,20 +2,20 @@ var React = require('react');
 var UserList = require('./UserList.jsx');
 var BoardList = require('./BoardList.jsx');
 var PostList = require('./PostList.jsx');
-var Signin = require('./Signin.jsx');
+var SignInOut = require('./SignInOut.jsx');
 
 var App = React.createClass({
-  getInitialState() {
-    return {
-      title: this.props.title
-    }
-  },
+  // getInitialState() {
+  //   return {
+  //     title: this.props.title
+  //   }
+  // },
 
   render() {
     return (
       <div>
-        <h1> Home Component (state.title: {this.state.title})</h1>
-        <Signin path={this.props.path} message={this.props.message}/>
+        <h1> Home Component (props.title: {this.props.title})</h1>
+        <SignInOut path={this.props.path} message={this.props.message}/>
       </div>
     );
   }

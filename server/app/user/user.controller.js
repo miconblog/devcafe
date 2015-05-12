@@ -59,6 +59,39 @@ exports.index = function(req, res) {
 };
 
 
+exports.authenticate = function(req, res) {
+
+  var email = req.body.email;
+  var password = req.body.password;
+
+  User.find({
+    where: {email: email}
+  }).then(function (user) {
+
+    if( user.authenticate(password) ) {
+      
+      res.render('home', renderReact(Home, {
+        title: 'Express authenticate Okay!',
+        path : 'home',
+        auth : user.get({plain:true})
+      }));
+
+    } else { 
+
+      res.render('home', renderReact(Home, {
+        title: 'Express authenticate Fail!',
+        path : 'signin',
+        auth : false,
+        message: '패스워드가 일치하지 않습니다.'
+      }));
+    }
+
+  });
+
+
+
+};
+
 
 exports.create = function(req, res) {
 

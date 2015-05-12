@@ -6,7 +6,10 @@ var userCtrl = require('../user/user.controller');
 var router = express.Router();
 
 router.get('/', homeCtrl.index);
-router.get('/signin', homeCtrl.register);
-router.post('/signin', userCtrl.create);
+router.get('/signin', homeCtrl.signin);
+router.get('/signup', homeCtrl.signup);
+
+router.post('/signin', userCtrl.authenticate);
+router.post('/signup', userCtrl.create);
 
 module.exports = router;
