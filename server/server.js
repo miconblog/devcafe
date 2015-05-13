@@ -48,6 +48,9 @@ require('./libs/database-relation.js')()
    
   // 라우터로 넘기기 전에 인증정보 확인
   app.use(function(req, res, next){
+
+    console.log("\n\nSESSION ID: ", req.session.id)
+
     if( req.session.isAuthenticated ) {
       res.locals.user = req.session.user;
     }

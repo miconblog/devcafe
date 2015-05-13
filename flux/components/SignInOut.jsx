@@ -14,7 +14,9 @@ var Signin = React.createClass({
             <input type="password" className="inputtext" name="password" id="password" placeholder="비밀번호" ref="password" />
             <input type="submit" value="로그인" />
           </form>
+          <p>{this.props.message}</p>
         </div>
+
       );
     }
 

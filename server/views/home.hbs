@@ -9,10 +9,11 @@
   <li><a href="/signup">회원가입</a></li>
   <li><a href="/signin">로그인</a></li>
   {{/if}}
-
 </ul>
 
-<div>{{test}}</div>
+{{#if user}}
+<div>안녕하세요. {{user.name}}님</div>
+{{/if}}
 <div id="main">{{{ markup }}}</div>
 
 <!-- script type="text/javascript" src="/js/user-bundle.js"></script -->

@@ -1,3 +1,59 @@
+## Redis에 Session을 저장하고 저장된 세션 값을 확인하는 방법
+일단 Redis 서버에 Session 을 저장하기 위해서는 다음과 같이 세션을 만들고 store를 Redis로 지정해야한다.
+
+```
+    var session = require('express-session');
+    var RedisStore = require('connect-redis')(session);
+
+    ... 중략 ... 
+
+    app.use(session({ 
+      secret: 'devcafe', 
+      store : new RedisStore({
+        ttl: 30 * 60              // 60초 * 30 = 30분 
+      }),
+      saveUninitialized: true,
+      resave: true
+    }));
+```
+이렇게 세션을 만들면, req.session 객체를 사용할수있게 되고 여기에 Key-Value 쌍으로 어떤 값이는 설정할수있게 된다. 그리고 req.session.save() 함수를 이용해 Redis 서버에 저장한다. 저장된 값을 실제로 확인해보기 위해서 redis-cli를 이용한다.
+
+```
+    $> redis-cli                <--- Redis 서버에 접속
+    
+    127.0.0.1:6379> KEYS *      <--- 서버에 저장된 키값을 확인해보자.
+     1) "group:cid:1:privileges:groups:topics:reply"
+     2) "group:cid:2:privileges:groups:find"
+     3) "plugins:active"
+     4) "ip:recent"
+     5) "uid:1:followed_tids"
+     6) "group:cid:4:privileges:groups:topics:create"
+     7) "analytics:pageviews:mo
+
+     ... 중략 ...
+
+```
+KEYS * 명령은 실제로 저장된 모든 키값들을 보여준다. express-session을 통해 저장된 녀석들은 *sess:세션아이디* 형태로 저장되기 때문에 다음과 같이 KEYS 명령을 통해 저장된 세션을 찾아볼수 있다. 
+
+```
+    127.0.0.1:6379> keys sess:*    <---- 대소문자를 가리지 않는다.
+    1) "sess:X77EVZhfyfzlEp7JNcWz_4N4L78GZbbH"
+    2) "sess:0marx5NWNBTGKVPzPG_Ro0Cse39V3DVp"
+     ... 중략 ...
+
+```
+마지막으로 해당 세션이 저장된 값은 get 명령을 이용한다. 
+```
+    127.0.0.1:6379> get sess:X77EVZhfyfzlEp7JNcWz_4N4L78GZbbH    <--- 정확한 키값을 입력한다.
+    "{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"}}"
+```
+참고로 위에서 ttl 값이 30분이기 때문에 30분이 지나면 자동으로 해당 세션값이 redis에서 삭제된다. 
+
+#### 참고자료
+ - http://lzone.de/cheat-sheet/Redis
+ - https://github.com/tj/connect-redis
+
+
 ## 코드 변경사항을 감지해서 서버를 재시작하고, 브라우저를 새로고침해주는 도구 비교
 express 서버는 develop-server를 이용하고 클라이언트 코드는 browersync로 구성한다. 
 

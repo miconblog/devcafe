@@ -61,7 +61,8 @@ exports.authenticate = function(req, res) {
     where: {email: email}
   }).then(function (user) {
 
-    if( user.authenticate(password) ) {
+    // 일치된 사용자가 없다면 user는 null을 반환한다.
+    if(user && user.authenticate(password) ) {
       
       var data = user.get({plain:true});
       delete data.hashedPassword;
