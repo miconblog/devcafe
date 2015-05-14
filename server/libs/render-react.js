@@ -8,10 +8,9 @@ function safeStringify(obj) {
 
 module.exports = function(Compoment, props){
 
-  var markup = React.renderToString(
-    Compoment(props)
-  );
+  var markup = React.renderToString(Compoment(props));
 
+  console.log(markup);
   return {
     markup: markup,
     props : safeStringify(props)

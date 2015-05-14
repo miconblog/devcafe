@@ -41,8 +41,8 @@ require('./libs/database-relation.js')()
     store : new RedisStore({
       ttl: 30 * 60
     }),
-    saveUninitialized: true,
-    resave: true
+    saveUninitialized: false,
+    resave: false
   }));
   app.use(express.static( path.resolve(__dirname, '../client') ));
    
@@ -50,6 +50,7 @@ require('./libs/database-relation.js')()
   app.use(function(req, res, next){
 
     console.log("\n\nSESSION ID: ", req.session.id)
+    //delete req.session.test;
 
     if( req.session.isAuthenticated ) {
       res.locals.user = req.session.user;

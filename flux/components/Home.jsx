@@ -4,7 +4,7 @@ var BoardList = require('./BoardList.jsx');
 var PostList = require('./PostList.jsx');
 var SignInOut = require('./SignInOut.jsx');
 
-var App = React.createClass({
+var Home = React.createClass({
   // getInitialState() {
   //   return {
   //     title: this.props.title
@@ -12,6 +12,7 @@ var App = React.createClass({
   // },
 
   render() {
+
     return (
       <div>
         <h1> Home Component (props.title: {this.props.title})</h1>
@@ -22,4 +23,4 @@ var App = React.createClass({
 
 });
 
-module.exports = App;
+module.exports = Home;

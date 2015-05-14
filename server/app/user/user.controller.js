@@ -1,6 +1,6 @@
 /**
  * 모델 문서 참고
- * http://docs.sequelizejs.com/en/1.7.0/docs/models/#models
+ * http://docs.sequelizejs.com/en/latest/docs/models-usage/
  */
 
 'use strict';
@@ -68,9 +68,15 @@ exports.authenticate = function(req, res) {
       delete data.hashedPassword;
       delete data.salt;
 
+
+      // 세션에서 redirect를 받아서 처리하자!
+      var url = req.session.redirect || "/";
+
+      console.log("REDIRECT>? ", url);
+
       req.session.isAuthenticated = true;
       req.session.user = data;
-      req.session.save();
+      //req.session.save();
 
       res.redirect("/");
 

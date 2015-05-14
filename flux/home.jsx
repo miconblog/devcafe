@@ -1,6 +1,6 @@
 const React = require('react');
-const App = React.createFactory(require('./components/App.jsx'));
+const Home = React.createFactory(require('./components/Home.jsx'));
 
 var props = JSON.parse(document.getElementById("props").innerHTML);
 
-React.render( App(props), document.getElementById('main') );
+React.render( Home(props), document.getElementById('main') );
