@@ -1,12 +1,15 @@
 # 개발 시작하기
 
 ### How to install & develop
-로컬에 MySQL 서버가 실행되어 있어야한다. 본인의 개발환경이 맥(Mac) 환경이라면 HomeBrew(http://brew.sh/index_ko.html)를 이용해 MySQL이나 Redis를 설치하는 것이 관리면에서 좋다. 그리고 자바스크립트 빌드 도구인 [Gulpjs](http://gulpjs.com/)도 미리 전역으로 설치해 놓는 것이 좋다.
+로컬에 MySQL과 Redis 서버가 실행되어 있어야한다. 본인의 개발환경이 맥(Mac) 환경이라면 HomeBrew(http://brew.sh/index_ko.html)를 이용해 MySQL이나 Redis를 설치하는 것이 관리면에서 좋다. 그리고 자바스크립트 빌드 도구인 [Gulpjs](http://gulpjs.com/)도 미리 전역으로 설치해 놓는 것이 좋다.
 
 ```
     $> brew install mysql // brew가 없다면 HomeBrew 부터 설치부터하자!
     $> mysql.server start // 위에서 mysql 설치후 서버 실행
 
+    $> brew install redis //
+    $> redis-server       // 서버 실행. 서비스 실행은 google 참고. 위의 mysql 과 redis 는 로컬 설치 없이도 가능하게 해야 개발할 때 편할듯합니다. 
+    
     .. 소스코드를 체크아웃(혹은 클론) 받고 프로젝트 폴더로 이동한다..
 
     $> mysql -uroot < datebase-init.sql // MySQL 서버에 사용할 dev 유저와 devcafe 데이터 베이스를 생성한다.
