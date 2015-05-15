@@ -8,7 +8,7 @@ var config = {
   settings: {
     transform: ['reactify', 'babelify']
   },
-  src: './flux/index.jsx',
+  src: ['./flux/index.jsx'],
   dest: './client/js',
   outputName: 'bundle.js'
 };

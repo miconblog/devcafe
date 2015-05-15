@@ -16,4 +16,7 @@
 {{/if}}
 <div id="main">{{{ markup }}}</div>
 
-<!-- script type="text/javascript" src="/js/user-bundle.js"></script -->
+<script type="text/javascript" src="/js/bundle.js"></script>
+<script type="text/javascript">
+  React.render( DevCafe.Home(DevCafe.props), document.getElementById('main') ); 
+</script>
