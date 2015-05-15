@@ -27,6 +27,8 @@
     "express": "~4.12.2",
     "express-handlebars": "^2.0.1",
     "express-session": "^1.11.1",
+    "fluxxor": "^1.5.3",
+    "lodash": "^3.8.0",
     "moment": "^2.10.2",
     "morgan": "~1.5.1",
     "mysql": "^2.6.2",

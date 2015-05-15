@@ -8,7 +8,7 @@
 var Board = require('./board.model');
 var renderReact = require('../../libs/render-react');
 var React = require('react'),
-    App = React.createFactory(require('../../../flux/components/App.jsx'));
+    BoardHome = React.createFactory(require('../../../flux/components/Board.jsx'));
 
 
 exports.index = function(req, res) {
@@ -16,7 +16,7 @@ exports.index = function(req, res) {
 
   Board.findAll().then(function (boards) {
 
-    res.render('board', renderReact(App, {
+    res.render('board', renderReact(BoardHome, {
       title: 'Express Board',
       path: 'boards',
       boards: boards

@@ -8,7 +8,7 @@
 var Post = require('./post.model');
 var renderReact = require('../../libs/render-react');
 var React = require('react'),
-    App = React.createFactory(require('../../../flux/components/App.jsx'));
+    App = React.createFactory(require('../../../flux/components/Board.jsx'));
 
 exports.index = function(req, res) {
 

@@ -4,8 +4,6 @@ var Signin = React.createClass({
 
   render() {
 
-    console.log("this.this.props ", this.props);
-
     if ( this.props.path === 'signin') {
       return (
         <div>
