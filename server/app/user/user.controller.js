@@ -78,6 +78,14 @@ exports.authenticate = function(req, res) {
       req.session.user = data;
       //req.session.save();
 
+        /**
+         * session에  redirect url이 있으면 로그인 완료 후 해당 url로 redirect 한다.
+         * */
+      if(req.session.redirect && req.session.redirect !== null){
+        var redirect = req.session.redirect;
+        req.session.redirect = null;
+        return res.redirect(redirect)
+      }
       res.redirect("/");
 
     } else { 
