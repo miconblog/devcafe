@@ -1,8 +1,7 @@
 /**
- * 모델 문서 참고
- * http://docs.sequelizejs.com/en/1.7.0/docs/models/#models
+ * 최신 문서 참고
+ * http://docs.sequelizejs.com/en/latest/
  */
-
 'use strict';
 
 var Comment = require('./comment.model');

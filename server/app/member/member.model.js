@@ -1,9 +1,14 @@
+/**
+ * 최신 문서 참고
+ * http://docs.sequelizejs.com/en/latest/
+ */
+
 'use strict';
 var Sequelize = require('sequelize');
 var sequelize = require('../../libs/sequelize-instance');
 var crypto = require('crypto');
 
-var User = sequelize.define('user', {
+var Member = sequelize.define('member', {
   
   name: {
     type: Sequelize.STRING
@@ -42,8 +47,8 @@ var User = sequelize.define('user', {
   },
   setterMethods: {
     password: function(password) { 
-      this.salt = User.makeSalt();
-      this.setDataValue('hashedPassword', User.encryptPassword(password, this.salt));
+      this.salt = Member.makeSalt();
+      this.setDataValue('hashedPassword', Member.encryptPassword(password, this.salt));
     },
   },
   
@@ -66,7 +71,7 @@ var User = sequelize.define('user', {
 
     
     authenticate: function(plainText) {
-      return User.encryptPassword(plainText, this.salt) === this.hashedPassword;
+      return Member.encryptPassword(plainText, this.salt) === this.hashedPassword;
     },
 
   },
@@ -74,4 +79,4 @@ var User = sequelize.define('user', {
   freezeTableName: true // Model tableName will be the same as the model name
 });
 
-module.exports = User;
+module.exports = Member;

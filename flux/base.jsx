@@ -1,7 +1,7 @@
 var React = require('react');
 
 var Fluxxor = require('fluxxor');
-var actions = require('./actions/ActionCreator').methods;
+var actions = require('./ActionCreator').methods;
 var TodoStore = require('./stores/TodoStore');
 
 // 사용할 스토어

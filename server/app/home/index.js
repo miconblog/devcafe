@@ -2,7 +2,7 @@
 
 var express = require('express');
 var homeCtrl = require('./home.controller');
-var userCtrl = require('../user/user.controller');
+var memberCtrl = require('../member/member.controller');
 var auth = require('../../libs/auth.service');
 var router = express.Router();
 
@@ -11,7 +11,7 @@ router.get('/signin', homeCtrl.signin);
 router.get('/signup', homeCtrl.signup);
 router.get('/signout', homeCtrl.signout);
 
-router.post('/signin', userCtrl.authenticate);
-router.post('/signup', userCtrl.create);
+router.post('/signin', memberCtrl.authenticate);
+router.post('/signup', memberCtrl.create);
 
 module.exports = router;

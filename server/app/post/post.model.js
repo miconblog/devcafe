@@ -1,6 +1,6 @@
 /**
- * 모델 문서 참고
- * http://docs.sequelizejs.com/en/1.7.0/docs/models/#models
+ * 최신 문서 참고
+ * http://docs.sequelizejs.com/en/latest/
  */
 
 'use strict';
@@ -9,18 +9,6 @@ var sequelize = require('../../libs/sequelize-instance');
 
 module.exports = sequelize.define('post', {
 
-  boardId: {
-    // 게시판을 삭제하면 관련 글도 모두 지워야한다.
-    type: Sequelize.INTEGER,
-    references: "Board",
-    referencesKey: "id",
-    allowNull: false
-  },
-  writerId: {
-    // 사용자가 탈퇴하면 ID는 NULL 되어야한다.
-    type: Sequelize.INTEGER,
-    allowNull: true
-  },
   title: {
     type: Sequelize.STRING,
     allowNull: false

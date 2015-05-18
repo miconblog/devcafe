@@ -2,20 +2,18 @@
  * 최신 문서 참고
  * http://docs.sequelizejs.com/en/latest/
  */
+
 'use strict';
 var Sequelize = require('sequelize');
 var sequelize = require('../../libs/sequelize-instance');
 
-module.exports = sequelize.define('comment', {
+module.exports = sequelize.define('company', {
   
-  content: {
+  name: {
     type: Sequelize.STRING,
-    allowNull: false
-  },
-
-  username: {
-     type: Sequelize.STRING
+    unique: true
   }
+  
 
 }, {
 
@@ -36,4 +34,3 @@ module.exports = sequelize.define('comment', {
 
   freezeTableName: true // Model tableName will be the same as the model name
 });
-
