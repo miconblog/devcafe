@@ -12,7 +12,7 @@ var BoardList = React.createClass({
 
     return (
       <div>
-        <h4>Board List</h4>
+        <h4>내가 접근할수있는 게시판 목록</h4>
         {this.props.boards.map(function(board, i){
           return <div key={board.id}>{board.id} {board.name} </div>
         })}

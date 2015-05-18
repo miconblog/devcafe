@@ -1,3 +1,9 @@
+/**
+ * TODO: 
+ * composable-middleware 를 사용해 auth.hasRole('admin') 같은 기능이 동작하도록 재작성이 필요.
+ * auth.hasRole은 isAuthericated() 를 먼저 실행한다.
+ */
+
 'use strict';
 
 var express = require('express');

@@ -26,7 +26,7 @@ props.flux = fluxxor;
 window.React = React;
 window.DevCafe = {
   Home: React.createFactory(require('./components/Home.jsx')),
-  Board: React.createFactory(require('./components/Board.jsx')),
+  BoardList: React.createFactory(require('./components/BoardList.jsx')),
   UserList: React.createFactory(require('./components/UserList.jsx')),
   props: props
 }

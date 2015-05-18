@@ -1,6 +1,6 @@
 /**
- * 모델 문서 참고
- * http://docs.sequelizejs.com/en/1.7.0/docs/models/#models
+ * 최신 문서 참고
+ * http://docs.sequelizejs.com/en/latest/
  */
 
 'use strict';
@@ -8,12 +8,12 @@
 var Post = require('./post.model');
 var renderReact = require('../../libs/render-react');
 var React = require('react'),
-    App = React.createFactory(require('../../../flux/components/Board.jsx'));
+    BoardList = React.createFactory(require('../../../flux/components/BoardList.jsx'));
 
 exports.index = function(req, res) {
 
   Post.findAll().then(function (posts) {
-    res.render('board', renderReact(App, {
+    res.render('board', renderReact(BoardList, {
       title: 'Express Post List',
       path: 'posts',
       posts: posts
@@ -27,7 +27,7 @@ exports.detail = function(req, res) {
 
   Post.findAll().then(function (posts) {
 
-    res.render('board', renderReact(App, {
+    res.render('board', renderReact(BoardList, {
       title: 'Express Post Detail',
       path: 'posts',
       posts: posts

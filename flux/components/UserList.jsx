@@ -12,7 +12,7 @@ var UserList = React.createClass({
 
     return (
       <div>
-        <h4>User List</h4>
+        <h4>가입된 전체 사용자 목록</h4>
         {this.props.users.map(function(user, i){
           return <div key={user.id}>{user.id} {user.name} {user.email} </div>
         })}
