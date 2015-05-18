@@ -86,9 +86,22 @@ exports.authenticate = function(req, res) {
 exports.create = function(req, res) {
 
   var email = req.body.email;
+
   var message = '등록된 이메일로 가입확인 메일을 보냈습니다.'
 
-  
+  // 이메일 검증. 실패시 바로 response 보내고 리턴
+  var isValid = (/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i).test(email);
+  if( !isValid ){
+    message = "이메일 주소가 잘못되었습니다. 올바른 메일 주소를 넣어주세요.";
+    res.render('home', renderReact(Home, {
+      title: '회원가입',
+      path: 'signup',
+      message: message,
+      email:email
+    }));
+    return;
+  }
+
   User.findOrCreate({
     where: {email: email}, 
     defaults: {name: 'test', password:'1234'}
