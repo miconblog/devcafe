@@ -1,5 +1,5 @@
 var Fluxxor = require('fluxxor');
-var actions = require('../actions/ActionCreator.js');
+var actions = require('../actionCreator.js');
 var TodoStore = Fluxxor.createStore({
 
   initialize : function(){

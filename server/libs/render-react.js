@@ -3,7 +3,7 @@
 var _ = require('lodash');
 var React = require('react');
 var Fluxxor = require('fluxxor');
-var actions = require('../../flux/actions/ActionCreator').methods;
+var actions = require('../../flux/actionCreator').methods;
 var TodoStore = require('../../flux/stores/TodoStore');
 
 // 사용할 스토어

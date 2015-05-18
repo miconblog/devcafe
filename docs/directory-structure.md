@@ -2,19 +2,17 @@
 현재 다른 프로젝트들의 Practice들을 참고 하고 있어요. 정리해서 최종 확정하겠습니다. 
 
 ```` 
-    client/                 사용자에게 노출되는 클라이언트 소스
+    client/                  사용자에게 노출되는 클라이언트 소스
       |-- css/
       |-- js/
       |-- images/
       |-- default.html       서버없이 클라이언트만 독립적으로 호스팅할때 사용하는 html 파일
 
     flux/ 
-      |-- components/        React 컴포런트, 확장자는 jsx
-      |-- actions/
-      |-- constants/
-      |-- dispatchers/
-      |-- stores/
-      |-- index.jsx             React 메인
+      |-- components/        React Views 확장자는 jsx, View는 여러개 일수 있으므로 폴더로 묶었음.
+      |-- stores/            React Stores, 스토어도 여러개가 될수 있으므로 폴더로 묶었음.
+      |-- actionCreator.js   React Action Helper, 액션 헬퍼는 디스패처와 마찬가지로 싱글톤
+      |-- base.jsx           Browerify Bundle 압축을 위한 설정 파일
 
     server/    
       |-- app/
@@ -39,7 +37,6 @@
     gulpfile.js
     package.json
 ````
-
 
 
 
