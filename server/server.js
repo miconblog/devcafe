@@ -38,9 +38,7 @@ require('./libs/database-relation.js')()
   app.use(cookieParser());
   app.use(session({ 
     secret: 'devcafe', 
-    store : new RedisStore({
-      ttl: 30 * 60
-    }),
+    store : new RedisStore({ ttl: 30 * 60 }),
     saveUninitialized: false,
     resave: false
   }));

@@ -5,15 +5,27 @@
 'use strict';
 
 var Board = require('./board.model');
+var Company = require('../company/company.model');
 var renderReact = require('../../libs/render-react');
 var React = require('react'),
     BoardList = React.createFactory(require('../../../flux/components/BoardList.jsx'));
 
 
+// 내가 접근 가능한 게시판 목록만 보여준다.
 exports.index = function(req, res) {
 
+  var member = req.session.user;
 
-  Board.findAll().then(function (boards) {
+  // 1. 회사 아이디
+  var companyId = member.companyId;
+
+  Board.findAll({
+    where: {
+      companyId: companyId
+    } 
+  }).then(function(boards){
+
+    console.log(JSON.stringify(boards))
 
     res.render('board', renderReact(BoardList, {
       title: 'Express Board',
@@ -22,4 +34,5 @@ exports.index = function(req, res) {
     }));
 
   });
-};
+
+ };

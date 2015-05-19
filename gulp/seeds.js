@@ -6,7 +6,6 @@ var Board = require('../server/app/board/board.model');
 var Post = require('../server/app/post/post.model');
 var Comment = require('../server/app/comment/comment.model');
 var Company = require('../server/app/company/company.model');
-var CompanyBoards = require('../server/app/company/company_boards.model');
 
 gulp.task('seeds', ['dbcheck'],function(done){
 
@@ -19,13 +18,10 @@ gulp.task('seeds', ['dbcheck'],function(done){
 
   // 댓글은 postId와 memberId를 가진다. 게시글을 지우려면 댓글을 모두 지워야 한다. (if constraints is true)
   Comment.belongsTo(Post, { constraints: false }); 
-  Comment.belongsTo(Member, { constraints: false })
+  Comment.belongsTo(Member, { constraints: false });
 
-  // 회사 게시판은 conpnayId와 boardId를 가딘다. 
-  Company.belongsToMany(Board, {through: 'company_boards', constraints: false});
-  Board.belongsToMany(Company, {through: 'company_boards', constraints: false}); 
-
-
+  // 회사는 여러개의 게시판을 가진다.
+  Company.hasMany(Board, { constraints: false });
 
   // 기존 DB 삭제
   Comment.drop();
@@ -33,7 +29,6 @@ gulp.task('seeds', ['dbcheck'],function(done){
   Board.drop();
   Member.drop();
   Company.drop();
-  CompanyBoards.drop();
 
   // 샘플 회사 등록 
   Company.sync()
@@ -90,21 +85,8 @@ gulp.task('seeds', ['dbcheck'],function(done){
   Board.sync().then(function(){
 
     Board.create({
-      name: 'skp'
-    })
-    .then(function(board){
-
-      // 회사-게시판 테이블 싱크
-      CompanyBoards.sync().then(function(){
-
-        CompanyBoards.create({
-          companyId : 1,
-          boardId: 1
-        })
-
-      })      
-
-
+      name: 'skp',
+      companyId: 1
     })
     .then(function(board){
       

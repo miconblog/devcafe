@@ -4,7 +4,6 @@ var Board = require('../app/board/board.model');
 var Post = require('../app/post/post.model');
 var Comment = require('../app/comment/comment.model');
 var Company = require('../app/company/company.model');
-var CompanyBoards = require('../app/company/company_boards.model');
 
 var Q = require('q');
 Q.longStackSupport = true;
@@ -24,15 +23,12 @@ module.exports = function(){
   Comment.belongsTo(Post, { constraints: false }); 
   Comment.belongsTo(Member, { constraints: false })
 
-  // 회사 게시판은 conpnayId와 boardId를 가딘다. 
-  Company.belongsToMany(Board, {through: 'company_boards', constraints: false});
-  Board.belongsToMany(Company, {through: 'company_boards', constraints: false}); 
-
+  // 회사는 여러개의 게시판(boardId)를 가진다. 
+  Company.hasMany(Board, { constraints: false });
 
   Member.sync();
   Company.sync();
   Board.sync();
-  CompanyBoards.sync();
   Post.sync();
   Comment.sync().then(function(){
     deferred.resolve();
