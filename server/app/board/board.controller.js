@@ -56,7 +56,8 @@ exports.canAccess = function(req, res, next){
   .then(function(board) {
 
     if(!board){
-      res.send(404);
+      res.sendStatus(404);
+      return;
     }
     
     var type = board.get('type');
@@ -70,7 +71,8 @@ exports.canAccess = function(req, res, next){
       next();
     } else {
       delete req.session.board;
-      res.send(401);
+      res.sendStatus(401);
+      return;
     }
 
 
@@ -78,7 +80,7 @@ exports.canAccess = function(req, res, next){
 
 };
 
-exports.show = function(req, res){
+exports.postlist = function(req, res){
 
   var member = req.session.user;
   var board = req.session.board;
@@ -97,6 +99,34 @@ exports.show = function(req, res){
 
   })
 
-
-
 };
+
+exports.postdetail = function(req, res){
+
+  var member = req.session.user;
+  var board = req.session.board;
+  var boardId = req.params.boardId;
+  var postId = req.params.postId;
+
+  Post.findOne({
+    where: {
+      id: postId,
+      boardId: boardId
+    }
+  }).then(function(post){
+
+    if( !post ){
+      // 아직 그런 페이지 자체가 없어!!
+      res.sendStatus(404);
+      return;
+    }
+
+    res.render('post', renderReact(PostList, {
+      board: board,
+      type: 'detail',
+      post: post.get({plain:true})
+    }));
+
+  })
+
+}
