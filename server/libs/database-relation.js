@@ -44,10 +44,10 @@ module.exports = function(){
   Post.hasMany(Comment, {onDelete: 'cascade'})
   
   // 게시글은 작성자가 존재한다. 회원이 삭제되도 게시글은 유지된다. 
-  Post.belongsTo(Member, { foreignKey : 'writerId' });
+  Post.belongsTo(Member);
 
   // 댓글은 작성자가 존재한다. 
-  Comment.belongsTo(Member, { foreignKey : 'writerId'  });
+  Comment.belongsTo(Member);
 
 
   syncAllTables().then(function(){

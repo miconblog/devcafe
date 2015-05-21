@@ -5,28 +5,30 @@ var PostList = React.createClass({
 
   getInitialState() {
     return {
+
       posts: this.props.posts
     }
   },
 
   render() {
 
+    var posts = this.props.posts;
     return (
       <div>
-        <h4>Post List</h4>
-        <p>TODO: 게시판 이름을 여기에 남기자. </p>
+        <h4>{this.props.board.name} </h4>
         <div className="board-list">
           
-            {this.props.posts.map(function(post, i){
-              
-              var linkUrl = "/boards/" + post.boardId + "/" + post.id;
+          {posts.map(function(post, i){
+            
+            var linkUrl = "/boards/" + post.boardId + "/" + post.id;
 
-              return <a className="item" key={post.id} href={linkUrl}>
-                <div>{post.title} ({post.commentCount}) </div>
-                <div>{post.writer} - {moment(post.updatedAt).format("MM.DD")} - 좋아요{post.likeCount} </div>
-                <div>조회 {post.readCount}</div>
-              </a>
-            })}
+            return <a className="item" key={post.id} href={linkUrl}>
+              <div>{post.title} ({post.commentCount}) </div>
+              <div>{post.content} {post.username} - {moment(post.updatedAt).format("MM.DD")} </div>
+              <div>좋아요{post.likeCount} - 조회 {post.readCount}</div>
+            </a>
+
+          })}
          
         </div>
 

@@ -28,6 +28,7 @@ window.DevCafe = {
   Home: React.createFactory(require('./components/Home.jsx')),
   Admin: React.createFactory(require('./components/Admin.jsx')),
   BoardList: React.createFactory(require('./components/BoardList.jsx')),
+  PostList: React.createFactory(require('./components/PostList.jsx')),
   UserList: React.createFactory(require('./components/UserList.jsx')),
   props: props
 }
