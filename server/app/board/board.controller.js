@@ -15,17 +15,25 @@ var React = require('react'),
 exports.index = function(req, res) {
 
   var member = req.session.user;
-
-  // 1. 회사 아이디
   var companyId = member.companyId;
 
   Board.findAll({
-    where: {
-      companyId: companyId
-    } 
-  }).then(function(boards){
+    where: {  
+      $or: [
+        {
+          type: {
+            $eq: 'N'
+          }
+        },
+        {
+          companyId: {
+            $eq: companyId 
+          }
+        }       
+      ]
+    }
 
-    console.log(JSON.stringify(boards))
+  }).then(function(boards){
 
     res.render('board', renderReact(BoardList, {
       title: 'Express Board',
@@ -35,4 +43,16 @@ exports.index = function(req, res) {
 
   });
 
- };
+};
+
+exports.show = function(req, res){
+
+  var member = req.session.user;
+  var boardId = req.params.boardId;
+
+
+
+
+  
+
+}

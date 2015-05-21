@@ -11,9 +11,24 @@ module.exports = sequelize.define('company', {
   
   name: {
     type: Sequelize.STRING,
+    unique: true,
+    allowNull: false
+  },
+  domain1: {
+    type: Sequelize.STRING,
+    unique: true,
+    allowNull: false
+  },
+  domain2: {
+    type: Sequelize.STRING,
     unique: true
+  },
+  memberCount: {
+    type: Sequelize.DECIMAL,
+    allowNull: false,
+    defaultValue: 0
   }
-  
+
 
 }, {
 

@@ -15,11 +15,7 @@ var Member = sequelize.define('member', {
   },
 
   hashedPassword: {
-    type: Sequelize.STRING,
-    validate: {
-     // allowNull: false, 
-     // notEmpty: true, 
-    }
+    type: Sequelize.STRING
   },
 
   salt: {

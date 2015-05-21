@@ -1,5 +1,6 @@
 var gulp   = require( 'gulp' );
 var gutil = require('gulp-util');
+var Q = require('Q');
 
 var Member = require('../server/app/member/member.model');
 var Board = require('../server/app/board/board.model');
@@ -7,121 +8,208 @@ var Post = require('../server/app/post/post.model');
 var Comment = require('../server/app/comment/comment.model');
 var Company = require('../server/app/company/company.model');
 
-gulp.task('seeds', ['dbcheck'],function(done){
+  // 회사는 여러 사원을 가지지만 회사가 망하면 멤버는 실직하다. 즉, 회사ID는 자동으로 NULL이 된다. 
+  Company.hasMany(Member); 
 
-  // 사원은 companyId를 가진다. 회사가 망하면 멤버의 회사ID는 자동으로 NULL이 된다. (if constraints is true)
-  Member.belongsTo(Company, { constraints: false }); 
+  // 회사는 여러개의 게시판을 가진다. 회사가 망하면 게시판도 망한다. 
+  Company.hasMany(Board);
 
-  // 게시글은 boardId와 memberId를 가진다.  
-  Post.belongsTo(Board, { constraints: false });
-  Post.belongsTo(Member, { constraints: false });
+  // 게시판은 여러개의 게시글을 가진다. 게시판이 사라지면 해당 게시글도 전부 지워진다. 
+  Board.hasMany(Post, {onDelete: 'cascade'});
 
-  // 댓글은 postId와 memberId를 가진다. 게시글을 지우려면 댓글을 모두 지워야 한다. (if constraints is true)
-  Comment.belongsTo(Post, { constraints: false }); 
-  Comment.belongsTo(Member, { constraints: false });
+  // 게시글은 여러개의 댓글을 가진다. 게시글이 사라지면 해당 댓글도 전부 사라진다. 
+  Post.hasMany(Comment, {onDelete: 'cascade'})
+  
+  // 게시글은 작성자가 존재한다. 회원이 삭제되도 게시글은 유지된다. 
+  Post.belongsTo(Member);
 
-  // 회사는 여러개의 게시판을 가진다.
-  Company.hasMany(Board, { constraints: false });
+  // 댓글은 작성자가 존재한다. 
+  Comment.belongsTo(Member);
 
-  // 기존 DB 삭제
-  Comment.drop();
-  Post.drop();
-  Board.drop();
-  Member.drop();
-  Company.drop();
+function dropAllTables(){
+  var deferred = Q.defer();
 
-  // 샘플 회사 등록 
-  Company.sync()
-  .then(function(){
-    
+  Comment.drop().then(function(){
+    Post.drop().then(function(){
+      Board.drop().then(function(){
+        Member.drop().then(function(){
+          Company.drop().then(function(){
+
+            console.log("\n----------- drop all tables ------------ \n\n")
+            deferred.resolve();
+          })
+        })    
+      })  
+    })
+  })
+  return deferred.promise;
+}
+
+function syncAllTables(){
+  var deferred = Q.defer();
+
+  Company.sync().then(function(){
+    Member.sync().then(function(){
+      Board.sync().then(function(){
+        Post.sync().then(function(){
+          Comment.sync().then(function(){
+
+            console.log("\n----------- sync all tables ------------ \n\n")
+            deferred.resolve();
+          })
+        })    
+      })  
+    })
+  })
+  return deferred.promise;  
+}
+
+function createCompanies() {
+
+  return  Q.all([
     Company.create({
-      name: 'SK planet'
-    });
+      name: 'SK planet',
+      domain1: 'sk.com',
+      domain2: 'skplanet.com'
+    }),
 
     Company.create({
-      name: 'NHN Entertainment'
-    });
+      name: 'NHN Entertainment',
+      domain1: 'nhnent.com'
+    })
 
-  });
+  ])
+}
 
+function createMembers() {
 
-  // 샘플 회원 등록
-  Member.sync()
-  .then(function () {
+  return Q.all([
 
     Member.create({
       name: 'Sohn ByungDae',
       email: 'miconblog@gmail.com',
-      password: '1234'
-    }).then(function(user){
-      user.setCompany(1);
-    })
+      password: '1234',
+      companyId: 1
+    }),
     
     Member.create({
       name: 'Lim SungMook',
       password: '1234',
       email: 'sungmook@gmail.com',
-    }).then(function(user){
-      user.setCompany(1);
-    })
+      companyId: 1
+    }),
 
     Member.create({
       name: 'Kim HyunDong',
       password: '11',
       email: 'hyundong@gmail.com',
-    })
+    }),
     
     Member.create({
       name: 'Kim MinJung',
       password: '1234',
       email: 'minjung@gmail.com',
-    }).then(function(user){
-      user.setCompany(2);
+      companyId: 2
     })
-  })
 
+  ]);
 
-   // 샘플 게시판 생성
-  Board.sync().then(function(){
+}
+
+function createBoards(){
+  return Q.all([
 
     Board.create({
-      name: 'skp',
+      id: 'jobs',
+      name: '구인/구직',
+      type: 'N',
+      companyId: null
+    }),
+
+    Board.create({
+      id: 'free',
+      name: '자유게시판',
+      type: 'N',
+      companyId: null
+    }),
+
+    Board.create({
+      id: 'nhnent',
+      name: 'NHN 엔터테인먼트',
+      type: 'C',
+      companyId: 2
+    }),
+
+    Board.create({
+      id: 'skp',
+      name: 'SK 플래닛',
+      type: 'C',
       companyId: 1
     })
-    .then(function(board){
-      
-      Post.sync().then(function(){
-      
-        // 샘플 게시글 생성
-        Post.create({
-          title: '글쓰기 테스트',
-          content: '이것은 본문입니다.',
-          writer: '불꽃남자'
-        }).then(function(post){
 
-          post.setBoard(1);
-          post.setMember(1);
+  ]);
+}
 
-          Comment.sync().then(function(){
+function createPosts(){
 
-            // 샘플 댓글 생성
-            Comment.create({
-              content: '이것은 댓글 테스트 입니다.!!',
-              username: '불꽃남자'
-            }).then(function(comment){
-              comment.setPost(1);
-              comment.setMember(1);
-              done();
-            })
+  return Q.all([
 
-          });
+    Post.create({
+      title: '글쓰기 테스트',
+      content: '이것은 본문입니다.',
+      username: '불꽃남자',
+      boardId: 'skp',
+      memberId: 1
+    })
 
-        });
+  ])
+}
 
-      });
+function createComments() {
 
-    });
+  return Q.all([
 
-  });
+    Comment.create({
+      content: '이것은 댓글 테스트 입니다.!!',
+      username: '불꽃남자',
+      postId: 1,
+      memberId: 1
+    })
+
+  ])
+}
+
+function excuteSample(done){
+
+  createCompanies().then(function(){
+    console.log("OK, company\n");
+    createMembers().then(function(){
+      console.log("OK, member\n");
+      createBoards().then(function(){
+        console.log("OK, board\n");
+        createPosts().then(function(){
+          console.log("OK, post\n");
+          createComments().then(function(){
+            console.log("OK, comment\n");
+            done();
+          })
+        })
+      })
+    })
+  })
+}
+
+gulp.task('seeds', ['dbcheck'],function(done){
+
+  // 기존 DB 삭제
+  dropAllTables().then(function(){
+
+    syncAllTables().then(function(){
+
+      excuteSample(done);
+
+    })
+    
+  })
 
 });

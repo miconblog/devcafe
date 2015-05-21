@@ -17,7 +17,7 @@ module.exports = sequelize.define('post', {
     type: Sequelize.TEXT,
     allowNull: false
   },
-  writer: { 
+  username: { 
     // 사용자가 탈퇴해도 해당 글을 직접 지우지 않으면 이름은 남아 있어야한다.
     type: Sequelize.STRING,
     allowNull: false
