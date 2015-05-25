@@ -42,13 +42,17 @@ var PostList = React.createClass({
 
       var post = this.props.post;
       var url = "/boards/" + this.props.board.id;
+      var ModifyButton = false;
+
+      if(this.props.isOwner){
+        ModifyButton = <div className="action"><button onClick={this.handleEditPost}>편집</button></div>;
+      }
+
+
       return (
         <article>
           <h4><a href={url}> &lt; {this.props.board.name} 목록으로</a></h4>
-          <div className="action">
-            <button onClick={this.handleEditPost}>편집</button>
-          </div>
-
+          {ModifyButton}
           <div>{post.title} ({post.commentCount}) {post.username} - {moment(post.updatedAt).format("MM.DD")} </div> 
           <div dangerouslySetInnerHTML={{__html: post.content.replace(/\n/g, '</br>') }} />
           <div>좋아요{post.likeCount} - 조회 {post.readCount}</div>
@@ -73,11 +77,12 @@ var PostList = React.createClass({
               
               var linkUrl = "/boards/" + post.boardId + "/" + post.id;
 
-              return <a className="item" key={post.id} href={linkUrl}>
-                <div>{post.title} ({post.commentCount}) </div>
-                <div>{post.username} - {moment(post.updatedAt).format("MM.DD")} </div>
-                <div>좋아요{post.likeCount} - 조회 {post.readCount}</div>
-              </a>
+              return <div key={post.id} className="list-item">
+                <span>{i+1}</span>
+                <a href={linkUrl}> {post.title} ({post.commentCount}) </a>
+                <span>{post.username} - {moment(post.updatedAt).format("MM.DD")} </span>
+                <span>좋아요{post.likeCount} - 조회 {post.readCount}</span>
+              </div>
 
             })}
            

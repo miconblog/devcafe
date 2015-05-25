@@ -38,7 +38,7 @@ exports.show = function(req, res){
 
   console.log("postdetail");
 
-  var member = req.session.user;
+  var user = req.session.user;
   var board = req.session.board;
   var boardId = req.params.boardId;
   var postId = req.params.postId;
@@ -59,7 +59,8 @@ exports.show = function(req, res){
     res.render('post', renderReact(PostList, {
       board: board,
       type: 'detail',
-      post: post.get({plain:true})
+      post: post.get({plain:true}),
+      isOwner: post.get('memberId') === user.id
     }));
 
   })
