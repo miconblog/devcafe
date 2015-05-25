@@ -43,13 +43,16 @@ var PostList = React.createClass({
       var post = this.props.post;
       var url = "/boards/" + this.props.board.id;
       return (
-        <div>
+        <article>
           <h4><a href={url}> &lt; {this.props.board.name} 목록으로</a></h4>
-          <div>{post.title} ({post.commentCount}) </div>
-          <div>{post.content} {post.username} - {moment(post.updatedAt).format("MM.DD")} </div>
-          <div>좋아요{post.likeCount} - 조회 {post.readCount}</div>
+          <div className="action">
+            <button onClick={this.handleEditPost}>편집</button>
+          </div>
 
-        </div>
+          <div>{post.title} ({post.commentCount}) {post.username} - {moment(post.updatedAt).format("MM.DD")} </div> 
+          <div dangerouslySetInnerHTML={{__html: post.content.replace(/\n/g, '</br>') }} />
+          <div>좋아요{post.likeCount} - 조회 {post.readCount}</div>
+        </article>
       );
 
     }else {
@@ -60,7 +63,7 @@ var PostList = React.createClass({
           <h4>{this.props.board.name} </h4>
 
           <div className="action">
-            <button onClick={this.handleClick}>글쓰기</button>
+            <button onClick={this.handleNewPost}>글쓰기</button>
           </div>
 
 
@@ -85,12 +88,16 @@ var PostList = React.createClass({
     }
   },
 
-  handleClick(e) {
+  handleNewPost(e) {
     e.preventDefault();
     location.href = "/boards/skp/newpost";
     console.log(e);
-  }
+  },
 
+  handleEditPost(e){
+    e.preventDefault();
+    //location.href = "/boards/skp/newpost";
+  }
 
 });
 
