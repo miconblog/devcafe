@@ -160,7 +160,7 @@ function createPosts(){
       username: '불꽃남자',
       boardId: 'skp',
       memberId: 1
-    });
+    })
 
   ])
 }
