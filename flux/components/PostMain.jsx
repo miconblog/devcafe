@@ -1,5 +1,6 @@
 var React = require('react');
-var PostForm = require('./PostForm.jsx');
+var PostCreateForm = require('./PostCreateForm.jsx');
+var PostEditForm = require('./PostEditForm.jsx');
 var PostList = require('./PostList.jsx');
 var PostDetail = require('./PostDetail.jsx');
 
@@ -16,8 +17,11 @@ module.exports = React.createClass({
 
     switch(this.props.type){
       case 'create':
-      return (<PostForm board={this.props.board} />);
+      return (<PostCreateForm board={this.props.board} />);
      
+      case 'edit':
+      return (<PostEditForm board={this.props.board} post={this.props.post}/>);
+      
       case 'detail':
       return (<PostDetail board={this.props.board} post={this.props.post}/>);
 

@@ -22,7 +22,7 @@ module.exports = React.createClass({
       <article>
         <h4><a href={url}> &lt; {this.props.board.name} 목록으로</a></h4>
         {ModifyButton}
-        <div>{post.title} ({post.commentCount}) {post.username} - {moment(post.updatedAt).format("MM.DD")} </div> 
+        <div>{post.title} ({post.commentCount}) {post.username} - {moment(post.updatedAt).format("LLL")} </div> 
         <div dangerouslySetInnerHTML={{__html: post.content.replace(/\n/g, '</br>') }} />
         <div>좋아요{post.likeCount} - 조회 {post.readCount}</div>
       </article>
@@ -32,7 +32,8 @@ module.exports = React.createClass({
 
   handleEditPost(e){
     e.preventDefault();
-    //location.href = "/boards/skp/newpost";
+
+    location.href = '/boards/' + this.props.board.id + '/' + this.props.post.id + '/edit';
   },
 
   handleDeletePost(e){ 
@@ -56,7 +57,7 @@ module.exports = React.createClass({
         alert(res.error.message);
         location.href = redirectUrl;
       }
-    })
+    });
   }
 
 });

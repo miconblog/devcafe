@@ -75,6 +75,23 @@ exports.show = function(req, res){
 
 };
 
+exports.edit = function(req, res){
+  
+  var board     = req.session.board.get({plain:true});
+  var post      = req.session.post.get({plain:true});
+  post.isOwner  = req.session.post.isOwner;
+
+  delete req.session.post;
+  delete req.session.board;
+
+  res.render('post', renderReact(PostMain, {
+    board: board,
+    type: 'edit',
+    post: post
+  }));
+
+};
+
 exports.create = function(req, res){
 
   var title   = req.body.title;
@@ -106,7 +123,7 @@ exports.create = function(req, res){
   
   });
   
-}
+};
 
 exports.delete = function(req, res){
 
@@ -125,7 +142,43 @@ exports.delete = function(req, res){
     res.json({result:'OK'});  
   });
 
-}
+};
+
+exports.update = function(req, res){
+
+  console.log(req.body);
+
+  var post    = req.session.post;
+  var title   = req.body.title;
+  var content = req.body.content;
+  
+  delete req.session.post;
+  delete req.session.board;
+
+  if( !title || !content) {
+    res.render('post', renderReact(PostMain, {
+      board: board,
+      type: 'create',
+      message: '제목과 내용은 비어있으면 안됩니다.'
+    }));
+    return;
+  }
+
+  if( !post.isOwner ){
+    res.status(401).json({ error: '작성자외엔 수정할 수 없습니다.' });
+    return;
+  }
+
+  post.title = title;
+  post.content = content;
+  post.updatedAt = new Date();
+  post.save().then(function(){
+    
+    res.json({result:'OK'});  
+
+  });
+
+};
 
 
 exports.form = function(req, res){
@@ -138,4 +191,4 @@ exports.form = function(req, res){
     type: 'create'
   }));
 
-}
+};
