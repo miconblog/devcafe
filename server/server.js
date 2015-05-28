@@ -38,7 +38,7 @@ require('./libs/database-relation.js')()
   app.use(cookieParser());
   app.use(session({ 
     secret: 'devcafe', 
-    store : new RedisStore({ ttl: 30 * 60 }),
+    store : new RedisStore({ ttl: 30 * 60 * 60}), // HACK: 테스트를 위해 세션을 30분에서 30시간으로 늘렸다. Redis 스토어가 너무 금방 차면 세션을 시간을 다시 줄여야한다. 
     saveUninitialized: false,
     resave: false
   }));
@@ -55,6 +55,7 @@ require('./libs/database-relation.js')()
     }
     next();
   });
+  app.use(require('./libs/xss-filter'));
 
   // 라우터 처리
   require('./routes')(app);
