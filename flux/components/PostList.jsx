@@ -15,10 +15,11 @@ module.exports = React.createClass({
         {posts.map(function(post, i){
           
           var linkUrl = "/boards/" + post.boardId + "/" + post.id;
+          var titleHtml = [post.title,'(', post.commentCount, ')'].join("");
 
           return <div key={post.id} className="list-item">
             <span>{i+1}</span>
-            <a href={linkUrl}> {post.title} ({post.commentCount}) </a>
+            <a href={linkUrl} dangerouslySetInnerHTML={{__html: titleHtml }}></a>
             <span>{post.username} - {moment(post.updatedAt).format("MM.DD")} </span>
             <span>좋아요{post.likeCount} - 조회 {post.readCount}</span>
           </div>
