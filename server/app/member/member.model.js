@@ -32,6 +32,11 @@ var Member = sequelize.define('member', {
     allowNull: false
   },
 
+  shouldResetPassword: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: true
+  },
+
   emailVerified: {
     type: Sequelize.BOOLEAN
   }

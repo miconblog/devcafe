@@ -47,8 +47,13 @@ require('./libs/database-relation.js')()
   // 라우터로 넘기기 전에 인증정보 확인
   app.use(function(req, res, next){
 
-    console.log("\n\nSESSION ID: ", req.session.id)
+    console.log("\n\nSESSION ID: ", req.session)
     //delete req.session.test;
+
+    if( req.session.resetPassword && req.session.user ) {
+      delete req.session.resetPassword;
+      return res.redirect("/resetPassword");
+    }
 
     if( req.session.isAuthenticated ) {
       res.locals.user = req.session.user;
@@ -76,7 +81,9 @@ require('./libs/database-relation.js')()
       res.status(err.status || 500);
       res.render('error', {
         message: err.message,
-        error: err
+        status: err.status,
+        error: err,
+        layout: 'error'
       });
     });
   }
@@ -87,7 +94,8 @@ require('./libs/database-relation.js')()
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,
-      error: {}
+      error: {},
+      layout: 'error'
     });
   });
 

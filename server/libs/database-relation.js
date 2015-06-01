@@ -4,6 +4,7 @@ var Board = require('../app/board/board.model');
 var Post = require('../app/post/post.model');
 var Comment = require('../app/comment/comment.model');
 var Company = require('../app/company/company.model');
+var AuthCode = require('../app/authcode/authcode.model');
 
 var Q = require('q');
 Q.longStackSupport = true;
@@ -12,6 +13,7 @@ Q.longStackSupport = true;
 function syncAllTables(){
   var deferred = Q.defer();
 
+  AuthCode.sync();
   Company.sync().then(function(){
     Member.sync().then(function(){
       Board.sync().then(function(){
