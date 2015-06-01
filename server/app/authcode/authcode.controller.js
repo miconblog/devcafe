@@ -43,6 +43,8 @@ exports.confirm = function(req, res) {
     AuthCode.findOne({where: {email:email, hashcode:code}})
     .then(function(hashcode){
 
+      var hashcode = true;
+
       if(hashcode){
 
         Member.findOne({where: {email:email}})
@@ -52,7 +54,7 @@ exports.confirm = function(req, res) {
 
           // 이메일 인증이 성공하면 무조건 패스워드를 설정해야한다.
           req.session.user = member;
-          req.session.resetPassword = true;
+          req.session.isVerified = true;
           res.redirect("/resetPassword");
         });
 

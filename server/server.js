@@ -43,23 +43,7 @@ require('./libs/database-relation.js')()
     resave: false
   }));
   app.use(express.static( path.resolve(__dirname, '../client') ));
-   
-  // 라우터로 넘기기 전에 인증정보 확인
-  app.use(function(req, res, next){
-
-    console.log("\n\nSESSION ID: ", req.session)
-    //delete req.session.test;
-
-    if( req.session.resetPassword && req.session.user ) {
-      delete req.session.resetPassword;
-      return res.redirect("/resetPassword");
-    }
-
-    if( req.session.isAuthenticated ) {
-      res.locals.user = req.session.user;
-    }
-    next();
-  });
+  app.use(require('./libs/session-parser'));
   app.use(require('./libs/xss-filter'));
 
   // 라우터 처리
@@ -73,7 +57,6 @@ require('./libs/database-relation.js')()
   });
 
   // error handlers
-
   // development error handler
   // will print stacktrace
   if (app.get('env') === 'development') {

@@ -14,6 +14,8 @@ var React = require('react'),
 
 exports.index = function(req, res) {
 
+  console.log("locals", res.locals);
+
   res.render('home', renderReact(Home, {
     title: 'Express Home',
     path: 'home'
@@ -27,10 +29,6 @@ exports.signin = function(req, res) {
   if( req.session.user ) {
     return res.redirect('/');
   }
-
-  // if( req.query.redirect ) {
-  //   req.session.redirect = 
-  // }
 
   res.render('home', renderReact(Home, {
     title: '로그인',

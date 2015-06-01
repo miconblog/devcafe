@@ -16,5 +16,6 @@ router.post('/signin', memberCtrl.authenticate);
 router.post('/signup', memberCtrl.create);
 
 router.get('/confirm', authcodeCtrl.confirm);
+router.get('/resetPassword', memberCtrl.resetPassword);
 
 module.exports = router;

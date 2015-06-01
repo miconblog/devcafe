@@ -7,10 +7,10 @@
 
 var Member = require('./member.model');
 var renderReact = require('../../libs/render-react');
-var React = require('react'),
-    Home = React.createFactory(require('../../../flux/components/Home.jsx')),
-    UserList = React.createFactory(require('../../../flux/components/UserList.jsx'));
-
+var React = require('react');
+var Home = React.createFactory(require('../../../flux/components/Home.jsx'));
+var UserList = React.createFactory(require('../../../flux/components/UserList.jsx'));
+var ResetPwd = React.createFactory(require('../../../flux/components/ResetPwd.jsx'));
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport();
 
@@ -30,6 +30,16 @@ exports.index = function(req, res) {
     }));
 
   });
+};
+
+exports.resetPassword = function(req, res) {
+
+  console.log("---> ", req.session.user );
+
+  res.render('resetPassword', renderReact(ResetPwd, {
+    member : req.session.user
+  }));
+
 };
 
 exports.authenticate = function(req, res) {
