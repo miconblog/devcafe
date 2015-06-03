@@ -2,6 +2,7 @@
 
 module.exports = function(app) {
 
+  app.use('/companies', require('./app/company'));
   app.use('/members', require('./app/member'));
   app.use('/boards', require('./app/board'));
   app.use('/admin', require('./app/admin'));

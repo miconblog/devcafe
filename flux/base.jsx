@@ -30,5 +30,6 @@ window.DevCafe = {
   BoardList: React.createFactory(require('./components/BoardList.jsx')),
   PostMain: React.createFactory(require('./components/PostMain.jsx')),
   UserList: React.createFactory(require('./components/UserList.jsx')),
+  ResetPass: React.createFactory(require('./components/ResetPass.jsx')),
   props: props
 }
