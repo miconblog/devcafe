@@ -58,19 +58,19 @@ module.exports = React.createClass({
 
     Jquery.ajax({
       type: 'PUT',
-      url: '/member/' + this.props.member.id + '/resetPassword',
+      url: '/members/' + this.props.member.id + '/password',
       data: {
         password: this.state.password
       }
     }).done(function(res){
+
       if(res.result === "OK") {
         location.href = redirectUrl;
       }else{
         alert(res.error.message);
         location.href = redirectUrl;
       }
-    })
-
+    });
   }
 
 });

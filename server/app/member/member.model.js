@@ -38,7 +38,8 @@ var Member = sequelize.define('member', {
   },
 
   emailVerified: {
-    type: Sequelize.BOOLEAN
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 
 }, {

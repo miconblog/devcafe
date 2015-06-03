@@ -43,7 +43,7 @@ require('./libs/database-relation.js')()
     resave: false
   }));
   app.use(express.static( path.resolve(__dirname, '../client') ));
-  app.use(require('./libs/session-parser'));
+  app.use(require('./libs/session2locals'));
   app.use(require('./libs/xss-filter'));
 
   // 라우터 처리

@@ -13,6 +13,7 @@ var UserList = React.createFactory(require('../../../flux/components/UserList.js
 var ResetPass = React.createFactory(require('../../../flux/components/ResetPass.jsx'));
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport();
+var debug = require('debug')('member.controller');
 
 
 /**
@@ -59,21 +60,24 @@ exports.authenticate = function(req, res) {
 
       // 세션에서 redirect를 받아서 처리하자!
       var url = req.session.redirect || "/";
-
-      console.log("REDIRECT>? ", url);
-
-      req.session.isAuthenticated = true;
       req.session.user = data;
-      //req.session.save();
+      
+      // NOTICE: REDIS 스토어는 save 없어도 자동 저장되지만 다른 스토어는 save가 있어야 저장되므로 컨벤션에 맞춤
+      req.session.save();        
 
-        /**
-         * session에  redirect url이 있으면 로그인 완료 후 해당 url로 redirect 한다.
-         * */
-      if(req.session.redirect && req.session.redirect !== null){
+      /**
+       * session에  redirect url이 있으면 로그인 완료 후 해당 url로 redirect 한다.
+       * */
+      if(req.session.redirect){
         var redirect = req.session.redirect;
-        req.session.redirect = null;
-        return res.redirect(redirect)
+        delete req.session.redirect;
+        return res.redirect(redirect);
       }
+
+      if(req.session.user.shouldResetPassword) {
+        return res.redirect("/resetPassword");
+      }
+
       res.redirect("/");
 
     } else { 
@@ -90,9 +94,28 @@ exports.authenticate = function(req, res) {
 
 };
 
-exports.changePassword = function(){
-  
-}
+exports.changePassword = function(req, res){
+
+
+  var id = req.session.user.id;
+  var newPassword = req.body.password;
+
+  debug("changePassword memberId:%s, newpass:%s", id, newPassword);
+
+  // 앞에서 세션을 인증하고 넘어오기 때문에 멤버는 항상 있을수밖에 없다. 
+  Member.findOne({where:{id:id}}).then(function(member){
+
+    member.password = newPassword;
+    member.shouldResetPassword = false;
+    member.save().then(function(){
+    
+      res.json({result:'OK'});  
+
+    });
+
+  });
+
+};
 
 
 exports.create = function(req, res) {

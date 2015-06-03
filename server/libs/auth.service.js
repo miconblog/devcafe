@@ -4,6 +4,7 @@
  */
 
 'use strict';
+var debug = require('debug')('auth.service');
 
 var authService = {
 
@@ -14,10 +15,10 @@ var authService = {
     return function(req, res, next){
 
       if( !req.session.user ) {
-          /**
-           * session에  redirect url을 저장해둔다.
-           * */
-          req.session.redirect = req.originalUrl;
+        /**
+         * session에  redirect url을 저장해둔다.
+         * */
+        req.session.redirect = req.originalUrl;
         return res.redirect('/signin');
       }
 
@@ -32,7 +33,7 @@ var authService = {
     // 인증되지 않았다면 
     return function(req, res, next){
   
-      console.log("\n\nSESSION ID: ", req.session)
+      //console.log("\n\nSESSION ID: ", req.session)
       //delete req.session.test;
 
       // if( req.session.resetPassword && req.session.user ) {
@@ -41,7 +42,7 @@ var authService = {
       // }
 
       // 로그인 했으면
-      if( req.session.isAuthenticated || req.session.user) {
+      if( req.session.user) {
         res.locals.user = req.session.user;
       
       }

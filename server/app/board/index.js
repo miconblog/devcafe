@@ -15,6 +15,6 @@ router.delete('/:boardId/:postId', auth.isAuthenticated, boardCtrl.canAccess, po
 router.put(   '/:boardId/:postId', auth.isAuthenticated, boardCtrl.canAccess, postCtrl.canAccess, postCtrl.update);
 
 router.get(   '/:boardId', auth.isAuthenticated, boardCtrl.canAccess, postCtrl.list);
-router.get(   '/', auth.isAuthenticated, boardCtrl.index);
+router.get(   '/', auth.isAuthenticated(), boardCtrl.index);
 
 module.exports = router;
