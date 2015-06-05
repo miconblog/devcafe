@@ -63,8 +63,6 @@ exports.signup = function(req, res) {
 
     var companys = JSON.parse(JSON.stringify(companies)); 
 
-    console.log(companys);
-
     res.render('home', renderReact(Home, {
       title: '회원가입',
       path: 'signup',
