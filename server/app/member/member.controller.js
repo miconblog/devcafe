@@ -13,7 +13,7 @@ var UserList = React.createFactory(require('../../../flux/components/UserList.js
 var ResetPass = React.createFactory(require('../../../flux/components/ResetPass.jsx'));
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport();
-var debug = require('debug')('member.controller');
+var debug = require('debug')('server:controller:member');
 
 
 /**
@@ -119,14 +119,14 @@ exports.changePassword = function(req, res){
 
 
 exports.create = function(req, res) {
-
   var email = req.body.email;
-  var message = '등록된 이메일로 가입확인 메일을 보냈습니다.'
+  var username = req.body.name;
+  var companyId = req.body.companyId; 
+  var message = req.body.message;
+  var authcode = req.body.authcode;
 
-  // 이메일 검증. 실패시 바로 response 보내고 리턴
-  var isValid = (/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i).test(email);
-  if( !isValid ){
-    message = "이메일 주소가 잘못되었습니다. 올바른 메일 주소를 넣어주세요.";
+
+  if(message){
     res.render('home', renderReact(Home, {
       title: '회원가입',
       path: 'signup',
@@ -136,9 +136,19 @@ exports.create = function(req, res) {
     return;
   }
 
-  User.findOrCreate({
+
+  /**
+   * TODO:
+   * authServer.validateForm() 회원가입시 필요한 요청 파라메터가 제대로 들어왔는지 검증한다. 
+   * 검증 완료후에는 req.body.company 정보가 생성되고, company가 null 일 경우엔 무소속을 의미한다. 
+   * req.body 에 email 정보와 company 정보를 보고 회원가입을 진행한다. 
+   * 이메일에서 이름도 뽑아낸다.
+   */
+
+
+  Member.findOrCreate({
     where: {email: email}, 
-    defaults: {name: 'test', password:'1234'}
+    defaults: {name: username, password:'1234', companyId: companyId}
   })
   .spread(function(user, created){
 
@@ -161,7 +171,8 @@ exports.create = function(req, res) {
     res.render('home', renderReact(Home, {
       title: '회원가입',
       path: 'signup',
-      message: message
+      message: message,
+      companys: []
     }));
 
   });

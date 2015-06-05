@@ -42,7 +42,7 @@ module.exports = React.createClass({
             
             {Freelance}
             
-            <select onChange={this.handleSelectChange}>
+            <select name="company" onChange={this.handleSelectChange}>
               {companys.map(function(company){
                 return <option value={company.id} key={company.id}>{company.name}</option>
               })}

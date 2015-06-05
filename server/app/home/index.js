@@ -13,7 +13,7 @@ router.get('/signup', homeCtrl.signup);
 router.get('/signout', homeCtrl.signout);
 
 router.post('/signin', memberCtrl.authenticate);
-router.post('/signup', memberCtrl.create);
+router.post('/signup', auth.validateForm(), auth.createCode(), memberCtrl.create);
 
 router.get('/confirm', authcodeCtrl.confirm);
 router.get('/resetPassword', auth.isAuthenticated(), memberCtrl.resetPassword);

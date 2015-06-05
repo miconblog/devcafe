@@ -69,13 +69,12 @@ function createCompanies() {
   return  Q.all([
     Company.create({
       name: 'SK planet',
-      domain1: 'sk.com',
-      domain2: 'skplanet.com'
+      domain: 'skplanet.com'
     }),
 
     Company.create({
       name: 'NHN Entertainment',
-      domain1: 'nhnent.com'
+      domain: 'nhnent.com'
     })
 
   ])

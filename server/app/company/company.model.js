@@ -14,7 +14,7 @@ module.exports = sequelize.define('company', {
     unique: true,
     allowNull: false
   },
-  domain1: {
+  domain: {
     type: Sequelize.STRING,
     unique: true,
     allowNull: false

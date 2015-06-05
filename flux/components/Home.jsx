@@ -38,8 +38,6 @@ var Home = React.createClass({
   render() {
     var todos = this.state.todos;
 
-    console.log("HOME.jsx", this.props);
-
     return (
       <div>
         <h1>{this.props.title}</h1>
@@ -60,11 +58,11 @@ var Home = React.createClass({
     );
   },
 
-  handleTodoTextChange(e) {
+  handleTodoTextChange: function(e) {
     this.setState({newTodoText: e.target.value})
   },
 
-  onSubmitForm(e) {
+  onSubmitForm: function(e) {
     e.preventDefault();
 
     if( this.state.newTodoText.trim() ) {
