@@ -38,10 +38,12 @@ var Home = React.createClass({
   render() {
     var todos = this.state.todos;
 
+    console.log("HOME.jsx", this.props);
+
     return (
       <div>
         <h1> Home Component (props.title: {this.props.title})</h1>
-        <SignInOut path={this.props.path} message={this.props.message} email={this.props.email}/>
+        <SignInOut path={this.props.path} message={this.props.message} email={this.props.email} companys={this.props.companys}/>
         <div>
           <h3>클라이언트 렌더링 테스트를 위한 TODO App</h3>
           <ul>

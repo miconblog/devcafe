@@ -5,11 +5,12 @@
 
 'use strict';
 
-//var Home = require('./home.model');
-//console.log(__dirname)
+var Company = require('../company/company.model');
+
 var renderReact = require('../../libs/render-react');
-var React = require('react'),
-    Home = React.createFactory(require('../../../flux/components/Home.jsx'));
+var React = require('react');
+var Home = React.createFactory(require('../../../flux/components/Home.jsx'));
+var debug = require('debug')('home:controller');
 
 
 exports.index = function(req, res) {
@@ -54,9 +55,26 @@ exports.signup = function(req, res) {
     return res.redirect('/');
   }
 
-  res.render('home', renderReact(Home, {
-    title: '회원가입',
-    path: 'signup'
-  }));
+  /**
+   * #16 회원가입 페이지에 가입가능한 회사 목록이 필요하다
+   */
+
+  Company.all().then(function(companies){
+
+    var companys = JSON.parse(JSON.stringify(companies)); 
+
+    console.log(companys);
+
+    res.render('home', renderReact(Home, {
+      title: '회원가입',
+      path: 'signup',
+      companys: companys
+    }));
+
+  });
+
+
+
+  
 
 };

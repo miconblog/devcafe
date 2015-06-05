@@ -101,7 +101,7 @@ function createMembers() {
 
     Member.create({
       name: 'Kim HyunDong',
-      password: '11',
+      password: '1234',
       email: 'hyundong@gmail.com',
     }),
     
