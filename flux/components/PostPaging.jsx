@@ -4,51 +4,43 @@ module.exports = React.createClass({
  
   render() {
 
-    var page = this.props.page;
-    var total_count = this.props.total_count;
-    if( !total_count )
-      return;
-    var page_size = this.props.page_size;
+    if( !this.props.totalCount ) {
+      return (false);
+    }
 
+
+    var page = this.props.page;
+    var totalCount = this.props.totalCount;
+    var pageSize = this.props.pageSize;
     var url = "/boards/" + this.props.board.id;
 
-    // 11개, 10개일때 lastnum 은 2페이지
-    // 10개, 10개일때 lastnum 은 1페이지
-    var lastnum = parseInt(total_count / page_size);
-    if( ( total_count % page_size ) > 0 ){
-      lastnum++;
+    // 11개, 10개일때 lastNum 은 2페이지
+    // 10개, 10개일때 lastNum 은 1페이지
+    var lastNum = parseInt(totalCount / pageSize);
+    if( ( totalCount % pageSize ) > 0 ){
+      lastNum++;
     }
-    var startnum = 1;
+    var startNum = 1;
     if( page > 10 ){
-      startnum = ( page / 10 ) * 10;
+      startNum = ( page / 10 ) * 10;
     }
 
-    var endnum = startnum + 9;
+    var endNum = startNum + 9;
 
-    if( endnum > lastnum ){
-      endnum = lastnum;
+    if( endNum > lastNum ){
+      endNum = lastNum;
     }
 
     var pageNumbers = [];
-    for( var i = startnum; i <= endnum; i++ ){
-      pageNumbers.push(
-        React.createElement(
-          'a',
-          {
-            style :
-              {
-                display:'inline-block',
-                padding:'5px;'
-              },
-            href: url + '?p=' + i
-          },
-          i)
-      );
+    for( var i = startNum; i <= endNum; i++ ){
+      pageNumbers.push(i);
     }
 
     return(
       <div className="post-paging">
-        {pageNumbers}
+        {pageNumbers.map(function(num){
+          return <a href={url + '?p=' + num}>{num}</a>
+        })}
       </div>
     );
 

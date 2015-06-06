@@ -7,6 +7,8 @@ var Board = require('../server/app/board/board.model');
 var Post = require('../server/app/post/post.model');
 var Comment = require('../server/app/comment/comment.model');
 var Company = require('../server/app/company/company.model');
+var ReadUser = require('../server/app/post/read_user.model');
+var AuthCode = require('../server/app/authcode/authcode.model');
 
   // 회사는 여러 사원을 가지지만 회사가 망하면 멤버는 실직하다. 즉, 회사ID는 자동으로 NULL이 된다. 
   Company.hasMany(Member); 
@@ -26,36 +28,46 @@ var Company = require('../server/app/company/company.model');
   // 댓글은 작성자가 존재한다. 
   Comment.belongsTo(Member);
 
+  // ReadUser는 읽은 회원과 게시글을 갖고 있는 관계 테이블이다. 게시글이나 회원이 사라지면 관계 테이블 또한 사라진다.
+  ReadUser.belongsTo(Post);
+  ReadUser.belongsTo(Member);
+
 function dropAllTables(){
   var deferred = Q.defer();
 
-  Comment.drop().then(function(){
-    Post.drop().then(function(){
-      Board.drop().then(function(){
-        Member.drop().then(function(){
-          Company.drop().then(function(){
+  ReadUser.drop().then(function(){
+    Comment.drop().then(function(){
+      Post.drop().then(function(){
+        Board.drop().then(function(){
+          Member.drop().then(function(){
+            Company.drop().then(function(){
 
-            console.log("\n----------- drop all tables ------------ \n\n")
-            deferred.resolve();
-          })
-        })    
-      })  
+              console.log("\n----------- drop all tables ------------ \n\n")
+              deferred.resolve();
+            })
+          })    
+        })  
+      })
     })
   })
+  
   return deferred.promise;
 }
 
 function syncAllTables(){
   var deferred = Q.defer();
 
+  AuthCode.sync();
   Company.sync().then(function(){
     Member.sync().then(function(){
       Board.sync().then(function(){
         Post.sync().then(function(){
-          Comment.sync().then(function(){
+          ReadUser.sync().then(function(){
+            Comment.sync().then(function(){
 
-            console.log("\n----------- sync all tables ------------ \n\n")
-            deferred.resolve();
+              console.log("\n----------- sync all tables ------------ \n\n")
+              deferred.resolve();
+            })
           })
         })    
       })  

@@ -48,7 +48,7 @@ exports.list = function(req, res){
   var board = req.session.board.get({plain:true});
   delete req.session.board;
 
-  var page = req.query.p ? req.query.p : 1;
+  var page = req.query.p || 1;
   var pageSize = 10;
 
   Post.findAndCountAll({
@@ -62,8 +62,8 @@ exports.list = function(req, res){
       board: board,
       type: 'list',
       page: page,
-      page_size: pageSize,
-      total_count: results.count,
+      pageSize: pageSize,
+      totalCount: results.count,
       posts: JSON.parse(JSON.stringify(results.rows))
     }));
 

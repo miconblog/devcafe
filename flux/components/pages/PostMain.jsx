@@ -37,7 +37,7 @@ module.exports = React.createClass({
             <button onClick={this.handleNewPost}>글쓰기</button>
           </div>
           <PostList board={this.props.board} posts={this.props.posts} />
-          <PostPaging board={this.props.board} page={this.props.page} total_count={this.props.total_count} page_size={this.props.page_size} />
+          <PostPaging board={this.props.board} page={this.props.page} totalCount={this.props.totalCount} pageSize={this.props.pageSize} />
         </div>
       );
 
