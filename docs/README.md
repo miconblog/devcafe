@@ -12,7 +12,7 @@
     
     .. 소스코드를 체크아웃(혹은 클론) 받고 프로젝트 폴더로 이동한다..
 
-    $> mysql -uroot < datebase-init.sql // MySQL 서버에 사용할 dev 유저와 devcafe 데이터 베이스를 생성한다.
+    $> mysql -uroot < database-init.sql // MySQL 서버에 사용할 dev 유저와 devcafe 데이터 베이스를 생성한다.
     $> npm install        // 노드 팩키지 설치
     $> gulp seeds         // 샘플 데이터 생성한다. 
     $> gulp               
