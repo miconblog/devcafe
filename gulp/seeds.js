@@ -85,10 +85,12 @@ function createMembers() {
   return Q.all([
 
     Member.create({
-      name: 'Sohn ByungDae',
-      email: 'miconblog@gmail.com',
-      password: '1234',
-      companyId: 1
+      name: '관리자',
+      email: 'admin@admin',
+      password: 'admin',
+      role: 'admin',
+      shouldResetPassword: 0,
+      emailVerified: 1
     }),
     
     Member.create({

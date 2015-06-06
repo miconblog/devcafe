@@ -26,6 +26,11 @@ var Member = sequelize.define('member', {
     type: Sequelize.TEXT
   },
 
+  role: {
+    type: Sequelize.STRING,
+    defaultValue: 'user'
+  },
+
   email: {
     type: Sequelize.STRING,
     unique: true,

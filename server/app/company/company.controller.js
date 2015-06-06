@@ -9,7 +9,7 @@
 //console.log(__dirname)
 var renderReact = require('../../libs/render-react');
 var React = require('react'),
-    Home = React.createFactory(require('../../../flux/components/Home.jsx'));
+    Home = React.createFactory(require('../../../flux/components/pages/Home.jsx'));
 
 
 exports.index = function(req, res) {

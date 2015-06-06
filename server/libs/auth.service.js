@@ -61,6 +61,21 @@ var authService = {
     }
   },
 
+  hasRole : function(type){
+
+    return function(req, res, next){
+
+      if( req.session.user.role === 'admin' ) {
+        next();  
+      } else {
+        var err = new Error('넌 관리자가 아니란다!');
+        err.status = 401;
+        next(err);   
+      }
+      
+    }
+  },
+
   /**
    * 회원가입시 폼정보가 제대로 들어왔는지 검사한다. 
    *  - 컴퍼니 아이디에서 컴퍼너 정보를 뽑아서 req 객체에 추가해놓는다. 

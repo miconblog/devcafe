@@ -10,7 +10,7 @@ var Company = require('../company/company.model');
 var renderReact = require('../../libs/render-react');
 var React = require('react'),
     BoardList = React.createFactory(require('../../../flux/components/BoardList.jsx')),
-    PostMain = React.createFactory(require('../../../flux/components/PostMain.jsx'));
+    PostMain = React.createFactory(require('../../../flux/components/pages/PostMain.jsx'));
 
 
 /**

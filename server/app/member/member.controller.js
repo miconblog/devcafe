@@ -8,30 +8,12 @@
 var Member = require('./member.model');
 var renderReact = require('../../libs/render-react');
 var React = require('react');
-var Home = React.createFactory(require('../../../flux/components/Home.jsx'));
-var UserList = React.createFactory(require('../../../flux/components/UserList.jsx'));
-var ResetPass = React.createFactory(require('../../../flux/components/ResetPass.jsx'));
+var Home = React.createFactory(require('../../../flux/components/pages/Home.jsx'));
+var ResetPass = React.createFactory(require('../../../flux/components/pages/ResetPass.jsx'));
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport();
 var debug = require('debug')('server:controller:member');
 
-
-/**
- * Get list of users
- * restriction: 'admin'
- */
-exports.index = function(req, res) {
-
-  Member.findAll().then(function (users) {
-   
-    res.render('user', renderReact(UserList, {
-      title: 'Express User',
-      path : 'users',
-      users: users
-    }));
-
-  });
-};
 
 exports.resetPassword = function(req, res) {
 

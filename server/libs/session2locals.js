@@ -15,6 +15,10 @@ module.exports = function(req, res, next){
   // 로그인 했으면
   if( req.session.user) {
     res.locals.user = req.session.user;
+
+    if( req.session.user.role === 'admin') {
+      res.locals.isAdmin = true;
+    }
   
   }
   next();

@@ -1,8 +1,8 @@
 var React = require('react');
-var PostCreateForm = require('./PostCreateForm.jsx');
-var PostEditForm = require('./PostEditForm.jsx');
-var PostList = require('./PostList.jsx');
-var PostDetail = require('./PostDetail.jsx');
+var PostCreateForm = require('../PostCreateForm.jsx');
+var PostEditForm = require('../PostEditForm.jsx');
+var PostList = require('../PostList.jsx');
+var PostDetail = require('../PostDetail.jsx');
 
 module.exports = React.createClass({
 

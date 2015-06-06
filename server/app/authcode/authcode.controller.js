@@ -8,9 +8,8 @@
 var Member = require('../member/member.model');
 var AuthCode = require('../authcode/authcode.model');
 var renderReact = require('../../libs/render-react');
-var React = require('react'),
-    Home = React.createFactory(require('../../../flux/components/Home.jsx')),
-    UserList = React.createFactory(require('../../../flux/components/UserList.jsx'));
+var React = require('react');
+var Home = React.createFactory(require('../../../flux/components/pages/Home.jsx'));
 
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport();

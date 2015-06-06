@@ -6,21 +6,56 @@
 'use strict';
 
 var Company = require('../company/company.model');
-
+var Board = require('../board/board.model');
 var renderReact = require('../../libs/render-react');
 var React = require('react');
-var Home = React.createFactory(require('../../../flux/components/Home.jsx'));
-var debug = require('debug')('home:controller');
+var Home = React.createFactory(require('../../../flux/components/pages/Home.jsx'));
+var debug = require('debug')('server:controller:home');
 
 
 exports.index = function(req, res) {
 
   console.log("locals", res.locals);
 
-  res.render('home', renderReact(Home, {
-    title: 'Express Home',
-    path: 'home'
-  }));
+  if(!req.session.user){
+    res.render('home', renderReact(Home, {
+      path: 'home',
+      boards: false,
+      showTodoList: true
+    }));
+    return;
+  }
+
+  var member = req.session.user;
+  var companyId = member.companyId;
+
+  Board.findAll({
+    where: {  
+      $or: [
+        {
+          type: {
+            $eq: 'N'
+          }
+        },
+        {
+          companyId: {
+            $eq: companyId 
+          }
+        }       
+      ]
+    }
+
+  }).then(function(boards){
+
+    res.render('home', renderReact(Home, {
+      path: 'home',
+      boards: boards,
+      showTodoList: true
+    }));
+
+  });
+
+  
 
 };
 

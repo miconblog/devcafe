@@ -1,6 +1,7 @@
 var Fluxxor = require('fluxxor');
 var actions = require('../actionCreator.js');
-var TodoStore = Fluxxor.createStore({
+
+module.exports = Fluxxor.createStore({
 
   initialize : function(){
 
@@ -59,4 +60,3 @@ var TodoStore = Fluxxor.createStore({
     return ++this.todoId;
   }
 });
-module.exports = TodoStore;

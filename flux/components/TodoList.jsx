@@ -1,12 +1,8 @@
 var React = require('react');
+var moment = require('moment');
 var Fluxxor = require('fluxxor');
 
-// 하위 컴포넌트
-var SignInOut = require('./SignInOut.jsx');
-var BoardList = require('./BoardList.jsx');
-
-
-var Home = React.createClass({
+module.exports = React.createClass({
   mixins: [
     Fluxxor.FluxMixin(React),
     Fluxxor.StoreWatchMixin('TodoStore')
@@ -35,30 +31,36 @@ var Home = React.createClass({
       newTodoText: this.props.title
     }
   },
-
+ 
   render() {
+
+    if( !this.props.isShow ) {
+      return (false);
+    }
+
     var todos = this.state.todos;
 
     return (
       <div>
-        <h1> Admin Home </h1>
-        <SignInOut path={this.props.path} message={this.props.message} email={this.props.email}/>
-        <div>
-          <BoardList boards={this.props.boards} />
-          <form onSubmit={this.onSubmitForm}>
-            <input type="text" size="30" placeholder="New Todo" value={this.state.newTodoText} onChange={this.handleTodoTextChange} />
-            <input type="submit" value="추가" />
-          </form>
-        </div>
+        <h3>클라이언트 렌더링 테스트를 위한 TODO App</h3>
+        <ul>
+          {Object.keys(todos).map(function(id){
+            return <li key={id}> <span>{todos[id].text}</span> </li>
+          })}
+        </ul>
+        <form onSubmit={this.onSubmitForm}>
+          <input type="text" size="30" placeholder="New Todo" value={this.state.newTodoText} onChange={this.handleTodoTextChange} />
+          <input type="submit" value="추가" />
+        </form>
       </div>
     );
   },
 
-  handleTodoTextChange(e) {
+  handleTodoTextChange: function(e) {
     this.setState({newTodoText: e.target.value})
   },
 
-  onSubmitForm(e) {
+  onSubmitForm: function(e) {
     e.preventDefault();
 
     if( this.state.newTodoText.trim() ) {
@@ -67,5 +69,3 @@ var Home = React.createClass({
   }
 
 });
-
-module.exports = Home;
