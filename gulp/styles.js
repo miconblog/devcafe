@@ -2,8 +2,8 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 //var connect = require('gulp-connect');
 var config = {
-  src: 'client/css/**/*.{sass,scss,css}',
-  dest: 'client/css',
+  src: 'public/css/**/*.{sass,scss,css}',
+  dest: 'public/css',
   settings: {
     indentedSyntax: false, // Enable .sass syntax?
     imagePath: '/images' // Used by the image-url helper

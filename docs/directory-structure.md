@@ -1,8 +1,7 @@
 ## 프로젝트 폴더 구조
-현재 다른 프로젝트들의 Practice들을 참고 하고 있어요. 정리해서 최종 확정하겠습니다. 
 
 ```` 
-    client/                  사용자에게 노출되는 클라이언트 소스
+    public/                  사용자에게 노출되는 클라이언트 소스
       |-- css/
       |-- js/
       |-- images/
@@ -10,6 +9,8 @@
 
     flux/ 
       |-- components/        React Views 확장자는 jsx, View는 여러개 일수 있으므로 폴더로 묶었음.
+      |   |-- pages/         각 서버 페이지에서 최상위 루트 컴포넌트만 모아놓은 폴더
+      |   |..
       |-- stores/            React Stores, 스토어도 여러개가 될수 있으므로 폴더로 묶었음.
       |-- actionCreator.js   React Action Helper, 액션 헬퍼는 디스패처와 마찬가지로 싱글톤
       |-- base.jsx           Browerify Bundle 압축을 위한 설정 파일
@@ -31,9 +32,10 @@
       |-- server.js
       |-- routes.js
 
-    docs/                   정리된 문서는 모두 여기로 놓을 예정
+    docs/                  정리된 문서는 모두 여기로 놓을 예정
       |-- README.md        정리된 문서의 모든 인덱스를 모아놓고 프로젝트 가이드를 만들 예정   
 
+    gulp/                  빌드관련 설정
     gulpfile.js
     package.json
 ````

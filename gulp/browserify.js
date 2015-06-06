@@ -9,7 +9,7 @@ var config = {
     transform: ['reactify', 'babelify']
   },
   src: ['./flux/base.jsx'],
-  dest: './client/js',
+  dest: './public/js',
   outputName: 'bundle.js'
 };
 

@@ -42,7 +42,7 @@ require('./libs/database-relation.js')()
     saveUninitialized: false,
     resave: false
   }));
-  app.use(express.static( path.resolve(__dirname, '../client') ));
+  app.use(express.static( path.resolve(__dirname, '../public') ));
   app.use(require('./libs/session2locals'));
   app.use(require('./libs/xss-filter'));
 

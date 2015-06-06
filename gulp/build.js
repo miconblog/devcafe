@@ -8,8 +8,8 @@ var watchFiles = [
   './server/views/**/*.hbs',
   './flux/components/*.jsx',
   './flux/**/*.js',
-  './client/css/*.css',
-  './client/js/*.js'
+  './public/css/*.css',
+  './public/js/*.js'
 ];
 
 gulp.task('build', ['browserify', 'styles' /** 'html' */], function() {
