@@ -1,17 +1,15 @@
 var gulp = require('gulp');
-var sass = require('gulp-sass');
-//var connect = require('gulp-connect');
-var config = {
-  src: 'public/css/**/*.{sass,scss,css}',
-  dest: 'public/css',
-  settings: {
-    indentedSyntax: false, // Enable .sass syntax?
-    imagePath: '/images' // Used by the image-url helper
-  }
-};
+var less = require('gulp-less');
+var path = require('path');
+var LessPluginCleanCSS = require('less-plugin-clean-css'),
+    LessPluginAutoPrefix = require('less-plugin-autoprefix'),
+    cleancss = new LessPluginCleanCSS({ advanced: true }),
+    autoprefix= new LessPluginAutoPrefix({ browsers: ["last 2 versions"] });
 
-gulp.task('styles', function() {
-  gulp.src(config.src)
-    .pipe(sass(config.settings))
-    .pipe(gulp.dest(config.dest))
+gulp.task('styles', function () {
+  return gulp.src('public/less/**/*.less')
+    .pipe(less({
+      plugins: [autoprefix, cleancss]
+    }))
+    .pipe(gulp.dest('public/css'));
 });
