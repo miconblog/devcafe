@@ -3,6 +3,7 @@ var PostCreateForm = require('../PostCreateForm.jsx');
 var PostEditForm = require('../PostEditForm.jsx');
 var PostList = require('../PostList.jsx');
 var PostDetail = require('../PostDetail.jsx');
+var PostPaging = require('../PostPaging.jsx');
 
 module.exports = React.createClass({
 
@@ -36,6 +37,7 @@ module.exports = React.createClass({
             <button onClick={this.handleNewPost}>글쓰기</button>
           </div>
           <PostList board={this.props.board} posts={this.props.posts} />
+          <PostPaging board={this.props.board} page={this.props.page} total_count={this.props.total_count} page_size={this.props.page_size} />
         </div>
       );
 

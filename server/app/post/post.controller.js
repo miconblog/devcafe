@@ -48,16 +48,26 @@ exports.list = function(req, res){
   var board = req.session.board.get({plain:true});
   delete req.session.board;
 
-  Post.findAll({ where: { boardId: req.params.boardId }})
-  .then(function(posts){
+  var page = req.query.p ? req.query.p : 1;
+  var pageSize = 10;
+
+  Post.findAndCountAll({
+    where : { boardId: req.params.boardId },
+    limit : pageSize,
+    offset : ( page - 1 ) * pageSize,
+    order: '`createdAt` DESC'
+  }).then(function(results){
 
     res.render('post', renderReact(PostMain, {
       board: board,
       type: 'list',
-      posts: JSON.parse(JSON.stringify(posts))
+      page: page,
+      page_size: pageSize,
+      total_count: results.count,
+      posts: JSON.parse(JSON.stringify(results.rows))
     }));
 
-  })
+  });
 
 };
 
