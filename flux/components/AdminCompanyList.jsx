@@ -1,4 +1,5 @@
 var React = require('react');
+var moment = require('moment');
 
 module.exports = React.createClass({
 
@@ -27,9 +28,8 @@ module.exports = React.createClass({
                 <td>{company.name}</td>
                 <td>{company.domain}</td>
                 <td>{company.memberCount}</td>
-                <td>{company.createAt}</td>
-                <td>{company.updateAt}</td>
-
+                <td>{moment(company.createAt).format("LLL")}</td>
+                <td>{moment(company.updateAt).format("LLL")}</td>
               </tr>
             })}
             

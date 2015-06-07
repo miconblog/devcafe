@@ -24,7 +24,7 @@ gulp.task( 'server:start', function() {
 gulp.task( 'server:restart', function() {
     server.restart( function( error ) {
         if( ! error ) { 
-            bs.reload()
+            setTimeout(bs.reload, 200);
         }
     });
 });

@@ -12,7 +12,7 @@ module.exports = React.createClass({
 
     if( this.props.boards ) {
       return (
-        <div>
+        <div className="block">
           <h4>게시판 목록</h4>
 
           {this.props.boards.map(function(board, i){

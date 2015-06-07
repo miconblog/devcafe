@@ -1,4 +1,5 @@
 var React = require('react');
+var moment = require('moment');
 
 module.exports = React.createClass({
 
@@ -32,9 +33,8 @@ module.exports = React.createClass({
                 <td>{member.role}</td>
                 <td>{member.emailVerified? 'Y' : 'N'}</td>
                 <td>{member.shouldResetPassword ? 'Y' : 'N'}</td>
-                <td>{member.createAt}</td>
-                <td>{member.updateAt}</td>
-
+                <td>{moment(member.createAt).format("LLL")}</td>
+                <td>{moment(member.updateAt).format("LLL")}</td>
               </tr>
             })}
             

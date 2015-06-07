@@ -1,4 +1,5 @@
 var React = require('react');
+var moment = require('moment');
 
 module.exports = React.createClass({
   getInitialState() {
@@ -36,10 +37,10 @@ module.exports = React.createClass({
                 <td><a href={url}>{board.name}</a></td>
                 <td>{board.id}</td>
                 <td>{board.type}</td>
-                <td>{board.openAt}</td>
-                <td>{board.closeAt}</td>
-                <td>{board.createAt}</td>
-                <td>{board.updateAt}</td>
+                <td>{board.openAt ? moment(board.openAt).format("LLL"): '-' }</td>
+                <td>{board.closeAt ? moment(board.closeAt).format("LLL"): '-' }</td>
+                <td>{moment(board.createAt).format("LLL")}</td>
+                <td>{moment(board.updateAt).format("LLL")}</td>
 
               </tr>
             })}
