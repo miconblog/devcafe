@@ -19,8 +19,6 @@ gulp.task( 'dbcheck', function(done) {
       process.exit(1);
       return;
     }
-
-    gutil.log('=========> MySQL Server is OK');
     connection.end();
     done();
   });

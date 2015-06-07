@@ -7,7 +7,34 @@ var Comment = require('../app/comment/comment.model');
 var Company = require('../app/company/company.model');
 var AuthCode = require('../app/authcode/authcode.model');
 
+var Q = require('q');
+Q.longStackSupport = true;
+
+
+function syncAllTables(){
+  var deferred = Q.defer();
+
+  AuthCode.sync();
+  Company.sync().then(function(){
+    Member.sync().then(function(){
+      Board.sync().then(function(){
+        Post.sync().then(function(){
+          ReadUser.sync().then(function(){
+            Comment.sync().then(function(){
+
+              console.log("\n----------- sync all tables ------------ \n\n")
+              deferred.resolve();
+            })
+          })
+        })
+      })
+    })
+  })
+  return deferred.promise;
+}
+
 module.exports = function(){
+  var deferred = Q.defer();
 
   // 회사는 여러 사원을 가지지만 회사가 망하면 멤버는 실직하다. 즉, 회사ID는 자동으로 NULL이 된다.
   Company.hasMany(Member);
@@ -31,6 +58,12 @@ module.exports = function(){
   ReadUser.belongsTo(Post);
   ReadUser.belongsTo(Member);
 
+
+  syncAllTables().then(function(){
+    deferred.resolve();
+  })
+
+  return deferred.promise;
 };
 
 

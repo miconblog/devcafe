@@ -5,7 +5,8 @@ var gulp   = require( 'gulp' ),
 var options = {
     server: {
         path: './server/bin/www',
-        execArgv: [ '--harmony' ]
+        execArgv: [ '--harmony' ],
+        delay: 1800
     },
     bs: {
         proxy: 'http://localhost:3000'
@@ -22,9 +23,8 @@ gulp.task( 'server:start', function() {
 // If server scripts change, restart the server and then browser-reload.
 gulp.task( 'server:restart', function() {
     server.restart( function( error ) {
-        if( ! error ) {
-            console.log("Brower reload..\n\n")
-            setTimeout(bs.reload, 1000);
+        if( ! error ) { 
+            bs.reload()
         }
     });
 });

@@ -19,10 +19,7 @@ module.exports = sequelize.define('company', {
     unique: true,
     allowNull: false
   },
-  domain2: {
-    type: Sequelize.STRING,
-    unique: true
-  },
+  
   memberCount: {
     type: Sequelize.DECIMAL,
     allowNull: false,

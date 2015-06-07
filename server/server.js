@@ -1,4 +1,5 @@
 'use strict';
+require('./libs/database-relation')();
 
 var express = require('express');
 var path = require('path');
@@ -15,76 +16,66 @@ var app = express();
 var JSX = require('node-jsx').install({extension: '.jsx', harmony: true});
 
 
-require('./libs/database-relation.js')()
-.then(function(){
-
-  console.log("\n\nInitialized Test DataBase\n\n");
-
-  // view engine setup
-  app.set('views', path.join(__dirname, 'views'));
-  app.engine('hbs', exphbs({
-    extname: '.hbs',
-    layoutsDir: './server/views/layouts',
-    defaultLayout: 'main'
-  }));
-  app.set('view engine', 'hbs');
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.engine('hbs', exphbs({
+  extname: '.hbs',
+  layoutsDir: './server/views/layouts',
+  defaultLayout: 'main'
+}));
+app.set('view engine', 'hbs');
 
 
-  // uncomment after placing your favicon in /public
-  //app.use(favicon(__dirname + '/public/favicon.ico'));
-  app.use(logger('dev'));
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(cookieParser());
-  app.use(session({ 
-    secret: 'devcafe', 
-    store : new RedisStore({ ttl: 30 * 60 * 60}), // HACK: 테스트를 위해 세션을 30분에서 30시간으로 늘렸다. Redis 스토어가 너무 금방 차면 세션을 시간을 다시 줄여야한다. 
-    saveUninitialized: false,
-    resave: false
-  }));
-  app.use(express.static( path.resolve(__dirname, '../public') ));
-  app.use(require('./libs/session2locals'));
-  app.use(require('./libs/xss-filter'));
+// uncomment after placing your favicon in /public
+//app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(session({ 
+  secret: 'devcafe', 
+  store : new RedisStore({ ttl: 30 * 60 * 60}), // HACK: 테스트를 위해 세션을 30분에서 30시간으로 늘렸다. Redis 스토어가 너무 금방 차면 세션을 시간을 다시 줄여야한다. 
+  saveUninitialized: false,
+  resave: false
+}));
+app.use(express.static( path.resolve(__dirname, '../public') ));
+app.use(require('./libs/session2locals'));
+app.use(require('./libs/xss-filter'));
 
-  // 라우터 처리
-  require('./routes')(app);
+// 라우터 처리
+require('./routes')(app);
 
-  // catch 404 and forward to error handler
-  app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-  });
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
 
-  // error handlers
-  // development error handler
-  // will print stacktrace
-  if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-      res.status(err.status || 500);
-      res.render('error', {
-        message: err.message,
-        status: err.status,
-        error: err,
-        layout: 'error'
-      });
-    });
-  }
-
-  // production error handler
-  // no stacktraces leaked to user
+// error handlers
+// development error handler
+// will print stacktrace
+if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,
-      error: {},
+      status: err.status,
+      error: err,
       layout: 'error'
     });
   });
+}
 
-})
-.catch(function(err){
-  console.log(err.message, err.stack);
-})
+// production error handler
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.render('error', {
+    message: err.message,
+    error: {},
+    layout: 'error'
+  });
+});
 
 module.exports = app;
