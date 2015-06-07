@@ -1,3 +1,26 @@
+.post-list {
+  border: 1px solid #ccc;
+
+  .list-item {
+
+    border-top: 1px solid #ccc;
+    padding: 5px;
+
+    &:hover {
+      background-color: #bcd;
+      cursor: pointer;
+    }
+    &.first {
+      border-top: none;
+    }
+
+    .read-count {
+      position: absolute;
+      right: 10px;
+    } 
+  }  
+}
+
 .post-paging a {
   padding: 5px;
 }

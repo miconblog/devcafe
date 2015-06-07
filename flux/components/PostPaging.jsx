@@ -39,7 +39,7 @@ module.exports = React.createClass({
     return(
       <div className="post-paging">
         {pageNumbers.map(function(num){
-          return <a href={url + '?p=' + num}>{num}</a>
+          return <a key={num} href={url + '?p=' + num}>{num}</a>
         })}
       </div>
     );
