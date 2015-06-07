@@ -1,19 +1,20 @@
 var gulp = require('gulp');
-var watchFiles = [
+var serverFiles = [
   './server/bin/www',
   './server/server.js',
   './server/routes.js',
   './server/app/**/*.js',
   './server/libs/*.js',
-  './server/views/**/*.hbs',
-  './flux/components/*.jsx',
-  './flux/**/*.js',
-  './public/css/*.css',
-  './public/js/*.js'
+  './server/views/**/*.hbs'
 ];
 
-gulp.task('build', ['browserify', 'styles' /** 'html' */], function() {
+var lessFiles = [ './public/less/**/*.less' ];
+var fluxFiles = [ './flux/**/*.{js,jsx}' ];
 
-  gulp.watch( watchFiles, [ 'server:restart' ] )
+gulp.task('build', ['browserify', 'styles'], function() {
+
+  gulp.watch( serverFiles, [ 'server:restart' ] );
+  gulp.watch( fluxFiles, [ 'browserify','server:restart' ] );
+  gulp.watch( lessFiles, [ 'styles', 'browser:reload' ] );
 
 });

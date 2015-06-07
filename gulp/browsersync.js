@@ -22,6 +22,13 @@ gulp.task( 'server:start', function() {
 // If server scripts change, restart the server and then browser-reload.
 gulp.task( 'server:restart', function() {
     server.restart( function( error ) {
-        if( ! error ) bs.reload();
+        if( ! error ) {
+            console.log("Brower reload..\n\n")
+            setTimeout(bs.reload, 1000);
+        }
     });
+});
+
+gulp.task( 'browser:reload', function() {
+    bs.reload();
 });

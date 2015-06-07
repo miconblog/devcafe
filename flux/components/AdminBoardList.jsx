@@ -11,7 +11,7 @@ module.exports = React.createClass({
   render() {
 
     return (
-      <div>
+      <div className="block">
 
         <table>
           <caption>게시판 목록</caption>

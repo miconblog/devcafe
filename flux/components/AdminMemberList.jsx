@@ -5,7 +5,7 @@ module.exports = React.createClass({
   render() {
 
     return (
-      <div>
+      <div className="block">
 
         <table>
           <caption>회원 목록</caption>
