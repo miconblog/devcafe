@@ -73,9 +73,9 @@ exports.list = function(req, res){
 
 exports.show = function(req, res){
 
-  var user    = req.session.user;
+  var user      = req.session.user;
   var board     = req.session.board.get({plain:true});
-  var post      = req.session.post.get({plain:true});
+  var post      = req.session.post;
   post.isOwner  = req.session.post.isOwner;
 
   delete req.session.post;
@@ -86,23 +86,27 @@ exports.show = function(req, res){
       memberId:user.id,
       postId:post.id
     },
-    defaults: {memberId:user.id, postId:post.id, lastCountReadAt:moment()}
+    defaults: {memberId:user.id, postId:post.id, lastUpdateAt:moment()}
   })
   .spread(function(readUser, created){
 
-    // 마지막 Count 하며 읽은 날짜에서 하루 이상 지났을 때만 조회수 + 1 & lastCountReadAt 을 현재로 바꿔준다.
-    if( created || moment().diff(moment(readUser.lastCountReadAt), 'days') > 0 ){
+    // 마지막 Count 하며 읽은 날짜에서 하루 이상 지났을 때만 조회수 + 1 & lastUpdateAt 을 현재로 바꿔준다.
+    if( created || 0 < moment().diff(moment(readUser.lastUpdateAt), 'days')  ){
 
       // increment 를 사용하는 것이 직관적으로 보이나 updatedAt 이 갱신되는 것을 피해갈 방법이 없다.
       // Post.build(post).increment('readCount', {silent:true});
-      Post.build(post, {isNewRecord:false}).update({readCount:post.readCount+1}, {silent:true});
-      readUser.update({lastCountReadAt:moment()}, {silent:true});
+      post.readCount = post.get('readCount') + 1;
+      post.save({silent:true});
+      readUser.update({lastUpdateAt:moment()}, {silent:true});
+
     }
+
     res.render('post', renderReact(PostMain, {
-        board: board,
-        type: 'detail',
-        post: post
-    }));
+      board: board,
+      type: 'detail',
+      post: post
+    }));  
+
   });
 };
 

@@ -8,7 +8,7 @@ var Sequelize = require('sequelize');
 var sequelize = require('../../libs/sequelize-instance');
 
 module.exports = sequelize.define('read_user', {
-  lastCountReadAt: {
+  lastUpdateAt: {
     type: Sequelize.DATE
   }
 }, {
@@ -28,5 +28,6 @@ module.exports = sequelize.define('read_user', {
 
   },
 
+  timestamps: false,
   freezeTableName: true // Model tableName will be the same as the model name
 });
