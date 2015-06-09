@@ -108,14 +108,14 @@ function createMembers() {
     Member.create({
       name: 'Lim SungMook',
       password: '1234',
-      email: 'sungmook@gmail.com',
+      email: 'ipes4579@gmail.com',
       companyId: 1
     }),
 
     Member.create({
       name: 'Kim HyunDong',
       password: '1234',
-      email: 'hyundong@gmail.com',
+      email: 'hyundong@gmail.com'
     }),
     
     Member.create({
@@ -165,6 +165,19 @@ function createBoards(){
 
 function createPosts(){
 
+  var dummyPosts = [];
+  for( var i = 0; i < 150; i++ ){
+    dummyPosts.push(
+      Post.create({
+        title: i + '번째 테스트입니다. ',
+        content: "테스트 테스트",
+        username: "테스트봇",
+        boardId: "skp",
+        memberId: 2
+      })
+    );
+  }
+
   return Q.all([
 
     Post.create({
@@ -175,7 +188,7 @@ function createPosts(){
       memberId: 1
     })
 
-  ])
+  , dummyPosts])
 }
 
 function createComments() {
