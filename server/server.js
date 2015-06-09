@@ -20,8 +20,7 @@ var JSX = require('node-jsx').install({extension: '.jsx', harmony: true});
 app.set('views', path.join(__dirname, 'views'));
 app.engine('hbs', exphbs({
   extname: '.hbs',
-  layoutsDir: './server/views/layouts',
-  defaultLayout: 'main'
+  partialsDir: ['./server/views/partials']
 }));
 app.set('view engine', 'hbs');
 
@@ -61,8 +60,7 @@ if (app.get('env') === 'development') {
     res.render('error', {
       message: err.message,
       status: err.status,
-      error: err,
-      layout: 'error'
+      error: err
     });
   });
 }
@@ -73,8 +71,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
     message: err.message,
-    error: {},
-    layout: 'error'
+    error: {}
   });
 });
 

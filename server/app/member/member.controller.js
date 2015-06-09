@@ -6,24 +6,24 @@
 'use strict';
 
 var Member = require('./member.model');
-var renderReact = require('../../libs/render-react');
-var React = require('react');
-var Home = React.createFactory(require('../../../flux/components/pages/Home.jsx'));
-var ResetPass = React.createFactory(require('../../../flux/components/pages/ResetPass.jsx'));
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport();
 var debug = require('debug')('server:controller:member');
 
 
-exports.resetPassword = function(req, res) {
+exports.resetPassword = function(req, res, next) {
 
-  res.render('resetPassword', renderReact(ResetPass, {
-    member : req.session.user
-  }));
+  req.react = {
+    component : 'ResetPass',
+    props: {
+      member : req.session.user
+    }
+  }
+  next();
 
 };
 
-exports.authenticate = function(req, res) {
+exports.authenticate = function(req, res, next) {
 
   var email = req.body.email;
   var password = req.body.password;
@@ -64,12 +64,16 @@ exports.authenticate = function(req, res) {
 
     } else { 
 
-      res.render('home', renderReact(Home, {
-        title: 'Express authenticate Fail!',
-        path : 'signin',
-        auth : false,
-        message: '패스워드가 일치하지 않습니다.'
-      }));
+      req.react = {
+        component : 'Home',
+        props: {
+          title: 'Express authenticate Fail!',
+          path : 'signin',
+          auth : false,
+          message: '패스워드가 일치하지 않습니다.'
+        }
+      }
+      next();
     }
 
   });
@@ -100,7 +104,7 @@ exports.changePassword = function(req, res){
 };
 
 
-exports.create = function(req, res) {
+exports.create = function(req, res, next) {
   var email = req.body.email;
   var username = req.body.name;
   var companyId = req.body.companyId; 
@@ -109,12 +113,17 @@ exports.create = function(req, res) {
 
 
   if(message){
-    res.render('home', renderReact(Home, {
-      title: '회원가입',
-      path: 'signup',
-      message: message,
-      email:email
-    }));
+
+    req.react = {
+      component : 'Home',
+      props: {
+        title: '회원가입',
+        path: 'signup',
+        message: message,
+        email:email
+      }
+    }
+    next();
     return;
   }
 
@@ -150,12 +159,16 @@ exports.create = function(req, res) {
 
     }
 
-    res.render('home', renderReact(Home, {
-      title: '회원가입',
-      path: 'signup',
-      message: message,
-      companys: []
-    }));
+    req.react = {
+      component : 'Home',
+      props: {
+        title: '회원가입',
+        path: 'signup',
+        message: message,
+        companys: []
+      }
+    }
+    next();
 
   });
 

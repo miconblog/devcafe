@@ -3,6 +3,12 @@
 var _ = require('lodash');
 var React = require('react');
 var Fluxxor = require('fluxxor');
+var RootComs = {
+  'Admin'     : React.createFactory(require('../../flux/components/pages/Admin.jsx')),
+  'Home'      : React.createFactory(require('../../flux/components/pages/Home.jsx')),
+  'PostMain'  : React.createFactory(require('../../flux/components/pages/PostMain.jsx')),
+  'ResetPass' : React.createFactory(require('../../flux/components/pages/ResetPass.jsx'))
+};
 var actions = require('../../flux/actionCreator').methods;
 var TodoStore = require('../../flux/stores/TodoStore');
 
@@ -18,14 +24,15 @@ function safeStringify(obj) {
   return JSON.stringify(obj).replace(/<\/script/g, '<\\/script').replace(/<!--/g, '<\\!--')
 }
 
-module.exports = function(Compoment, props){
+module.exports = function(req, res){
 
-  var propsWithFlux = _.extend({flux: fluxxor}, props);
-  var markup = React.renderToString(Compoment(propsWithFlux));
+  var component = RootComs[req.react.component];
+  var propsWithFlux = _.extend({flux: fluxxor}, req.react.props);
+  var markup = React.renderToString(component(propsWithFlux));
 
-  return {
+  res.render('home', {
     markup: markup,
-    props : safeStringify(props)
-  };
-
-}
+    component: req.react.component,
+    props : safeStringify(req.react.props)
+  });
+};

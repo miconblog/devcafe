@@ -7,11 +7,6 @@
 var Board = require('./board.model');
 var Post = require('../post/post.model');
 var Company = require('../company/company.model');
-var renderReact = require('../../libs/render-react');
-var React = require('react'),
-    BoardList = React.createFactory(require('../../../flux/components/BoardList.jsx')),
-    PostList = React.createFactory(require('../../../flux/components/PostList.jsx'));
-
 
 exports.canAccess = function(req, res, next){
 
@@ -46,7 +41,7 @@ exports.canAccess = function(req, res, next){
 };
 
 // 내가 접근 가능한 게시판 목록만 보여준다.
-exports.index = function(req, res) {
+exports.index = function(req, res, next) {
 
   var member = req.session.user;
   var companyId = member.companyId;
@@ -69,11 +64,15 @@ exports.index = function(req, res) {
 
   }).then(function(boards){
 
-    res.render('board', renderReact(BoardList, {
-      title: 'Express Board',
-      path: 'boards',
-      boards: boards
-    }));
+    req.react = {
+      component: 'BoardList',
+      props: {
+        title: 'Express Board',
+        path: 'boards',
+        boards: boards
+      }
+    }
+    next();
 
   });
 

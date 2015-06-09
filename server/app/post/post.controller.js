@@ -8,13 +8,7 @@ var Board = require('../board/board.model');
 var Post = require('../post/post.model');
 var Company = require('../company/company.model');
 var ReadUser = require('../post/read_user.model');
-var renderReact = require('../../libs/render-react');
-var Sequelize = require('../../libs/sequelize-instance');
 var moment = require('moment');
-var React = require('react'),
-    BoardList = React.createFactory(require('../../../flux/components/BoardList.jsx')),
-    PostMain = React.createFactory(require('../../../flux/components/pages/PostMain.jsx'));
-
 
 /**
  * 미들웨어로써 post 객체를 세션에 추가해 불필요한 코드 중복을 없앤다.
@@ -43,7 +37,7 @@ exports.canAccess = function(req, res, next){
   });
 };
 
-exports.list = function(req, res){
+exports.list = function(req, res, next){
 
   var board = req.session.board.get({plain:true});
   delete req.session.board;
@@ -58,27 +52,29 @@ exports.list = function(req, res){
     order: '`createdAt` DESC'
   }).then(function(results){
 
-    res.render('post', renderReact(PostMain, {
-      board: board,
-      type: 'list',
-      page: page,
-      pageSize: pageSize,
-      totalCount: results.count,
-      posts: JSON.parse(JSON.stringify(results.rows))
-    }));
+    req.react = {
+      component : 'PostMain',
+      props: {
+        board: board,
+        type: 'list',
+        page: page,
+        pageSize: pageSize,
+        totalCount: results.count,
+        posts: JSON.parse(JSON.stringify(results.rows))
+      }
+    }
+    next();
 
   });
 
 };
 
-exports.show = function(req, res){
+exports.show = function(req, res, next){
 
   var user      = req.session.user;
   var board     = req.session.board.get({plain:true});
   var post      = req.session.post;
-  post.isOwner  = req.session.post.isOwner;
 
-  delete req.session.post;
   delete req.session.board;
 
   ReadUser.findOrCreate({
@@ -98,19 +94,26 @@ exports.show = function(req, res){
       post.readCount = post.get('readCount') + 1;
       post.save({silent:true});
       readUser.update({lastUpdateAt:moment()}, {silent:true});
-
     }
 
-    res.render('post', renderReact(PostMain, {
-      board: board,
-      type: 'detail',
-      post: post
-    }));  
+    post = post.get({plain:true});
+    post.isOwner  = req.session.post.isOwner;
+    delete req.session.post;
+
+    req.react = {
+      component : 'PostMain',
+      props: {
+        board: board,
+        type: 'detail',
+        post: post
+      }
+    }
+    next();
 
   });
 };
 
-exports.edit = function(req, res){
+exports.edit = function(req, res, next){
 
   var board     = req.session.board.get({plain:true});
   var post      = req.session.post.get({plain:true});
@@ -119,15 +122,19 @@ exports.edit = function(req, res){
   delete req.session.post;
   delete req.session.board;
 
-  res.render('post', renderReact(PostMain, {
-    board: board,
-    type: 'edit',
-    post: post
-  }));
+  req.react = {
+    component : 'PostMain',
+    props: {
+      board: board,
+      type: 'edit',
+      post: post
+    }
+  }
+  next();
 
 };
 
-exports.create = function(req, res){
+exports.create = function(req, res, next){
 
   var title   = req.body.title;
   var content = req.body.content;
@@ -137,11 +144,16 @@ exports.create = function(req, res){
   delete req.session.board;
 
   if( !title || !content) {
-    res.render('post', renderReact(PostMain, {
-      board: board,
-      type: 'create',
-      message: '제목과 내용은 비어있으면 안됩니다.'
-    }));
+
+    req.react = {
+      component : 'PostMain',
+      props: {
+        board: board,
+        type: 'create',
+        message: '제목과 내용은 비어있으면 안됩니다.'
+      }
+    }
+    next();
     return;
   }
 
@@ -160,7 +172,7 @@ exports.create = function(req, res){
 
 };
 
-exports.delete = function(req, res){
+exports.delete = function(req, res, next){
 
   var post = req.session.post;
 
@@ -179,9 +191,7 @@ exports.delete = function(req, res){
 
 };
 
-exports.update = function(req, res){
-
-  console.log(req.body);
+exports.update = function(req, res, next){
 
   var post    = req.session.post;
   var title   = req.body.title;
@@ -191,11 +201,16 @@ exports.update = function(req, res){
   delete req.session.board;
 
   if( !title || !content) {
-    res.render('post', renderReact(PostMain, {
-      board: board,
-      type: 'create',
-      message: '제목과 내용은 비어있으면 안됩니다.'
-    }));
+
+    req.react = {
+      component : 'PostMain',
+      props: {
+        board: board,
+        type: 'create',
+        message: '제목과 내용은 비어있으면 안됩니다.'
+      }
+    }
+    next();
     return;
   }
 
@@ -216,14 +231,18 @@ exports.update = function(req, res){
 };
 
 
-exports.form = function(req, res){
+exports.form = function(req, res, next){
 
   var board = req.session.board.get({plain:true});
   delete req.session.board;
 
-  res.render('post', renderReact(PostMain, {
-    board: board,
-    type: 'create'
-  }));
+  req.react = {
+    component : 'PostMain',
+    props: {
+      board: board,
+      type: 'create',
+    }
+  }
+  next();
 
 };

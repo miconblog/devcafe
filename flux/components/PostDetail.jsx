@@ -11,13 +11,14 @@ module.exports = React.createClass({
     var ModifyButton = false;
     var titleHtml = [post.title,'(', post.commentCount, ')', post.username,' - ' , moment(post.updatedAt).format("LLL") ].join("");
 
+    console.log(post);
+
     if(this.props.post.isOwner){
       ModifyButton = <div className="action">
         <button onClick={this.handleEditPost}>편집</button>
         <button onClick={this.handleDeletePost}>삭제</button>
       </div>;
     }
-
 
     return (
       <article>

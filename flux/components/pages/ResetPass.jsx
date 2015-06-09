@@ -54,7 +54,7 @@ module.exports = React.createClass({
   handleEditSubmit(e){
 
     e.preventDefault();
-    var redirectUrl = "/boards";
+    var redirectUrl = "/";
 
     Jquery.ajax({
       type: 'PUT',
