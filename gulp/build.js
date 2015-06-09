@@ -16,7 +16,7 @@ var fluxFiles = [ './flux/**/*.{js,jsx}' ];
 gulp.task('build', ['browserify', 'styles'], function() {
 
   gulp.watch( serverFiles, [ 'server:restart' ] );
-  gulp.watch( modelFiles, [ 'dbsync', 'server:restart' ] );
+  gulp.watch( modelFiles, [ 'seeds', 'server:restart' ] );
   gulp.watch( fluxFiles, [ 'browserify','server:restart' ] );
   gulp.watch( lessFiles, [ 'styles', 'browser:reload' ] );
 
