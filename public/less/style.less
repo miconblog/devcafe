@@ -1,13 +1,38 @@
-html, body, div, ul, ol, p, h1, h2, h3, h4, h5, h6 {
+html, body, div, header, section, ul, ol, li, p, h1, h2, h3, h4, h5, h6 {
   padding: 0;
   margin: 0;
+}
+
+ul, ol {
+  list-style: none;
 }
 
 a {
   text-decoration: none;
 
   &:hover {
-    text-decoration: underline;
+    font-weight: bolder;
+  }
+}
+
+body {
+  font-family: '맑은고딕', MalgunGothic, NaumGothic;
+  font-size: 14px;
+}
+
+header {
+  position: relative;
+  height: 48px;
+  background: #111;
+  line-height: 48px;
+
+  &.admin {
+    background: #234;
+
+    .btn-admin {
+      display: none;
+    }
+
   }
 }
 
@@ -19,6 +44,36 @@ a {
 #wrap {
   margin: 0 auto;
   width: 800px;
+}
+
+
+#logo {
+  float: left;
+  margin-left: 20px;
+  display: block;
+  width: 150px;
+}
+#logo a {
+  color: #eee;
+}
+
+#topmenu {
+  float: right;
+  margin-right: 10px;
+}
+#topmenu li{
+  float: left;
+  padding: 0 5px;
+  margin-left: 5px;
+  font-size: 15px;
+}
+#topmenu li a {
+  color: #eee;
+}
+
+#profile {
+  float: right;
+  color: #888;
 }
 
 @import "board";

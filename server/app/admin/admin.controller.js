@@ -16,7 +16,12 @@ exports.index = function(req, res, next) {
     Board.all().then(function(boards){
 
       Company.all().then(function(companys){
-        
+
+        if( req.originalUrl === '/admin' ){
+          res.locals.modeAdmin = true;  
+        }
+         
+
         req.react = {
           component : 'Admin',
           props: {

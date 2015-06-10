@@ -30,6 +30,7 @@ module.exports = function(req, res){
   var propsWithFlux = _.extend({flux: fluxxor}, req.react.props);
   var markup = React.renderToString(component(propsWithFlux));
 
+  console.log("locals ==> ", res.locals);
   res.render('home', {
     markup: markup,
     component: req.react.component,

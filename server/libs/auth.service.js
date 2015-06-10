@@ -65,10 +65,12 @@ var authService = {
 
     return function(req, res, next){
 
-      if( req.session.user.role === 'admin' ) {
+      if( req.session.user.role === type ) {
+
         next();  
+      
       } else {
-        var err = new Error('넌 관리자가 아니란다!');
+        var err = new Error('접근할 권한이 없습니다. 당신은 현재 ' + type + '권한입니다.');
         err.status = 401;
         next(err);   
       }
