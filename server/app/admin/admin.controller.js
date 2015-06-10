@@ -21,7 +21,6 @@ exports.index = function(req, res, next) {
           res.locals.modeAdmin = true;  
         }
          
-
         req.react = {
           component : 'Admin',
           props: {

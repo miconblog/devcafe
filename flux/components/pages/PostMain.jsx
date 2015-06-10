@@ -29,26 +29,23 @@ module.exports = React.createClass({
       case 'list':
 
       var posts = this.props.posts;
+      var linkUrl = "/boards/"+ this.props.board.id +"/newpost";
       return (
-        <div>
-          <h4>{this.props.board.name} </h4>
+        <section id="post-main">
+          <header className="title-box">
+            <h3 className="title">{this.props.board.name} </h3>
+            <div className="total">게시글 <span>10/30</span>개</div>
+            <div className="ctrl-box">
+              <a href={linkUrl}>글쓰기</a>
+            </div>
+          </header>
 
-          <div className="action">
-            <button onClick={this.handleNewPost}>글쓰기</button>
-          </div>
           <PostList board={this.props.board} posts={this.props.posts} />
           <PostPaging board={this.props.board} page={this.props.page} totalCount={this.props.totalCount} pageSize={this.props.pageSize} />
-        </div>
+        </section>
       );
 
     }
-
-  },
-
-  handleNewPost(e) {
-    e.preventDefault();
-    location.href = "/boards/"+ this.props.board.id +"/newpost";
-    console.log(e);
   }
 
 });

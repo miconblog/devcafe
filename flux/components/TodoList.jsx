@@ -41,18 +41,22 @@ module.exports = React.createClass({
     var todos = this.state.todos;
 
     return (
-      <div>
-        <h3>클라이언트 렌더링 테스트를 위한 TODO App</h3>
+      <section id="todo-list">
+        <header>
+          <h3>클라이언트 렌더링 테스트를 위한 TODO App</h3>
+        </header>
+
+        <form onSubmit={this.onSubmitForm}>
+          <input type="text" size="30" placeholder="New Todo" value={this.state.newTodoText} onChange={this.handleTodoTextChange} />
+          <input type="submit" value="추가" />
+        </form>
+
         <ul>
           {Object.keys(todos).map(function(id){
             return <li key={id}> <span>{todos[id].text}</span> </li>
           })}
         </ul>
-        <form onSubmit={this.onSubmitForm}>
-          <input type="text" size="30" placeholder="New Todo" value={this.state.newTodoText} onChange={this.handleTodoTextChange} />
-          <input type="submit" value="추가" />
-        </form>
-      </div>
+      </section>
     );
   },
 
@@ -65,6 +69,7 @@ module.exports = React.createClass({
 
     if( this.state.newTodoText.trim() ) {
       this.getFlux().actions.addTodo(this.state.newTodoText);
+      this.setState({newTodoText:''});
     }
   }
 

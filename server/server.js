@@ -15,7 +15,6 @@ var app = express();
 // for complie .jsx
 var JSX = require('node-jsx').install({extension: '.jsx', harmony: true});
 
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.engine('hbs', exphbs({

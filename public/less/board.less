@@ -1,27 +1,117 @@
-.post-list {
+/* 게시판 목록 */
+#board-list {
+  border: 1px solid #ccc;
+  padding: 20px;
+
+  .list-item {
+    font-size: 16px;
+    padding: 5px;
+  }
+}
+
+
+/* 게시글 목록 */
+#post-main {
+
+  header.title-box {
+    border: 1px solid #ccc;
+    border-bottom: none;
+    height: 40px;
+  
+    .title {
+      position: absolute;
+      height: 48px;
+      line-height: 48px;
+      top:0px;
+      left: 220px;
+      color: #eee;
+    }
+
+    .total {
+      float: left;
+      width: 200px;
+      height: 40px;
+      line-height: 40px;
+      margin-left: 10px;
+      font-size: 16px;
+    }
+
+
+    .ctrl-box {
+      float: right;
+      margin: 3px 4px 0;
+      font-size: 14px;
+      border: 1px solid #777;
+      line-height: 32px;
+      height: 32px;
+      padding: 0px 20px;
+      a {
+        color: #000;        
+      }
+    }
+  }
+
+}
+
+#post-list {
   border: 1px solid #ccc;
   position: relative;
 
   .list-item {
 
     border-top: 1px solid #ccc;
-    padding: 5px;
+    padding: 10px;
+    height: 20px;
+    line-height: 20px;
 
     &:hover {
       background-color: #bcd;
       cursor: pointer;
+
+      a {
+        font-weight: bolder;
+        width: 400px;
+      }
     }
     &.first {
       border-top: none;
     }
+    &.last {
+      border-bottom: none;
+    }
 
-    .read-count {
-      position: absolute;
-      right: 10px;
+    span, time {
+      float: right;
+      font-size: 12px;
+      margin-right: 10px;
+      color: #666;
+    }
+
+    a {
+      color: #222;
+      float: left;
+    }
+
+    .name {
+      margin-right: 30px;
+    }
+    .count,  .like {
+
+    }
+
+    &:after {
+      clear: both;
     } 
   }  
 }
 
-.post-paging a {
-  padding: 5px;
+#post-paging {
+  padding: 20px;
+  margin: 0 auto;
+  width: 200px;
+
+  a {
+    padding: 5px;    
+  }
+
 }

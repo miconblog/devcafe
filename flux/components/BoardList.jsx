@@ -12,15 +12,12 @@ module.exports = React.createClass({
 
     if( this.props.boards ) {
       return (
-        <div className="block">
-          <h4>게시판 목록</h4>
-
+        <section id="board-list">
           {this.props.boards.map(function(board, i){
             var url = "/boards/"+ board.id;
-            return <div key={board.id}>{i+1} <a href={url}>{board.name}</a></div>
+            return <div key={board.id} className="list-item"><a href={url}>{board.name}</a></div>
           })}
-
-        </div>
+        </section>
       );
     } else {
       return (false);

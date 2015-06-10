@@ -50,7 +50,7 @@ module.exports = React.createClass({
     }
 
     return(
-      <div className="post-paging">
+      <nav id="post-paging" className="post-paging">
         {PrevButton}
         {
           pageNumbers.map(function(num){
@@ -59,7 +59,7 @@ module.exports = React.createClass({
           })
         }
         {NextButton}
-      </div>
+      </nav>
     );
 
   }
