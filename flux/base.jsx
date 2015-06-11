@@ -26,7 +26,8 @@ props.flux = fluxxor;
 window.React = React;
 window.DevCafe = {
   Home: React.createFactory(require('./components/pages/Home.jsx')),
-  ResetPass: React.createFactory(require('./components/pages/ResetPass.jsx')),  
+  Settings: React.createFactory(require('./components/pages/Settings.jsx')),
+  ResetPass: React.createFactory(require('./components/pages/ResetPass.jsx')),
   PostMain: React.createFactory(require('./components/pages/PostMain.jsx')),
   Admin: React.createFactory(require('./components/pages/Admin.jsx')),
   props: props

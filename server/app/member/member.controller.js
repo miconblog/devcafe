@@ -23,6 +23,20 @@ exports.resetPassword = function(req, res, next) {
 
 };
 
+exports.settings = function(req, res, next) {
+
+  console.log("next is : ", next);
+  req.react = {
+    component : 'Settings',
+    props: {
+      member : req.session.user
+    }
+  }
+  next();
+
+};
+
+
 exports.authenticate = function(req, res, next) {
 
   var email = req.body.email;
@@ -96,6 +110,34 @@ exports.changePassword = function(req, res){
     member.save().then(function(){
     
       res.json({result:'OK'});  
+
+    });
+
+  });
+
+};
+
+exports.changeInfo = function(req, res){
+
+
+  var id = req.session.user.id;
+  var newName = req.body.name;
+  var newEmail = req.body.email;
+
+  debug("changeInfo newName:%s, newEmail:%s", newName, newEmail);
+
+  // 앞에서 세션을 인증하고 넘어오기 때문에 멤버는 항상 있을수밖에 없다.
+  Member.findOne({where:{id:id}}).then(function(member){
+
+    member.name = newName;
+    member.email = newEmail;
+    member.save().then(function(){
+      var user = member.get({plain:true});
+      delete user.hashedPassword;
+      delete user.salt;
+      req.session.user = user;
+
+      res.json({result:'OK'});
 
     });
 

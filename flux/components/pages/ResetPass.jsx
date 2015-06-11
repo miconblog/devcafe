@@ -54,7 +54,7 @@ module.exports = React.createClass({
   handleEditSubmit(e){
 
     e.preventDefault();
-    var redirectUrl = "/";
+    var redirectUrl = this.props.redirectUrl ? this.props.redirectUrl : '/'
 
     Jquery.ajax({
       type: 'PUT',

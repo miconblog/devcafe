@@ -7,7 +7,8 @@ var RootComs = {
   'Admin'     : React.createFactory(require('../../flux/components/pages/Admin.jsx')),
   'Home'      : React.createFactory(require('../../flux/components/pages/Home.jsx')),
   'PostMain'  : React.createFactory(require('../../flux/components/pages/PostMain.jsx')),
-  'ResetPass' : React.createFactory(require('../../flux/components/pages/ResetPass.jsx'))
+  'ResetPass' : React.createFactory(require('../../flux/components/pages/ResetPass.jsx')),
+  'Settings' : React.createFactory(require('../../flux/components/pages/Settings.jsx')),
 };
 var actions = require('../../flux/actionCreator').methods;
 var TodoStore = require('../../flux/stores/TodoStore');
