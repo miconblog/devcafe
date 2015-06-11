@@ -1,3 +1,16 @@
+// 게시판에서 공통으로 쓰이는 버튼 스타일
+.btn {
+  display: inline-block;
+  margin: 3px 4px 0;
+  font-size: 14px;
+  border: 1px solid #777;
+  line-height: 32px;
+  height: 32px;
+  padding: 0px 20px;
+  color: #000;        
+}
+
+
 /* 게시판 목록 */
 #board-list {
   border: 1px solid #ccc;
@@ -19,12 +32,11 @@
     height: 40px;
   
     .title {
-      position: absolute;
-      height: 48px;
-      line-height: 48px;
-      top:0px;
-      left: 220px;
-      color: #eee;
+      float: left;
+      margin: 0 10px;
+      height: 40px;
+      line-height: 40px;
+      color: #222;
     }
 
     .total {
@@ -39,15 +51,6 @@
 
     .ctrl-box {
       float: right;
-      margin: 3px 4px 0;
-      font-size: 14px;
-      border: 1px solid #777;
-      line-height: 32px;
-      height: 32px;
-      padding: 0px 20px;
-      a {
-        color: #000;        
-      }
     }
   }
 
@@ -108,10 +111,58 @@
 #post-paging {
   padding: 20px;
   margin: 0 auto;
-  width: 200px;
+  width: 100px;
 
   a {
     padding: 5px;    
   }
 
+}
+
+/* 게시판 상세 */
+#post-detail {
+  //border: 1px solid #ccc;
+  position: relative;
+ 
+  header.box {
+    border: 1px solid #ccc;
+    height: 40px;
+    line-height: 40px;
+    background-color: #eee;
+
+    .title {
+      float: left;
+      margin: 0 10px;
+      height: 40px;
+      line-height: 40px;
+      color: #222;
+    }
+
+    .ctrl-box {
+      float: right;
+    }
+  }
+  .box.article {
+    background-color: #fff;
+    border-top: none;
+    height: 60px;
+
+    div {
+      float: left;
+      line-height: 20px;
+      margin-left: 10px;
+    }
+    .title {
+      font-weight: bolder;
+      line-height: 30px;
+      height: 30px;
+      width: 100%;
+    }
+  }
+
+  article {
+    border: 1px solid #ccc;
+    border-top: none;
+    padding: 10px;
+  }
 }

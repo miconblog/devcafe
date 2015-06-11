@@ -33,10 +33,12 @@ module.exports = React.createClass({
       return (
         <section id="post-main">
           <header className="title-box">
-            <h3 className="title">{this.props.board.name} </h3>
+            <div className="title">
+              <h3>{this.props.board.name}</h3>
+            </div>
             <div className="total">게시글 <span>10/30</span>개</div>
             <div className="ctrl-box">
-              <a href={linkUrl}>글쓰기</a>
+              <a className="btn" href={linkUrl}>글쓰기</a>
             </div>
           </header>
 

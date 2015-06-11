@@ -9,26 +9,50 @@ module.exports = React.createClass({
     var post = this.props.post;
     var url = "/boards/" + this.props.board.id;
     var ModifyButton = false;
-    var titleHtml = [post.title,'(', post.commentCount, ')', post.username,' - ' , moment(post.updatedAt).format("LLL") ].join("");
 
+    // '(', post.commentCount, ')',
+    // post.username,' - ' , moment(post.updatedAt).format("LLL")
+    // 
     console.log(post);
 
     if(this.props.post.isOwner){
-      ModifyButton = <div className="action">
-        <button onClick={this.handleEditPost}>편집</button>
-        <button onClick={this.handleDeletePost}>삭제</button>
+
+      ModifyButton = <div className="ctrl-box">
+        <a className="btn" href="#edit" onClick={this.handleEditPost}>편집</a>
+        <a className="btn" href="#delete" onClick={this.handleDeletePost}>삭제</a>
       </div>;
     }
 
     return (
-      <article>
-        <h4><a href={url}> &lt; {this.props.board.name} 목록으로</a></h4>
-        {ModifyButton}
-        <div dangerouslySetInnerHTML={{__html: titleHtml }} ></div> 
-        <div dangerouslySetInnerHTML={{__html: post.content.replace(/\n/g, '</br>') }} />
-        <div>좋아요{post.likeCount} - 조회 {post.readCount}</div>
-      </article>
+      <section id="post-detail">
+        <header className="box">
+          <div className="title">
+            <h3><a href={url}> &lt; {this.props.board.name}</a></h3>
+          </div>
+          {ModifyButton}
+        </header>
+        <section>
+          <header className="box article">
+            <div className="title" dangerouslySetInnerHTML={{__html: post.title }} ></div> 
+            <div className="username" dangerouslySetInnerHTML={{__html: post.username }} ></div> 
+            <div className="datetime" dangerouslySetInnerHTML={{__html: moment(post.updatedAt).format("LLL") }} ></div> 
+            <div className="readcount">조회 {post.readCount}</div>
+          </header>
+          <article className="article">
+            <div dangerouslySetInnerHTML={{__html: post.content.replace(/\n/g, '</br>') }} />
+          </article>
+        </section>
+      </section>
     );
+
+    // <footer>
+    //   <div className="title">좋아요{post.likeCount}</div>
+    // </footer>
+    // <section>
+    //   <div>
+    //     댓글이 들어갈 자리
+    //   </div>
+    // </section>
     
   },
 
