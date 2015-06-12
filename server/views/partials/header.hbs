@@ -6,15 +6,15 @@
     {{/if}}
 
   {{#if user }}
-  <li><a href="/signout">로그아웃</a></li>
-  <li><a href="/settings">설정</a></li>
-  {{else}}
-  <li><a href="/signup">회원가입</a></li>
-  <li><a href="/signin">로그인</a></li>
-  {{/if}}
-</ul>
+    <li><a href="/signout">로그아웃</a></li>
+    <li><a href="/settings">설정</a></li>
+    {{else}}
+    <li><a href="/signup">회원가입</a></li>
+    <li><a href="/signin">로그인</a></li>
+    {{/if}}
+  </ul>
 
-{{#if user}}
-<div>안녕하세요. {{user.name}}님</div>
-{{/if}}
+  {{#if user}}
+  <div class="greeting">안녕하세요. {{user.name}}님</div>
+  {{/if}}
 </header>

@@ -10,7 +10,7 @@ module.exports = React.createClass({
     var formUrl = url + "/newpost";
 
     return (
-      <article id="post-list">
+      <ul id="post-list">
         
         {posts.map(function(post, i){
           
@@ -24,19 +24,26 @@ module.exports = React.createClass({
             classs = "list-item last"
           }
 
-          return <div key={post.id} className={classs}>
-            <a href={linkUrl} dangerouslySetInnerHTML={{__html: titleHtml }} />
-            <time className="time">{moment(post.updatedAt).format("LLL")}</time>
-            <span className="like">{post.likeCount}좋아요</span>
-            <span className="count">{post.readCount}조회</span>
-            <span className="name">{post.username}</span>
-          </div>
+          return <li key={post.id} className={classs}>
+            <a href={linkUrl}>
+              <span className="title" dangerouslySetInnerHTML={{__html: titleHtml }} />
+              <time className="time">{moment(post.updatedAt).format("LLL")}</time>
+              <span className="like">{post.likeCount}좋아요</span>
+              <span className="count">{post.readCount}조회</span>
+              <span className="name">{post.username}</span>
+            </a>
+          </li>
 
         })}
        
-      </article>
+      </ul>
     );
     
+  },
+
+  handleClick(e){
+    console.log(e.target)
+    //location.href = ""
   }
 
 });

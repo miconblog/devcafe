@@ -7,24 +7,24 @@ module.exports = React.createClass({
     var url = "/boards/" + this.props.board.id;
     
     return (
-      <div>
-        <h4><a href={url}> &lt; {this.props.board.name} 목록으로</a></h4>
+      <section id="post-form">
         <form action={url} method="POST">
-          <div>
+          <header>
+            <h4 className="center">{this.props.board.name}</h4>
+            <a href={url} className="btn left">취소</a>
+            <input type="submit" className="btn right" value="저장" />
+          </header>
+          <div className="title">
             <input type="text" placeholder="제목" name="title" />
           </div>
-          <div>
+          <div className="content">
             <textarea type="text" placeholder="내용" name="content"></textarea>
-          </div>
-          <div>
-            <input type="button" value="취소" />
-            <input type="submit" value="저장" />
           </div>
           <div>
             <p>{this.props.message}</p>
           </div>
         </form>
-      </div>
+      </section>
     );
     
   }

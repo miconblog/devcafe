@@ -17,24 +17,24 @@ module.exports = React.createClass({
     var formUrl = url + '/' + this.props.post.id;
     
     return (
-      <div>
-        <h4><a href={url}> &lt; {this.props.board.name} 목록으로</a></h4>
+      <section id="post-form">
         <form action={formUrl} method="PUT" onSubmit={this.handleEditSubmit}>
-          <div>
+          <header>
+            <h4 className="center">{this.props.board.name}</h4>
+            <input type="button" className="btn left" value="취소" onClick={this.handleEditCancle}/>
+            <input type="submit" className="btn right" value="저장" />
+          </header>
+          <div className="title">
             <input type="text" placeholder="제목" name="title" onChange={this.handleChangeTitle} value={this.state.title} />
           </div>
-          <div>
+          <div className="content">
             <textarea type="text" placeholder="내용" name="content" onChange={this.handleChangeContent} value={this.state.content}></textarea>
-          </div>
-          <div>
-            <input type="button" value="취소" onClick={this.handleEditCancle}/>
-            <input type="submit" value="저장" />
           </div>
           <div>
             <p>{this.props.message}</p>
           </div>
         </form>
-      </div>
+      </section>
     );
     
   },
