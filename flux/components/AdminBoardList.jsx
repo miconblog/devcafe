@@ -12,8 +12,10 @@ module.exports = React.createClass({
   render() {
 
     return (
-      <div className="block">
-
+      <section className="container">
+        <header>
+          <a href="#" className="btn" onClick={this.handleCreate}>게시판 생성</a>
+        </header>
         <table>
           <caption>게시판 목록</caption>
           <thead>
@@ -26,12 +28,15 @@ module.exports = React.createClass({
               <th>종료시간</th>
               <th>생성시간</th>
               <th>마지막수정</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             
             {this.props.boards.map(function(board, i){
+              
               var url = "/boards/"+ board.id;
+
               return <tr key={board.id}>
                 <td>{i+1}</td>
                 <td><a href={url}>{board.name}</a></td>
@@ -41,15 +46,23 @@ module.exports = React.createClass({
                 <td>{board.closeAt ? moment(board.closeAt).format("LLL"): '-' }</td>
                 <td>{moment(board.createAt).format("LLL")}</td>
                 <td>{moment(board.updateAt).format("LLL")}</td>
-
+                <td><a href="#edit" onClick={this.handleEdit}>수정</a></td>
               </tr>
-            })}
+            }.bind(this))}
             
           </tbody>
         </table>
 
-      </div>
+      </section>
     );
-  }
+  }, 
 
+  handleCreate(e){
+    e.preventDefault();
+  },
+
+  handleEdit(e) {
+    e.preventDefault();
+
+  }
 });

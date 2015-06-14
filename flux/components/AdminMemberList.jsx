@@ -6,7 +6,7 @@ module.exports = React.createClass({
   render() {
 
     return (
-      <div className="block">
+      <section className="container">
 
         <table>
           <caption>회원 목록</caption>
@@ -35,14 +35,21 @@ module.exports = React.createClass({
                 <td>{member.shouldResetPassword ? 'Y' : 'N'}</td>
                 <td>{moment(member.createAt).format("LLL")}</td>
                 <td>{moment(member.updateAt).format("LLL")}</td>
+                <td>
+                  <a href="#" onClick={this.handleEdit}>수정</a>
+                </td>
               </tr>
-            })}
+            }.bind(this))}
             
           </tbody>
         </table>
 
-      </div>
+      </section>
     );
+  }, 
+  handleEdit(e){ 
+    e.preventDefault();
+
   }
 
 });

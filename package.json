@@ -45,7 +45,7 @@
   "devDependencies": {
     "babelify": "^6.1.2",
     "browser-sync": "^2.7.6",
-    "browserify": "^10.2.3",
+    "browserify": "^10.2.4",
     "gulp": "^3.9.0",
     "gulp-develop-server": "^0.4.3",
     "gulp-less": "^3.0.3",

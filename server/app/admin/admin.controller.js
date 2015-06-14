@@ -20,13 +20,13 @@ exports.index = function(req, res, next) {
         if( req.originalUrl === '/admin' ){
           res.locals.modeAdmin = true;  
         }
-         
+
         req.react = {
           component : 'Admin',
           props: {
-            boards: boards,
-            members: members,
-            companys: companys
+            boards: JSON.parse(JSON.stringify(boards)),
+            members: JSON.parse(JSON.stringify(members)),
+            companys: JSON.parse(JSON.stringify(companys))
           }
         }
         next();

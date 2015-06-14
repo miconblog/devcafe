@@ -6,7 +6,7 @@ module.exports = React.createClass({
   render() {
 
     return (
-      <div className="block">
+      <section className="container">
 
         <table>
           <caption>회사 목록</caption>
@@ -30,14 +30,18 @@ module.exports = React.createClass({
                 <td>{company.memberCount}</td>
                 <td>{moment(company.createAt).format("LLL")}</td>
                 <td>{moment(company.updateAt).format("LLL")}</td>
+                <td><a href="#" onClick={this.handleEdit}>수정</a></td>
               </tr>
-            })}
+            }.bind(this))}
             
           </tbody>
         </table>
 
-      </div>
+      </section>
     );
+  },
+  handleEdit(e){
+    e.preventDefault();
   }
 
 });
