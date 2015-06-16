@@ -21,14 +21,14 @@ module.exports = React.createClass({
         <form action={formUrl} method="PUT" onSubmit={this.handleEditSubmit}>
           <header>
             <h4 className="center">{this.props.board.name}</h4>
-            <input type="button" className="btn left" value="취소" onClick={this.handleEditCancle}/>
-            <input type="submit" className="btn right" value="저장" />
+            <input type="button" tabIndex="1" className="btn left" value="취소" onClick={this.handleEditCancle}/>
+            <input type="submit" tabIndex="4" className="btn right" value="저장" />
           </header>
           <div className="title">
-            <input type="text" placeholder="제목" name="title" onChange={this.handleChangeTitle} value={this.state.title} />
+            <input type="text" tabIndex="2" placeholder="제목" name="title" onChange={this.handleChangeTitle} value={this.state.title} />
           </div>
           <div className="content">
-            <textarea type="text" placeholder="내용" name="content" onChange={this.handleChangeContent} value={this.state.content}></textarea>
+            <textarea type="text" tabIndex="3" placeholder="내용" name="content" onChange={this.handleChangeContent} value={this.state.content}></textarea>
           </div>
           <div>
             <p>{this.props.message}</p>
