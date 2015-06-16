@@ -26,6 +26,12 @@ exports.canAccess = function(req, res, next){
 
     req.session.board = board;
 
+    // 관리자는 무조건 접근 가능하다.
+    if( res.locals.isAdmin ){
+      return next();
+    }
+
+
     if( type === 'C' && companyId === member.companyId ) {
       next();
     } else if( type === 'N' || type === 'L' ) {

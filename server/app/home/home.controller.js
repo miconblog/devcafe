@@ -29,21 +29,27 @@ exports.index = function(req, res, next) {
 
   var member = req.session.user;
   var companyId = member.companyId;
+  var whereCond = [
+    {
+      type: {
+        $eq: 'N'
+      }
+    },
+    {
+      companyId: {
+        $eq: companyId 
+      }
+    }       
+  ];
+
+  // 관리자는 모든 게시판이 나와야해.
+  if( res.locals.isAdmin ){
+    whereCond = [];
+  }
 
   Board.findAll({
     where: {  
-      $or: [
-        {
-          type: {
-            $eq: 'N'
-          }
-        },
-        {
-          companyId: {
-            $eq: companyId 
-          }
-        }       
-      ]
+      $or: whereCond
     }
 
   }).then(function(boards){
