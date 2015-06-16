@@ -2,6 +2,8 @@ var React = require('react');
 var moment = require('moment');
 var Jquery = require('jquery');
 
+var CommentList = require('./CommentList.jsx');
+
 module.exports = React.createClass({
  
   render() {
@@ -41,6 +43,9 @@ module.exports = React.createClass({
           <article className="article">
             <div dangerouslySetInnerHTML={{__html: post.content.replace(/\n/g, '</br>') }} />
           </article>
+        </section>
+        <section>
+          <CommentList post={this.props.post} board={this.props.board}/>
         </section>
       </section>
     );

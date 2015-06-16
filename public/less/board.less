@@ -220,3 +220,60 @@
     }
   }
 }
+
+#comment-list {
+  border: 1px solid #ccc;
+  position: relative;
+
+  .list-item {
+
+    border-top: 1px solid #ccc;
+    height: 40px;
+    line-height: 40px;
+
+    &:hover {
+      background-color: #dddcd9;
+
+      a {
+        font-weight: bolder;
+        //width: 400px;
+      }
+    }
+    &.first {
+      border-top: none;
+    }
+    &.last {
+      border-bottom: none;
+    }
+
+    span, time {
+      float: right;
+      font-size: 12px;
+      margin-right: 10px;
+      color: #666;
+    }
+
+    a {
+      display: block;
+      color: #222;
+      line-height: 40px;
+      height: 40px;
+      padding: 0 10px;
+    }
+
+    .name, .content {
+      float: left;
+      margin-right:10px;
+    }
+    .time {
+      margin-right: 30px;
+    }
+    .count,  .like {
+
+    }
+
+    &:after {
+      clear: both;
+    }
+  }
+}

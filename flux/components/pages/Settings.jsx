@@ -7,12 +7,13 @@ var Jquery = require('jquery');
 
 // 하위 컴포넌트
 var SettingMemberInfo = require('../SettingMemberInfo.jsx');
-
+var ResetPass = require('./ResetPass.jsx')
 module.exports = React.createClass({
 
   render() {
     var SettingMenus = <ul>
-      <li><a href="/settings/member" member={this.props.member}>사용자 정보 변경</a></li>
+      <li><a href="/settings/member">사용자 정보 변경</a></li>
+      <li><a href="/settings/password">비밀번호 변경</a></li>
     </ul>
 
     var currentComponent;
@@ -20,7 +21,9 @@ module.exports = React.createClass({
       case 'memberInfo':
         currentComponent = <SettingMemberInfo member={this.props.member} />;
         break;
-
+      case 'password':
+        currentComponent = <ResetPass member={this.props.member} redirectUrl='/settings' />;
+        break;
       default:
         currentComponent = <div>Dashboard - 메뉴를 선택해주세요</div>
     }

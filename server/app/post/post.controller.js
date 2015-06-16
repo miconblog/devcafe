@@ -8,6 +8,7 @@ var Board = require('../board/board.model');
 var Post = require('../post/post.model');
 var Company = require('../company/company.model');
 var ReadUser = require('../post/read_user.model');
+var Comment = require('../comment/comment.model');
 var moment = require('moment');
 
 /**
@@ -90,7 +91,7 @@ exports.show = function(req, res, next){
     if( created || 0 < moment().diff(moment(readUser.lastUpdateAt), 'days')  ){
 
       // increment 를 사용하는 것이 직관적으로 보이나 updatedAt 이 갱신되는 것을 피해갈 방법이 없다.
-      // Post.build(post).increment('readCount', {silent:true});
+      // Post.build(post).increment('readCount');
       post.readCount = post.get('readCount') + 1;
       post.save({silent:true});
       readUser.update({lastUpdateAt:moment()}, {silent:true});
@@ -100,16 +101,30 @@ exports.show = function(req, res, next){
     post.isOwner  = req.session.post.isOwner;
     delete req.session.post;
 
-    req.react = {
-      component : 'PostMain',
-      props: {
-        board: board,
-        type: 'detail',
-        post: post
+    Comment.findAndCountAll({
+      where : { postId: post.id },
+      limit : 100,
+      offset : 0,
+      order: '`createdAt` ASC'
+    }).then(function(result){
+      post.comments = result.rows;
+      var i;
+      for(i in post.comments){
+        post.comments[i] = post.comments[i].get({plain:true});
+        post.comments[i].isOwner = post.comments[i].memberId == user.id;
+        console.log("server comment {}", post.comments[i]);
       }
-    }
-    next();
 
+      req.react = {
+        component : 'PostMain',
+        props: {
+          board: board,
+          type: 'detail',
+          post: post
+        }
+      }
+      next();
+    });
   });
 };
 
@@ -245,4 +260,60 @@ exports.form = function(req, res, next){
   }
   next();
 
+};
+
+exports.createComment = function(req, res, next){
+
+
+  var content = req.body.content;
+  var post    = req.session.post;
+  var user    = req.session.user;
+  var board   = req.session.board.get({plain:true});
+
+  delete req.session.board;
+
+  if( !content) {
+    res.status(500).json({ message: '댓글 내용이 입력되어 있지 않습니다.' });
+    return;
+  }
+
+  Comment.create({
+    content: content,
+    username: user.name,
+    postId :req.params.postId,
+    boardId: board.id,
+    memberId: user.id
+  })
+    .then(function(comment){
+      post.commentCount = post.get('commentCount') + 1;
+      post.save({silent:true});
+      res.json({result:'OK', data:comment});
+    });
+};
+
+exports.deleteComment = function(req, res, next){
+
+  var post = req.session.post;
+  var user = req.session.user;
+  var commentId  = req.params.commentId;
+
+  Comment.findOne({where: { id: commentId } })
+    .then(function(comment) {
+
+      if(!comment){
+        res.sendStatus(404);
+        return;
+      }
+
+      comment.isOwner = comment.get('memberId') === user.id;
+      if( !comment.isOwner ){
+        res.status(401).json({ error: '작성자외엔 삭제할 수 없습니다.' });
+        return;
+      }
+      comment.destroy().then(function(){
+        post.commentCount = post.commentCount - 1;
+        post.save();
+        res.json({result:'OK'});
+      });
+    });
 };

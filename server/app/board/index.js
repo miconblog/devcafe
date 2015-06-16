@@ -10,6 +10,8 @@ var router    = express.Router();
 router.get(   '/:boardId/newpost', auth.isAuthenticated(), boardCtrl.canAccess, postCtrl.form, renderReact);
 router.get(   '/:boardId/:postId', auth.isAuthenticated(), boardCtrl.canAccess, postCtrl.canAccess, postCtrl.show, renderReact);
 router.get(   '/:boardId/:postId/edit', auth.isAuthenticated(), boardCtrl.canAccess, postCtrl.canAccess, postCtrl.edit, renderReact);
+router.post(  '/:boardId/:postId/comment', auth.isAuthenticated(), boardCtrl.canAccess, postCtrl.canAccess, postCtrl.createComment, renderReact);
+router.delete(  '/:boardId/:postId/comment/:commentId', auth.isAuthenticated(), boardCtrl.canAccess, postCtrl.canAccess, postCtrl.deleteComment, renderReact);
 router.get(   '/:boardId', auth.isAuthenticated(), boardCtrl.canAccess, postCtrl.list, renderReact);
 
 router.post(  '/:boardId', auth.isAuthenticated(), boardCtrl.canAccess, postCtrl.create);
