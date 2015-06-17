@@ -2,7 +2,7 @@
 
 var express = require('express');
 var settingCtrl = require('../setting/setting.controller');
-var auth = require('../../libs/auth.service');
+var auth = require('../../libs/service/auth.service');
 var renderReact = require('../../libs/render-react');
 var router = express.Router();
 

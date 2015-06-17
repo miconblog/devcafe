@@ -5,7 +5,7 @@
 
 'use strict';
 var Sequelize = require('sequelize');
-var sequelize = require('../../libs/sequelize-instance');
+var sequelize = require('../../libs/database/instance');
 var crypto = require('crypto');
 
 var Member = sequelize.define('member', {

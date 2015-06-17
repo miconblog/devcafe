@@ -1,8 +1,13 @@
 /**
- * 세션에 회원정보가 있는지 확인해서 locals에 넣는다.
+ * 세션에 정보를 저장하는 미들웨어
  */
 'use strict';
+var _ = require('lodash');
+var debug = require('debug')('mw:SESSION');
+
 module.exports = function(req, res, next){
+
+  debug("\n", req.session);
   
   //debug("SESSION ID: %s", JSON.stringify(req.session));
   //delete req.session.test;
@@ -13,14 +18,7 @@ module.exports = function(req, res, next){
   // }
 
   // 로그인 했으면
-  if( req.session.user) {
-    res.locals.user = req.session.user;
-
-    if( req.session.user.role === 'admin') {
-      res.locals.isAdmin = true;
-    }
   
-  }
   next();
 
   // if( req.path === '/resetPassword' ){

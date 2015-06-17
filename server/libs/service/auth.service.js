@@ -4,7 +4,7 @@
  */
 
 'use strict';
-var Company = require('../app/company/company.model');
+var Company = require('../../app/company/company.model');
 var debug = require('debug')('auth.service');
 
 var authService = {

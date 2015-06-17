@@ -4,7 +4,7 @@ var express = require('express');
 var homeCtrl = require('./home.controller');
 var memberCtrl = require('../member/member.controller');
 var authcodeCtrl = require('../authcode/authcode.controller');
-var auth = require('../../libs/auth.service');
+var auth = require('../../libs/service/auth.service');
 var renderReact = require('../../libs/render-react');
 var router = express.Router();
 

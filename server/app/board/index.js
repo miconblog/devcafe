@@ -3,7 +3,7 @@
 var express   = require('express');
 var boardCtrl = require('../board/board.controller');
 var postCtrl  = require('../post/post.controller');
-var auth      = require('../../libs/auth.service');
+var auth      = require('../../libs/service/auth.service');
 var renderReact = require('../../libs/render-react');
 var router    = express.Router();
 

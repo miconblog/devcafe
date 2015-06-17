@@ -1,5 +1,5 @@
 'use strict';
-require('./libs/database-relation')();
+require('./libs/database/relations')();
 
 var express = require('express');
 var path = require('path');
@@ -37,8 +37,9 @@ app.use(session({
   resave: false
 }));
 app.use(express.static( path.resolve(__dirname, '../public') ));
-app.use(require('./libs/session2locals'));
-app.use(require('./libs/xss-filter'));
+app.use(require('./libs/middleware/1_req_session'));
+app.use(require('./libs/middleware/2_res_locals'));
+app.use(require('./libs/middleware/3_xss_filter'));
 
 // 라우터 처리
 require('./routes')(app);
