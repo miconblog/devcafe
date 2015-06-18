@@ -12,10 +12,12 @@ var RootComs = {
 };
 var actions = require('../../flux/actionCreator').methods;
 var TodoStore = require('../../flux/stores/TodoStore');
+var CommentStore = require('../../flux/stores/CommentStore');
 
 // 사용할 스토어
 var stores = {
-  TodoStore: new TodoStore()
+  TodoStore: new TodoStore(),
+  CommentStore: new CommentStore()
 };
 
 var fluxxor = new Fluxxor.Flux(stores, actions);

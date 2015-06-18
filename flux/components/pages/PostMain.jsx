@@ -8,6 +8,7 @@ var PostPaging = require('../PostPaging.jsx');
 module.exports = React.createClass({
 
   getInitialState() {
+
     return {
 
       posts: this.props.posts
@@ -24,7 +25,7 @@ module.exports = React.createClass({
       return (<PostEditForm board={this.props.board} post={this.props.post}/>);
       
       case 'detail':
-      return (<PostDetail board={this.props.board} post={this.props.post}/>);
+      return (<PostDetail flux={this.props.flux} board={this.props.board} post={this.props.post}/>);
 
       case 'list':
 

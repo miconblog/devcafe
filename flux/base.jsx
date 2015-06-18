@@ -3,10 +3,12 @@ var React = require('react');
 var Fluxxor = require('fluxxor');
 var actions = require('./ActionCreator').methods;
 var TodoStore = require('./stores/TodoStore');
+var CommentStore = require('./stores/CommentStore');
 
 // 사용할 스토어
 var stores = {
-  TodoStore: new TodoStore()
+  TodoStore: new TodoStore(),
+  CommentStore: new CommentStore()
 };
 
 

@@ -2,7 +2,7 @@ var React = require('react');
 var moment = require('moment');
 var Jquery = require('jquery');
 
-var CommentList = require('./CommentList.jsx');
+var Comments = require('./Comments.jsx');
 
 module.exports = React.createClass({
  
@@ -14,8 +14,6 @@ module.exports = React.createClass({
 
     // '(', post.commentCount, ')',
     // post.username,' - ' , moment(post.updatedAt).format("LLL")
-    // 
-    console.log(post);
 
     if(this.props.post.isOwner){
 
@@ -44,9 +42,7 @@ module.exports = React.createClass({
             <div dangerouslySetInnerHTML={{__html: post.content.replace(/\n/g, '</br>') }} />
           </article>
         </section>
-        <section>
-          <CommentList post={this.props.post} board={this.props.board}/>
-        </section>
+        <Comments flux={this.props.flux} user={this.props.user} post={this.props.post} board={this.props.board}/> 
       </section>
     );
 

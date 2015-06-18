@@ -6,10 +6,23 @@
 var constants = {
   ADD_TODO: "ADD_TODO",
   TOGGLE_TODO: "TOGGLE_TODO",
-  CLEAR_TODOS: "CLEAR_TODOS"
+  CLEAR_TODOS: "CLEAR_TODOS",
+  ADD_COMMENT: "ADD_COMMENT",
+  DELETE_COMMENT: "DELETE_COMMENT"
 };
 
 var methods = {
+  
+  addComment: function(comment){
+
+    this.dispatch(constants.ADD_COMMENT, {comment: comment});
+  },
+
+  deleteComment: function(comment){
+
+    this.dispatch(constants.DELETE_COMMENT, {comment: comment});
+  },
+
   addTodo: function(text){
     this.dispatch(constants.ADD_TODO, {text: text});
   },
