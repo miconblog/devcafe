@@ -7,6 +7,11 @@ var TodoList = require('../TodoList.jsx');
 
 module.exports = React.createClass({
   
+   getInitialState() {
+
+    return {}
+  },
+
 
   render() {
 

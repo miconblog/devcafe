@@ -7,6 +7,7 @@ module.exports = function(app) {
   app.use('/boards', require('./app/board'));
   app.use('/settings', require('./app/setting'));
   app.use('/admin', require('./app/admin'));
+  app.use('/api', require('./api'));
   app.use('/', require('./app/home'));
   
 };

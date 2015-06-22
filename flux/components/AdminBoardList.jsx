@@ -5,7 +5,8 @@ module.exports = React.createClass({
   getInitialState() {
 
     return {
-      boards: this.props.boards
+      boards: this.props.boards,
+      create: {}
     }
   },
 
@@ -53,6 +54,14 @@ module.exports = React.createClass({
           </tbody>
         </table>
 
+        <div className="layer">
+          <input type="text" value={this.state.create.id} />
+          <input type="text" value={this.state.create.name} />
+          <input type="text" value={this.state.create.type} />
+          <input type="text" value={this.state.create.openAt} />
+          <input type="text" value={this.state.create.closeAt} />
+          <input type="text" value={this.state.create.id} />
+        </div>
       </section>
     );
   }, 

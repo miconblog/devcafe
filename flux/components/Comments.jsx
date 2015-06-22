@@ -35,8 +35,8 @@ module.exports = React.createClass({
     return (
       <section>
         <CommentHeader flux={this.props.flux} comments={this.state.comments} />
-        <CommentList flux={this.props.flux} boardId={this.props.board.id} postId={this.props.post.id} comments={this.state.comments} />
         <CommentCreateForm flux={this.props.flux} boardId={this.props.board.id} postId={this.props.post.id} />
+        <CommentList flux={this.props.flux} boardId={this.props.board.id} postId={this.props.post.id} comments={this.state.comments} />
       </section>
     ); 
   }

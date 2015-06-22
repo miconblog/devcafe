@@ -20,9 +20,15 @@ module.exports = React.createClass({
       <div>
         <SignInOut path={this.props.path} message={this.props.message} email={this.props.email}/>
         <div>
-          <AdminBoardList boards={this.props.boards} />
-          <AdminMemberList members={this.props.members} />
+          <ul>
+            <li>기본관리</li>
+            <li>통계관리</li>
+          </ul>
+        </div>
+        <div>
           <AdminCompanyList companys={this.props.companys} />
+          <AdminMemberList members={this.props.members} />
+          <AdminBoardList boards={this.props.boards} />
         </div>
       </div>
     );

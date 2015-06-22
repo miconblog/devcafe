@@ -1,5 +1,4 @@
 var React = require('react');
-var moment = require('moment');
 var Fluxxor = require('fluxxor');
 
 module.exports = React.createClass({

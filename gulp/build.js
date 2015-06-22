@@ -6,6 +6,7 @@ var serverFiles = [
   './server/app/**/index.js',
   './server/app/**/*.controller.js',
   './server/libs/**/*.js',
+  './server/api/**/*.js',
   './server/views/**/*.hbs'
 ];
 
