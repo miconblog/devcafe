@@ -201,6 +201,7 @@ exports.changeInfo = function(req, res){
 
 exports.create = function(req, res, next) {
   var email = req.body.email;
+  var emailDomain = req.body.emailDomain;
   var username = req.body.name;
   var companyId = req.body.companyId; 
   var message = req.body.message;
@@ -215,7 +216,9 @@ exports.create = function(req, res, next) {
         title: '회원가입',
         path: 'signup',
         message: message,
-        email:email
+        email:email,
+        emailDomain:emailDomain,
+        companyId:companyId
       }
     }
     next();
@@ -233,7 +236,7 @@ exports.create = function(req, res, next) {
 
 
   Member.findOrCreate({
-    where: {email: email}, 
+    where: {email: email + "@" + emailDomain},
     defaults: {name: username, password:'1234', companyId: companyId}
   })
   .spread(function(user, created){

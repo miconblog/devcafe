@@ -90,7 +90,9 @@ var authService = {
     return function(req, res, next) {
 
       var message = '등록된 이메일로 가입확인 메일을 보냈습니다.';
+      var email = req.body.email;
       var userName = req.body.email;
+      var emailDomain = req.body.emailDomain;
       var companyId = req.body.company;
 
 
@@ -98,18 +100,16 @@ var authService = {
 
         // 회사 정보는 없다. 
         // username 에서 진짜 이름을 뽑아낸다. 
-        var email = req.body.email;
 
         // 이메일 검증. 실패시 바로 response 보내고 리턴
-        var isValid = (/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i).test(email);
+        var isValid = (/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i).test(email + "@" + emailDomain);
         if( !isValid ){
           message = "이메일 주소가 잘못되었습니다. 올바른 메일 주소를 넣어주세요.";
         }
 
-        var userName = email.split('@')[0];
-
         req.body = {
-          email : email, 
+          email : email,
+          emailDomain : emailDomain,
           name : userName, 
           companyId: companyId,
           message: message
@@ -127,7 +127,8 @@ var authService = {
           var userEmail = userName + '@' + companyDomain;
           
           req.body = {
-            email : userEmail, 
+            email : email,
+            emailDomain : companyDomain,
             name : userName, 
             companyId: companyId
           }

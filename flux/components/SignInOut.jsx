@@ -3,8 +3,9 @@ var React = require('react');
 module.exports = React.createClass({
 
   getInitialState() {
+    console.log(this.props.companyId);
     return {
-      freelance: false
+      freelance: this.props.companyId === '0' ? true : false
     }
   },
 
@@ -28,17 +29,20 @@ module.exports = React.createClass({
     if ( this.props.path === 'signup') {
 
       var companys =  this.props.companys;
+      if( !companys ){
+        companys = [];
+      }
       var Freelance = false;
 
       if( this.state.freelance ) {
         Freelance = <span>
-          <span>@</span><input type="text" placeholder="이메일 도메인" />
+          <span>@</span><input type="text" className="inputtext" name="emailDomain" defaultValue={this.props.emailDomain} placeholder="이메일 도메인" />
         </span>;
       }
 
       return (
         <div>
-          <form className="signupForm" action="/signup" method="post">
+          <form className="signupForm" action="/signup" method="post" onSubmit={this.handleSignupSubmit}>
             <input type="text" className="inputtext" name="email" id="email" defaultValue={this.props.email} placeholder="이메일 아이디" ref="email" />
             
             {Freelance}
@@ -69,5 +73,4 @@ module.exports = React.createClass({
       this.setState({freelance:false});
     }
   }
-
 });
