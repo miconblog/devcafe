@@ -18,5 +18,7 @@ router.post('/signup', auth.validateForm(), auth.createCode(), memberCtrl.create
 
 router.get('/confirm', authcodeCtrl.confirm, renderReact);
 router.get('/resetPassword', auth.isAuthenticated(), memberCtrl.resetPassword, renderReact);
+router.get('/sendResetPassword', memberCtrl.sendResetPasswordForm, renderReact);
+router.post('/sendResetPassword', memberCtrl.sendResetPasswordPost, renderReact);
 
 module.exports = router;

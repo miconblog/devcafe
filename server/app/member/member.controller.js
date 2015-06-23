@@ -23,6 +23,59 @@ exports.resetPassword = function(req, res, next) {
 
 };
 
+exports.sendResetPasswordPost = function(req, res, next) {
+  var email = req.body.email;
+  var message;
+
+  if( !email ){
+    message = "메일이 입력되지 않았습니다."
+    req.react = {
+      component : 'Home',
+      props: {
+        path: 'sendResetPasswordForm',
+        message: message
+      }
+    }
+    next();
+    return;
+  }
+
+
+  // 인증링크 생성
+  transporter.sendMail({
+    from: 'miconblog@gmail.com',
+    to: email,
+    subject: '[DevCafe] 비밀번호 재설정 메일입니다.',
+    text: '아래의 인증 코드를 클릭해주세요[인증코드]'
+  });
+
+  req.react = {
+    component : 'Home',
+    props: {
+      path: 'sendResetPasswordFormSuccess',
+      email : email
+    }
+  }
+  next();
+}
+
+exports.sendResetPasswordForm = function(req, res, next) {
+
+  // 로그인 되어 있다면 홈으로 보내라!
+  if( req.session.user ) {
+    return res.redirect('/');
+  }
+
+  req.react = {
+    component : 'Home',
+    props: {
+      path: 'sendResetPasswordForm'
+    }
+  }
+  next();
+
+};
+
 exports.settings = function(req, res, next) {
 
   console.log("next is : ", next);
