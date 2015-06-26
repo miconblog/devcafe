@@ -27,7 +27,8 @@ var Member = sequelize.define('member', {
   },
 
   role: {
-    type: Sequelize.STRING,
+    type: Sequelize.ENUM('admin', 'user'),
+    allowNull: false,
     defaultValue: 'user'
   },
 

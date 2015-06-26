@@ -1,7 +1,15 @@
 var React = require('react');
 var moment = require('moment');
+var Jquery = require('jquery');
 
 module.exports = React.createClass({
+
+  getInitialState() {
+    return {
+      members: this.props.members
+    }
+  },
+
 
   render() {
 
@@ -24,19 +32,28 @@ module.exports = React.createClass({
           </thead>
           <tbody>
             
-            {this.props.members.map(function(member, i){
+            {this.state.members.map(function(member, i){
+              
+              if( !member.originRole ){
+                member.originRole = member.role;  
+              }
               
               return <tr key={member.id}>
                 <td>{i+1}</td>
                 <td>{member.name}</td>
                 <td>{member.email}</td>
-                <td>{member.role}</td>
+                <td>
+                  <select value={member.role} onChange={this.handleChangeRole.bind(this, member, i)}>
+                    <option value="admin">관리자</option>
+                    <option value="user">일반회원</option>
+                  </select>
+                </td>
                 <td>{member.emailVerified? 'Y' : 'N'}</td>
                 <td>{member.shouldResetPassword ? 'Y' : 'N'}</td>
-                <td>{moment(member.createAt).format("LLL")}</td>
-                <td>{moment(member.updateAt).format("LLL")}</td>
+                <td>{moment(member.createdAt).format("L")}</td>
+                <td>{moment(member.updatedAt).format("LLL")}</td>
                 <td>
-                  <a href="#" onClick={this.handleEdit}>수정</a>
+                  {member.isChange ? <a href="#" onClick={this.handleSave.bind(this, member, i)}>수정 완료</a> : false}
                 </td>
               </tr>
             }.bind(this))}
@@ -47,9 +64,33 @@ module.exports = React.createClass({
       </section>
     );
   }, 
-  handleEdit(e){ 
+  handleSave(member, idx, e){ 
+    var self = this;
+    var members = this.state.members;
     e.preventDefault();
 
+    Jquery.ajax({
+      type: 'PUT',
+      url: '/api/members/' + member.id,
+      data: member
+    }).done(function(res){
+      console.log(res);
+      members[idx] = res;
+      self.setState({members:members});
+    });
+  },
+
+  handleChangeRole(member, idx, e){
+    var members = this.state.members;
+    members[idx].role = e.target.value;
+
+    if(member.originRole !== e.target.value){
+      member.isChange = true;
+    }else{
+      member.isChange = false;
+    }
+
+    this.setState({members: members});
   }
 
 });

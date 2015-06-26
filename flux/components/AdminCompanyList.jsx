@@ -6,8 +6,6 @@ var _ = require('lodash');
 module.exports = React.createClass({
   getInitialState() {
 
-    console.log(this.props.companys)
-
     return {
       companys: this.props.companys,
       company: {

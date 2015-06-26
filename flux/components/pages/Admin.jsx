@@ -26,9 +26,9 @@ module.exports = React.createClass({
           </ul>
         </div>
         <div>
-          <AdminCompanyList companys={this.props.companys} />
           <AdminMemberList members={this.props.members} />
           <AdminBoardList boards={this.props.boards} />
+          <AdminCompanyList companys={this.props.companys} />
         </div>
       </div>
     );
