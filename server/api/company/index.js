@@ -26,4 +26,33 @@ router.post('/', /*auth.isAuthenticated(), */ function(req, res){
   });
 
 });
+
+router.put('/', /*auth.isAuthenticated(), */ function(req, res){
+
+  console.log(req.body);
+
+  Company
+  .find({where: {id: req.body.id}})
+  .then(function(company) {
+
+    company.name = req.body.name;
+    company.domain = req.body.domain;
+    company.updatedAt = new Date();
+    company.save();
+    res.json(company);
+  });
+
+});
+
+router.delete('/:id', /*auth.isAuthenticated(), */ function(req, res){
+
+  Company
+  .find({where: {id: req.params.id}})
+  .then(function(company) {
+    company.destroy();
+    res.json(company);
+  });
+
+});
+
 module.exports = router;
