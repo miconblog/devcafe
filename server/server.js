@@ -12,6 +12,10 @@ var RedisStore = require('connect-redis')(session);
 var exphbs = require('express-handlebars');
 var app = express();
 
+// moment locale 설정
+var moment = require('moment');
+moment.locale('ko');
+
 // for complie .jsx
 var JSX = require('node-jsx').install({extension: '.jsx', harmony: true});
 

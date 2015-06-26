@@ -14,6 +14,7 @@
     <script id="props" type="application/json">{{{ props }}}</script>
     <script type="text/javascript" src="/js/bundle.js"></script>
     <scr{{!}}ipt type="text/javascript">
+      DevCafe.moment.locale('ko', DevCafe.loaded_locale);
       React.render( DevCafe.{{{component}}}(DevCafe.props), document.getElementById('main') ); 
     </scr{{!}}ipt>
 

@@ -1,7 +1,7 @@
 var React = require('react');
 
 var Fluxxor = require('fluxxor');
-var actions = require('./ActionCreator').methods;
+var actions = require('./ActionCreator');
 var TodoStore = require('./stores/TodoStore');
 var CommentStore = require('./stores/CommentStore');
 
@@ -12,7 +12,7 @@ var stores = {
 };
 
 
-var fluxxor = new Fluxxor.Flux(stores, actions);
+var fluxxor = new Fluxxor.Flux(stores, actions.methods);
 fluxxor.on('dispatch', function(type, payload) {
 
   if( console && console.log ){
@@ -27,6 +27,8 @@ props.flux = fluxxor;
 
 window.React = React;
 window.DevCafe = {
+  moment: require('moment'),
+  loaded_locale: require('moment/locale/ko'),
   Home: React.createFactory(require('./components/pages/Home.jsx')),
   Settings: React.createFactory(require('./components/pages/Settings.jsx')),
   ResetPass: React.createFactory(require('./components/pages/ResetPass.jsx')),
