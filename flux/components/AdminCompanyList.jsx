@@ -140,10 +140,6 @@ module.exports = React.createClass({
       self.setState({company:res});
       console.log(res);
 
-    }).fail(function(res){
-    
-      console.log(res);
-       
     });
   },
 
@@ -163,10 +159,6 @@ module.exports = React.createClass({
       self.setState({companys:coms});
       console.log(res);
 
-    }).fail(function(res){
-    
-      console.log(res);
-       
     });
   }
 

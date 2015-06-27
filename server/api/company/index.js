@@ -1,6 +1,3 @@
-/**
- * 2014 페이지 라우팅
- */
 'use strict';
 
 var express = require('express');
@@ -9,6 +6,24 @@ var Company = require('../../app/company/company.model')
 // var crypto = require('crypto');
 // var moment = require('moment');
 // var auth = require('../../libs/service/auth.service');
+
+router.get('/', /*auth.isAuthenticated(), */ function(req, res){
+  if (req.query.name === '') {
+    return res.json([]);
+  }
+
+
+  Company
+  .findAll({ where: {
+    name: {
+      $like: '%'+req.query.name+'%'
+    }
+  }})
+  .then(function(company) {
+    res.json(company);
+  });
+
+});
 
 router.post('/', /*auth.isAuthenticated(), */ function(req, res){
 

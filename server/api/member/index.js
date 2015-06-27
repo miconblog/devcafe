@@ -1,6 +1,3 @@
-/**
- * 2014 페이지 라우팅
- */
 'use strict';
 
 var express = require('express');

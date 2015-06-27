@@ -10,7 +10,8 @@ module.exports = sequelize.define('board', {
   
   id: {
     type: Sequelize.STRING(20),
-    primaryKey: true
+    primaryKey: true,
+    allowNull: false
   },
 
   name: {
