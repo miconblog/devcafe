@@ -1,6 +1,7 @@
 var React = require('react');
 var moment = require('moment');
 var Jquery = require('Jquery');
+var _ = require('lodash');
 
 module.exports = React.createClass({
   getInitialState() {
@@ -60,7 +61,6 @@ module.exports = React.createClass({
           <caption>게시판 목록</caption>
           <thead>
             <tr>
-              <th><input type="checkbox"/></th>
               <th>No.</th>
               <th>이름</th>
               <th>아이디</th>
@@ -92,7 +92,6 @@ module.exports = React.createClass({
               }
 
               return <tr key={board.id}>
-                <td><input type="checkbox"/></td>
                 <td>{i+1}</td>
                 <td><a href={url}>{board.name}</a></td>
                 <td className="center">{board.id}</td>
@@ -228,7 +227,9 @@ module.exports = React.createClass({
       data: this.state.create
     }).done(function(res){
 
-      console.log(res);
+      var boards = this.state.boards;
+      boards.push(res);
+      this.setState({boards:boards});
       
     }.bind(this));    
 
@@ -242,17 +243,26 @@ module.exports = React.createClass({
   handleDelete(board, e) {
     e.preventDefault();
 
-    console.log(board);
+    var yes = confirm('게시판을 지우면 관련글도 모두 지워집니다. \n정말로 삭제할까요?');
 
-    Jquery.ajax({
-      type: 'DELETE',
-      url: '/api/boards/' + board.id
-    }).done(function(res){
+    if(yes){
 
-      console.log(res);
-      
-    }.bind(this));    
+      Jquery.ajax({
+        type: 'DELETE',
+        url: '/api/boards/' + board.id
+      }).done(function(res){
+        console.log(res);
 
+        var boards = this.state.boards;
+        var idx = _.findIndex(boards, function(board) {
+          return board.id === res.id;
+        });
+
+        boards.splice(idx, 1);
+        this.setState({boards:boards});
+
+      }.bind(this));
+    }
 
   }
 });

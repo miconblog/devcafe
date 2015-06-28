@@ -13,7 +13,10 @@ router.get('/', /*auth.isAuthenticated(), */ function(req, res){
   }
 
   Board
-  .findAll({ where: { id: req.query.q }})
+  .findAll({ 
+    where: { id: req.query.q },
+    order: [['id', 'ASC']]
+  })
   .then(function(company) {
     res.json(company);
   });

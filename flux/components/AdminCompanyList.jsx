@@ -84,25 +84,6 @@ module.exports = React.createClass({
       isCreateMode: true
     });
   },
-  handleDelete(company, e){
-    var self = this;
-    e.preventDefault();
-
-    Jquery.ajax({
-      type: 'DELETE',
-      url: '/api/companys/' + company.id,
-    }).done(function(res){
-
-      var coms = self.state.companys;
-      var idx = _.findIndex(coms, function(com) {
-        return com.id === company.id;
-      });
-
-      coms.splice(idx, 1);
-      self.setState({companys: coms});
-    });
-    
-  },
   handleOpenCreateCompany(e){
     e.preventDefault();
 
@@ -127,8 +108,6 @@ module.exports = React.createClass({
   },
 
   handleEditCompany(e){
-
-    var self = this;
     e.preventDefault();
 
     Jquery.ajax({
@@ -136,30 +115,51 @@ module.exports = React.createClass({
       url: '/api/companys',
       data: this.state.company
     }).done(function(res){
-      
-      self.setState({company:res});
-      console.log(res);
+      this.setState({company:res});
+    }.bind(this));
+  },
 
-    });
+  handleDelete(company, e){
+    e.preventDefault();
+
+    var yes = confirm('정말로 삭제할까요?');
+
+    if(yes){
+
+      Jquery.ajax({
+        type: 'DELETE',
+        url: '/api/companys/' + company.id,
+      }).done(function(res){
+
+        var coms = this.state.companys;
+        var idx = _.findIndex(coms, function(com) {
+          return com.id === company.id;
+        });
+
+        coms.splice(idx, 1);
+        this.setState({companys: coms});
+
+      }.bind(this));
+    }
   },
 
   handleCreateCompany(e){
 
-    var self = this;
     e.preventDefault();
 
+   
     Jquery.ajax({
       type: 'POST',
       url: '/api/companys',
       data: this.state.company
     }).done(function(res){
 
-      var coms = self.state.companys;
+      var coms = this.state.companys;
       coms.push(res);
-      self.setState({companys:coms});
-      console.log(res);
-
-    });
+      this.setState({companys:coms});
+ 
+    }.bind(this));
+  
   }
 
 });
