@@ -27,15 +27,15 @@ exports.confirm = function(req, res) {
     });
   }else {
     
-    if( code.length !== 10 ) {
+    if( code.length !== 32 ) {
       return res.render("error", {
         errcode: 301,
-        message:"유효한 인증코드가 아닙니다. (10자리 코드여야함)" 
+        message:"유효한 인증코드가 아닙니다. (32자리 코드여야함)" 
       });
     }
 
 
-    AuthCode.findOne({where: {email:email, hashcode:code}})
+    AuthCode.findOne({where: {email:email, code:code}})
     .then(function(hashcode){
 
       var hashcode = true;

@@ -43,13 +43,13 @@ module.exports = React.createClass({
       return (
         <div>
           <form className="signupForm" action="/signup" method="post" onSubmit={this.handleSignupSubmit}>
-            <input type="text" className="inputtext" name="email" id="email" defaultValue={this.props.email} placeholder="이메일 아이디" ref="email" />
+            <input type="text" className="inputtext" name="emailName" id="email" defaultValue={this.props.email} placeholder="이메일 아이디" ref="email" />
             
             {Freelance}
             
             <select name="company" onChange={this.handleSelectChange}>
               {companys.map(function(company){
-                return <option value={company.id} key={company.id}>{company.name}</option>
+                return <option value={company.domain + ':' + company.id} key={company.id}>{company.name}</option>
               })}
               <option value="0">프리랜서</option>
             </select>

@@ -33,7 +33,7 @@ var Member = sequelize.define('member', {
   },
 
   email: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING(80),
     unique: true,
     allowNull: false
   },

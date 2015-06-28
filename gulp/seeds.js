@@ -35,42 +35,45 @@ var AuthCode = require('../server/app/authcode/authcode.model');
 function dropAllTables(){
   var deferred = Q.defer();
 
-  ReadUser.drop().then(function(){
-    Comment.drop().then(function(){
-      Post.drop().then(function(){
-        Board.drop().then(function(){
-          Member.drop().then(function(){
-            Company.drop().then(function(){
+  AuthCode.drop().then(function(){
+    ReadUser.drop().then(function(){
+      Comment.drop().then(function(){
+        Post.drop().then(function(){
+          Board.drop().then(function(){
+            Member.drop().then(function(){
+              Company.drop().then(function(){
 
-              console.log("\n----------- drop all tables ------------ \n\n")
-              deferred.resolve();
-            })
-          })    
-        })  
+                console.log("\n----------- drop all tables ------------ \n\n")
+                deferred.resolve();
+              })
+            })    
+          })  
+        })
       })
     })
   })
-  
+    
   return deferred.promise;
 }
 
 function syncAllTables(){
   var deferred = Q.defer();
 
-  AuthCode.sync();
-  Company.sync().then(function(){
-    Member.sync().then(function(){
-      Board.sync().then(function(){
-        Post.sync().then(function(){
-          ReadUser.sync().then(function(){
-            Comment.sync().then(function(){
+  AuthCode.sync().then(function(){
+    Company.sync().then(function(){
+      Member.sync().then(function(){
+        Board.sync().then(function(){
+          Post.sync().then(function(){
+            ReadUser.sync().then(function(){
+              Comment.sync().then(function(){
 
-              console.log("\n----------- sync all tables ------------ \n\n")
-              deferred.resolve();
+                console.log("\n----------- sync all tables ------------ \n\n")
+                deferred.resolve();
+              })
             })
-          })
-        })    
-      })  
+          })    
+        })  
+      })
     })
   })
   return deferred.promise;  
@@ -81,7 +84,7 @@ function createCompanies() {
   return  Q.all([
     Company.create({
       name: 'SK planet',
-      domain: 'skplanet.com'
+      domain: 'sk.com'
     }),
 
     Company.create({

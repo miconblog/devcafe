@@ -4,7 +4,7 @@
  */
 
 'use strict';
-var Company = require('../../app/company/company.model');
+var Company  = require('../../app/company/company.model');
 var debug = require('debug')('auth.service');
 
 var authService = {
@@ -76,84 +76,7 @@ var authService = {
       }
       
     }
-  },
-
-  /**
-   * 회원가입시 폼정보가 제대로 들어왔는지 검사한다. 
-   *  - 컴퍼니 아이디에서 컴퍼너 정보를 뽑아서 req 객체에 추가해놓는다. 
-   *  - 이메일 아이디를 req 객체의 이름으로 지정하고, 
-   *  - 이메일 아이디와 컴퍼니정보의 도메인을 조합해서 email을 만들어낸다. 
-   *  - 프리랜서일 경우 email 형식이 맞는지 점검하고, 
-   */
-  validateForm: function(){
-
-    return function(req, res, next) {
-
-      var message = '등록된 이메일로 가입확인 메일을 보냈습니다.';
-      var email = req.body.email;
-      var userName = req.body.email;
-      var emailDomain = req.body.emailDomain;
-      var companyId = req.body.company;
-
-
-      if(companyId === '0') { // 프리랜서일 경우 문자열 '0'으로 들어온다.
-
-        // 회사 정보는 없다. 
-        // username 에서 진짜 이름을 뽑아낸다. 
-
-        // 이메일 검증. 실패시 바로 response 보내고 리턴
-        var isValid = (/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i).test(email + "@" + emailDomain);
-        if( !isValid ){
-          message = "이메일 주소가 잘못되었습니다. 올바른 메일 주소를 넣어주세요.";
-        }
-
-        req.body = {
-          email : email,
-          emailDomain : emailDomain,
-          name : userName, 
-          companyId: companyId,
-          message: message
-        }
-
-        next();
-
-      } else {
-
-        // 회사 정보를 얻어온다. 
-        Company.findOne({id: companyId}).then(function(company){
-
-          var companyName = company.get('name');
-          var companyDomain = company.get('domain');
-          var userEmail = userName + '@' + companyDomain;
-          
-          req.body = {
-            email : email,
-            emailDomain : companyDomain,
-            name : userName, 
-            companyId: companyId
-          }
-
-          next();
-        });
-
-      }
-      
-    }
-  },
-
-  /**
-   * TO: 민중
-   * 인증 코드를 생성하는 작업은 여기서 진행하면 될듯
-   */ 
-  createCode: function(){
-
-    return function(req, res, next) {
-
-      next();
-    }
-
   }
-
 
 }
 
