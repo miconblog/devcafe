@@ -1,6 +1,6 @@
 var React = require('react');
 var moment = require('moment');
-var Jquery = require('Jquery');
+var Jquery = require('jquery');
 var _ = require('lodash');
 
 module.exports = React.createClass({

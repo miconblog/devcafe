@@ -1,7 +1,7 @@
 var React = require('react');
 
 var Fluxxor = require('fluxxor');
-var actions = require('./ActionCreator');
+var actions = require('./actionCreator');
 var TodoStore = require('./stores/TodoStore');
 var CommentStore = require('./stores/CommentStore');
 
