@@ -14,14 +14,11 @@ var modelFiles= [ './server/app/**/*.model.js' ];
 var lessFiles = [ './public/less/**/*.less' ];
 var fluxFiles = [ './flux/**/*.{js,jsx}' ];
 
-gulp.task( 'default', ['dbcheck','build'], function(done){
-
+gulp.task( 'default', ['dbcheck','build'], function(){
   gulp.start('server:start');
   gulp.watch( serverFiles, [ 'server:restart' ] );
   gulp.watch( modelFiles, [ 'seeds', 'server:restart' ] );
   gulp.watch( fluxFiles, [ 'browserify','server:restart' ] );
   gulp.watch( lessFiles, [ 'styles', 'browser:reload' ] );
 
-
-  done();
 });
