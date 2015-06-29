@@ -1,6 +1,6 @@
 var gulp   = require( 'gulp' );
 var gutil = require('gulp-util');
-var Q = require('Q');
+var Q = require('q');
 
 var Member = require('../server/app/member/member.model');
 var Board = require('../server/app/board/board.model');
