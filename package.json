@@ -45,29 +45,17 @@
   "devDependencies": {
     "babelify": "^6.1.2",
     "browser-sync": "^2.7.6",
-    "browserify": "^10.2.4",
     "gulp": "^3.9.0",
+    "gulp-browserify": "^0.5.1",
     "gulp-develop-server": "^0.4.3",
     "gulp-less": "^3.0.3",
+    "gulp-rename": "^1.2.2",
     "gulp-util": "^3.0.5",
     "less-plugin-autoprefix": "^1.4.2",
     "less-plugin-clean-css": "^1.5.0",
     "reactify": "^1.1.1",
     "redis": "^0.12.1",
     "require-dir": "^0.3.0",
-    "uglify-js": "^2.4.23",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0",
-    "watchify": "^3.2.3"
-  },
-  "browserify": {
-    "transform": [
-      [
-        "reactify",
-        {
-          "es6": true
-        }
-      ]
-    ]
+    "uglify-js": "^2.4.23"
   }
 }
