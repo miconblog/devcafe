@@ -300,20 +300,24 @@ module.exports = {
     .spread(function(user, created){
 
       var message = '등록된 이메일('+ req.body.email+')로 가입확인 메일을 보냈습니다.';
-      var authLink = ['/confirm?code=', req.body.authcode, '&email=', req.body.email].join('');
+      var authLink = ['http://localhost:9000', '/confirm?code=', req.body.authcode, '&email=', req.body.email].join('');
 
       if( !created ){
         message = '이미 가입된 메일주소('+ req.body.email+')입니다.'
       } else {
         
-        console.log('===> ', authLink);
-
         // 인증링크 생성
         transporter.sendMail({
           from: 'miconblog@gmail.com',
           to: req.body.email,
           subject: '[DevCafe] 가입을 환영합니다.',
-          text: '개발자들의 위한 커뮤니티! DevCafe에 오신걸 환영합니다. <a href="' + authLink + '">인증링크</a>를 클릭해서 가입을 완료하세요.'
+          html: '개발자들의 위한 커뮤니티! DevCafe에 오신걸 환영합니다. <a href="' + authLink + '">인증링크</a>를 클릭해서 가입을 완료하세요.'
+        }, function(error, info){
+          if(error){
+              return console.log(error);
+          }
+
+          console.log('Message sent: ' + info.response);
         });
 
       }

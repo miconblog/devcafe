@@ -13,12 +13,15 @@ var debug = require('debug')('server:controller:home');
 
 exports.index = function(req, res, next) {
 
+  res.locals.showSignupBtn = true;
+
   if(!req.session.user){
 
     req.react = {
       component : 'Home',
       props: {
         path: 'home',
+        isAuth: false,
         boards: false,
         showTodoList: true
       }
@@ -57,9 +60,9 @@ exports.index = function(req, res, next) {
     req.react = {
       component : 'Home',
       props: {
+        isAuth: true,
         path: 'home',
-        boards: boards,
-        showTodoList: true
+        boards: boards
       }
     }
     next();
@@ -67,23 +70,6 @@ exports.index = function(req, res, next) {
 
   
 
-};
-
-exports.signin = function(req, res, next) {
-
-  // 로그인 되어 있다면 홈으로 보내라!
-  if( req.session.user ) {
-    return res.redirect('/');
-  }
-
-  req.react = {
-    component : 'Home',
-    props: {
-      title: '로그인',
-      path: 'signin'
-    }
-  }
-  next();
 };
 
 exports.signout = function(req, res) {
@@ -97,6 +83,8 @@ exports.signout = function(req, res) {
 };
 
 exports.signup = function(req, res, next) {
+
+  res.locals.showSigninBtn = true;
 
   // 로그인 되어 있다면 홈으로 보내라!
   if( req.session.user ) {
@@ -116,6 +104,7 @@ exports.signup = function(req, res, next) {
       props: {
         title: '회원가입',
         path: 'signup',
+        isAuth: false,
         companys: companys
       }
     }

@@ -9,8 +9,12 @@
     <li><a href="/signout">로그아웃</a></li>
     <li><a href="/settings">설정</a></li>
     {{else}}
-    <li><a href="/signup">회원가입</a></li>
-    <li><a href="/signin">로그인</a></li>
+      {{#if showSigninBtn}}
+      <li><a href="/">로그인</a></li>
+      {{/if}}
+      {{#if showSignupBtn}}
+      <li><a href="/signup">회원가입</a></li>
+      {{/if}}
     {{/if}}
   </ul>
 

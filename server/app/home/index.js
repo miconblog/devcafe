@@ -9,7 +9,7 @@ var renderReact = require('../../libs/render-react');
 var router = express.Router();
 
 router.get('/', home.index, renderReact);
-router.get('/signin', home.signin, renderReact);
+
 router.get('/signup', home.signup, renderReact);
 router.get('/signout', home.signout);
 
