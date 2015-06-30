@@ -1,11 +1,11 @@
 'use strict';
-var Member = require('../../app/member/member.model');
-var Board = require('../../app/board/board.model');
-var Post = require('../../app/post/post.model');
-var ReadUser = require('../../app/post/read_user.model');
-var Comment = require('../../app/comment/comment.model');
-var Company = require('../../app/company/company.model');
-var AuthCode = require('../../app/authcode/authcode.model');
+var Member  = require('../../app/models/member.model');
+var Board   = require('../../app/models/board.model');
+var Post    = require('../../app/models/post.model');
+var ReadUser= require('../../app/models/read_user.model');
+var Comment = require('../../app/models/comment.model');
+var Company = require('../../app/models/company.model');
+var AuthCode= require('../../app/models/authcode.model');
 
 module.exports = function(){
 

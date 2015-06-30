@@ -2,8 +2,8 @@ var gulp   = require( 'gulp' );
 var serverFiles = [
   './server/bin/www',
   './server/server.js',
-  './server/routes.js',
-  './server/app/**/index.js',
+  './server/routes/**/*.js',
+  './server/app/**/*.service.js',
   './server/app/**/*.controller.js',
   './server/libs/**/*.js',
   './server/api/**/*.js',

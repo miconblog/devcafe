@@ -1,13 +1,13 @@
 'use strict';
 
 var gulp = require('gulp');
-var Member = require('../server/app/member/member.model');
-var Board = require('../server/app/board/board.model');
-var Post = require('../server/app/post/post.model');
-var ReadUser = require('../server/app/post/read_user.model');
-var Comment = require('../server/app/comment/comment.model');
-var Company = require('../server/app/company/company.model');
-var AuthCode = require('../server/app/authcode/authcode.model');
+var Member = require('../server/app/models/member.model');
+var Board = require('../server/app/models/board.model');
+var Post = require('../server/app/models/post.model');
+var ReadUser = require('../server/app/models/read_user.model');
+var Comment = require('../server/app/models/comment.model');
+var Company = require('../server/app/models/company.model');
+var AuthCode = require('../server/app/models/authcode.model');
 
 var Q = require('q');
 Q.longStackSupport = true;
