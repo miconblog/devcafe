@@ -20,7 +20,7 @@ var authService = {
          * session에  redirect url을 저장해둔다.
          * */
         req.session.redirect = req.originalUrl;
-        return res.redirect('/signin');
+        return res.redirect('/');
       }
 
       next();

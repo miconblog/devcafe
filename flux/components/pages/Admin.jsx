@@ -18,7 +18,6 @@ module.exports = React.createClass({
 
     return (
       <div>
-        <SignInOut path={this.props.path} message={this.props.message} email={this.props.email}/>
         <div>
           <ul>
             <li>기본관리</li>
