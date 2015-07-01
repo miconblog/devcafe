@@ -11,6 +11,7 @@ module.exports = function(){
 
   // 회사는 여러 사원을 가지지만 회사가 망하면 멤버는 실직하다. 즉, 회사ID는 자동으로 NULL이 된다.
   Company.hasMany(Member);
+  Member.belongsTo(Company);
 
   // 회사는 여러개의 게시판을 가진다. 회사가 망하면 게시판도 망한다.
   Company.hasMany(Board);

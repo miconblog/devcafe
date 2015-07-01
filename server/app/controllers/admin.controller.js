@@ -5,7 +5,11 @@ var Board   = require('../models/board.model');
 
 exports.index = function(req, res, next) {
 
-  Member.all().then(function(members){
+  Member.findAll({
+    include: [ { model: Company, as: 'company' } ],
+  }).then(function(members){
+
+    console.log(members);
 
     Board.all().then(function(boards){
 

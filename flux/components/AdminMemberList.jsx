@@ -23,6 +23,7 @@ module.exports = React.createClass({
               <th>No.</th>
               <th>이름</th>
               <th>이메일</th>
+              <th>소속</th>
               <th>역할</th>
               <th>메일확인</th>
               <th>비번재설정</th>
@@ -35,13 +36,17 @@ module.exports = React.createClass({
             {this.state.members.map(function(member, i){
               
               if( !member.originRole ){
-                member.originRole = member.role;  
+                member.originRole = member.role; 
               }
+
+              member.companyName = member.company ? member.company.name : '-'
+
               
               return <tr key={member.id}>
                 <td>{i+1}</td>
                 <td>{member.name}</td>
                 <td>{member.email}</td>
+                <td>{member.companyName}</td>
                 <td>
                   <select value={member.role} onChange={this.handleChangeRole.bind(this, member, i)}>
                     <option value="admin">관리자</option>
