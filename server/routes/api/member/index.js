@@ -23,4 +23,23 @@ router.put('/:id', /*auth.isAuthenticated(), */ function(req, res){
 
 });
 
+router.put('/:id/password', /*auth.isAuthenticated(), */ function(req, res){
+
+  console.log(req.body);
+
+  Member
+  .findOne({where:{id:req.params.id}})
+  .then(function(member){
+
+    member.password = req.body.password;
+    member.shouldResetPassword = false;
+    member.save().then(function(){
+    
+      res.json({result:'OK'});  
+
+    });
+
+  });
+});
+
 module.exports = router;

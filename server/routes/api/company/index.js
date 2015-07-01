@@ -2,6 +2,7 @@
 
 var express = require('express');
 var Company = require('../../../app/models/company.model');
+var Member  = require('../../../app/models/member.model');
 var router  = express.Router();
 
 // var crypto = require('crypto');
@@ -35,7 +36,29 @@ router.post('/', /*auth.isAuthenticated(), */ function(req, res){
     console.log(company.get({
       plain: true
     }))
-    console.log(created)
+    console.log(created);
+
+    // 회사가 등록됐으니까 같은 도메인을 가진 회원들을 다 찾아서 CompanyId를 설정해준다.
+    Member
+    .findAll({
+      where: {
+        companyId: null,
+        email: {
+          $like: '%@' + req.body.domain
+        }
+      }
+    })
+    .then(function(members){
+
+      members.forEach(function(member){
+
+        member.companyId = company.id;
+        member.save();
+      });
+
+    });
+
+
 
     res.json(company);
   });

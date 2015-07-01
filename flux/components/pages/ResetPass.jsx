@@ -17,7 +17,7 @@ module.exports = React.createClass({
 
   render() {
     var member = this.props.member;
-    var actionUrl = "/member/" + member.id + "/resetPassword";
+    var actionUrl = "/api/member/" + member.id + "/resetPassword";
 
     if( this.state.validate ) {
       var SubmitButton = <input type="submit" value="변경하기" />;
@@ -58,7 +58,7 @@ module.exports = React.createClass({
 
     Jquery.ajax({
       type: 'PUT',
-      url: '/members/' + this.props.member.id + '/password',
+      url: '/api/members/' + this.props.member.id + '/password',
       data: {
         password: this.state.password
       }
