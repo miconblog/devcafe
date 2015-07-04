@@ -1,9 +1,9 @@
-#signup, #signin, #find_pass, #message {
+#signup, #signin, #find_pass, #message, #reset_password {
   width: 248px;
   margin: 20px auto;
 
   .cell {
-    margin: 2px;
+    margin: 2px 0;
   }
 
   select {
@@ -30,17 +30,9 @@
     }
   }
 
-  input[name=emailDomain] {
-    float: right;
-  }
-
-  input[type=password]{
-    float: right;
-  }
-
   input[type=submit] {
     font-size: 14px;
-    width: 244px;
+    width: 248px;
     height: 40px;
     line-height: 40px;
     border: 1px solid #ccc;
@@ -48,12 +40,31 @@
   }
 }
 
-#signin a {
-  float: right;
+#signin {
+  input[name=password]{
+    float: right;
+  }
+
+  a {
+   float: right;
+  }
+}
+
+#signup {
+  input[name="emailDomain"] {
+    float: right;
+  }
 }
 
 #find_pass .findPassForm input.inputtext {
   width: 235px;
+}
+
+#reset_password {
+  
+  input[name=confirm]{
+    float: right;
+  }
 }
 
 #message {
@@ -61,5 +72,8 @@
   text-align: center;
   .info {
     min-height: 100px;
+  }
+  p {
+
   }
 }

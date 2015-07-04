@@ -9,15 +9,13 @@ var ssr      = require('../../app/server_side_render');
 var router   = express.Router();
 
 router.get('/', home.index, ssr);
-router.post('/', member.authenticate, home.index, ssr);
+router.post('/', member.singin, home.index, ssr);
 
 router.get('/signup', home.signup, ssr);
 router.post('/signup', member.validate, member.create, authcode.make, /*member.sendMail,*/ home.signup, ssr);
 
 router.get('/signout', home.signout);
-
 router.get('/confirm', authcode.confirm, ssr);
-router.get('/resetPassword', auth.isAuthenticated(), home.resetPassword, ssr);
 
 router.get('/findPassword', home.findPassword, ssr);
 router.post('/findPassword', member.sendResetPassword, home.findPassword, ssr);

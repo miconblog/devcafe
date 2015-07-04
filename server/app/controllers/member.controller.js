@@ -37,21 +37,8 @@ module.exports = {
     req.message = "입력하신 "+ email +" 로\n인증 메일을 전송했습니다. 메일함을 확인해주세요.";
     next();
   },
-
-  // settings: function(req, res, next) {
-
-  //   console.log("next is : ", next);
-  //   req.react = {
-  //     component : 'Settings',
-  //     props: {
-  //       member : req.session.user
-  //     }
-  //   }
-  //   next();
-
-  // },
   
-  authenticate: function(req, res, next) {
+  singin: function(req, res, next) {
 
     var email = req.body.email;
     var password = req.body.password;
@@ -85,7 +72,7 @@ module.exports = {
         }
 
         if(req.session.user.shouldResetPassword) {
-          return res.redirect("/resetPassword");
+          return res.redirect("/account/resetPassword");
         }
 
         return res.redirect("/");

@@ -20,21 +20,27 @@ module.exports = React.createClass({
     var actionUrl = "/api/member/" + member.id + "/resetPassword";
 
     if( this.state.validate ) {
-      var SubmitButton = <input type="submit" value="변경하기" />;
+      var SubmitButton = <div className="cell">
+        <input type="submit" value="비밀번호 변경하기" />
+      </div>
     }else{
-      var SubmitButton = <div>
-        <input type="submit" value="변경하기" disabled />
+      var SubmitButton = <div className="cell">
+        <input type="submit" value="비밀번호 변경하기" disabled />
         <p>비밀번호가 일치하지 않습니다.</p>
       </div>
     }
 
     return (
-      <form method="PUT" action={actionUrl} onSubmit={this.handleEditSubmit}>
-        <h4>Reset Password</h4>
-        <input type="password" name="password" onChange={this.handleChangePassword} value={this.state.password} />
-        <input type="password" name="confirm" onChange={this.handleChangeConfirm} />
-        {SubmitButton}
-      </form>
+      <div id="reset_password">
+        <h3>비밀번호를 변경하세요.</h3>
+        <form method="PUT" action={actionUrl} onSubmit={this.handleEditSubmit}>
+          <div className="cell">
+            <input type="password" name="password" onChange={this.handleChangePassword} value={this.state.password} />
+            <input type="password" name="confirm" onChange={this.handleChangeConfirm} />
+          </div>
+          {SubmitButton}
+        </form>
+      </div>
     );
   },
 

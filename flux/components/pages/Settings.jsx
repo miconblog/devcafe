@@ -7,7 +7,7 @@ var Jquery = require('jquery');
 
 // 하위 컴포넌트
 var SettingMemberInfo = require('../SettingMemberInfo.jsx');
-var ResetPass = require('./ResetPass.jsx')
+var ResetPass = require('./ResetPassword.jsx')
 module.exports = React.createClass({
 
   render() {
