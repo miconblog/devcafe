@@ -1,25 +1,13 @@
-#signup, #signin {
-  width: 250px;
+#signup, #signin, #find_pass, #message {
+  width: 248px;
   margin: 20px auto;
 
-  input {
-    float: left;
-    margin: 0 0 1px 0;
-    height: 30px;
-    line-height: 30px;
-    width: 110px;
-    padding-left: 5px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  input[type=password]{
-    float: right;
+  .cell {
+    margin: 2px;
   }
 
   select {
-    float: right;
-    width: 120px;
+    width: 244px;
     padding: 5px;
     font-size: 14px;
     height: 34px;
@@ -28,16 +16,50 @@
     border-radius: 5px;
   }
 
+  input {
+    height: 30px;
+    line-height: 30px;
+    width: 112px;
+    padding-left: 6px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+    &.disabled {
+      background-color: #ccc;
+    }
+  }
+
+  input[name=emailDomain] {
+    float: right;
+  }
+
+  input[type=password]{
+    float: right;
+  }
+
   input[type=submit] {
     font-size: 14px;
-    width: 250px;
+    width: 244px;
     height: 40px;
     line-height: 40px;
     border: 1px solid #ccc;
     border-radius: 5px;
   }
+}
 
-  a {
-    float: right;
+#signin a {
+  float: right;
+}
+
+#find_pass .findPassForm input.inputtext {
+  width: 235px;
+}
+
+#message {
+  width: 300px;
+  text-align: center;
+  .info {
+    min-height: 100px;
   }
 }

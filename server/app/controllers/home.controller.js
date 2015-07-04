@@ -3,6 +3,7 @@ var React   = require('react');
 var Company = require('../models/company.model');
 var Board   = require('../models/board.model');
 var debug   = require('debug')('server:controller:home');
+var _       = require('lodash');
 
 
 exports.index = function(req, res, next) {
@@ -61,8 +62,44 @@ exports.index = function(req, res, next) {
     }
     next();
   });
+};
 
-  
+exports.resetPassword = function(req, res, next) {
+
+  req.react = {
+    component : 'ResetPass',
+    props: {
+      member : req.session.user
+    }
+  }
+  next();
+
+};
+
+exports.findPassword = function(req, res, next) {
+
+  // 로그인 되어 있다면 홈으로 보내라!
+  if( req.session.user ) {
+    return res.redirect('/');
+  }
+
+  res.locals.showSigninBtn = true;
+  req.react = {
+    component : 'Home',
+    props: {
+      path: 'findPassword'
+    }
+  }
+
+
+  if(req.message) {
+
+    req.react.props = {
+      path: 'findPasswordDone',
+      message : req.message
+    }
+  }
+  next();
 
 };
 
@@ -72,8 +109,6 @@ exports.signout = function(req, res) {
     console.log("destroying session");
   });
   return res.redirect('/');
-
-
 };
 
 exports.signup = function(req, res, next) {
@@ -85,10 +120,23 @@ exports.signup = function(req, res, next) {
     return res.redirect('/');
   }
 
+  // 회원가입이 완료 됐다면 
+  if(req.completeSignUp) {
+    req.react = {
+      component : 'Home',
+      props: {
+        path: 'signupDone',
+        isAuth: false,
+        message : req.message
+      }
+    }
+
+    return next();
+  }
+
   /**
    * #16 회원가입 페이지에 가입가능한 회사 목록이 필요하다
    */
-
   Company.all().then(function(companies){
 
     var companys = JSON.parse(JSON.stringify(companies)); 
@@ -96,10 +144,10 @@ exports.signup = function(req, res, next) {
     req.react = {
     component : 'Home',
       props: {
-        title: '회원가입',
         path: 'signup',
         isAuth: false,
-        companys: companys
+        companys: companys,
+        message: req.error ? req.error.message : req.message
       }
     }
     next();

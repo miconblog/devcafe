@@ -1,8 +1,40 @@
 'use strict';
 var Member      = require('../models/member.model');
 var AuthCode    = require('../models/authcode.model');
-var nodemailer  = require('nodemailer');
-var transporter = nodemailer.createTransport();
+var crypto      = require('crypto');
+var moment      = require('moment');
+
+exports.make = function(req, res, next) {
+  if( req.error){
+    return next();
+  }
+
+  console.log("AuthCode.make > BODY", req.body);
+  req.authcode = crypto.createHash('md5').update(moment().format()).digest('hex');
+
+  AuthCode
+  .findOrCreate({ 
+    where: {email: req.body.email}, 
+    defaults: {
+      email: req.body.email, 
+      code: req.authcode,
+      created_at: moment(),
+      expired_at: moment().add(2, 'days')
+    }
+  })
+  .spread(function(code, created) {
+
+    if( !created ) {
+      code.code = req.body.authcode;
+      code.created_at = moment();
+      code.expired_at = moment().add(2, 'days');;
+      code.save()
+    }
+
+    next();
+  });
+};
+
 
 /**
  * 인증테이블에 해당코드와 이메일이 있는지 확인하고 있으면, 

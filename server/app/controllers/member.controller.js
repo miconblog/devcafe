@@ -1,30 +1,17 @@
 'use strict';
-var moment      = require('moment');
-var crypto      = require('crypto');
 var Member      = require('../models/member.model');
-var AuthCode    = require('../models/authcode.model');
 var debug       = require('debug')('server:controller:member');
 var nodemailer  = require('nodemailer');
 var transporter = nodemailer.createTransport();
 
 module.exports = {
   
-  resetPassword: function(req, res, next) {
-
-    req.react = {
-      component : 'ResetPass',
-      props: {
-        member : req.session.user
-      }
-    }
-    next();
-
-  },
-  
-  sendResetPasswordPost: function(req, res, next) {
+  sendResetPassword: function(req, res, next) {
     var email = req.body.email;
     var message;
 
+    // TODO: 가입된 이메일인지 확인 할때 필드를 하나 더 넣어서 검증이 필요하다. 
+    // 추가 필드가 없다면, 악의적으로 누군가가 패스워드를 리셋할수도 있다. 
     if( !email ){
       message = "메일이 입력되지 않았습니다."
       req.react = {
@@ -47,45 +34,22 @@ module.exports = {
       text: '아래의 인증 코드를 클릭해주세요[인증코드]'
     });
 
-    req.react = {
-      component : 'Home',
-      props: {
-        path: 'sendResetPasswordFormSuccess',
-        email : email
-      }
-    }
+    req.message = "입력하신 "+ email +" 로\n인증 메일을 전송했습니다. 메일함을 확인해주세요.";
     next();
   },
 
-  sendResetPasswordForm: function(req, res, next) {
+  // settings: function(req, res, next) {
 
-    // 로그인 되어 있다면 홈으로 보내라!
-    if( req.session.user ) {
-      return res.redirect('/');
-    }
+  //   console.log("next is : ", next);
+  //   req.react = {
+  //     component : 'Settings',
+  //     props: {
+  //       member : req.session.user
+  //     }
+  //   }
+  //   next();
 
-    req.react = {
-      component : 'Home',
-      props: {
-        path: 'sendResetPasswordForm'
-      }
-    }
-    next();
-
-  },
-
-  settings: function(req, res, next) {
-
-    console.log("next is : ", next);
-    req.react = {
-      component : 'Settings',
-      props: {
-        member : req.session.user
-      }
-    }
-    next();
-
-  },
+  // },
   
   authenticate: function(req, res, next) {
 
@@ -124,15 +88,14 @@ module.exports = {
           return res.redirect("/resetPassword");
         }
 
-        res.redirect("/");
+        return res.redirect("/");
 
       } else { 
 
         req.react = {
           component : 'Home',
           props: {
-            title: 'Express authenticate Fail!',
-            path : 'signin',
+            path : 'home',
             auth : false,
             message: '패스워드가 일치하지 않습니다.'
           }
@@ -194,97 +157,56 @@ module.exports = {
   },
 
   /**
-   * 1. 회원가입시 폼정보가 제대로 들어왔는지 검사한다. 
+   * 1. 회원가입시 폼정보가 제대로 들어왔는지 검사한다.
    */
   validate: function(req, res, next) {
 
     console.log("1. validateForm > BODY", req.body);
 
-    var message = '';
     var emailName = req.body.emailName;
-    var splits = req.body.company.split(':');
-    var emailDomain, companyId=null;
+    var emailDomain = req.body.emailDomain;
+    var splits = req.body.company.split(':'), companyId=null;
 
-    if( splits ){
-      emailDomain = splits[0];
+
+    if( splits.length > 1 ){
+      emailDomain = splits[0]
       companyId = splits[1];
     }
 
-    if(req.body.company === '0') { 
-      // 프리랜서일 경우 문자열 '0'으로 들어온다.
-      // 이메일 검증. 실패시 바로 response 보내고 리턴
-      emailDomain = req.body.emailDomain;
-      var email = emailName + '@' + emailDomain;
-      var isValid = (/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i).test(email);
-      if( !isValid ){
-        message = "이메일 주소가 잘못되었습니다. 올바른 메일 주소를 넣어주세요.";
+    // 이메일 검증. 실패시 바로 response 보내고 리턴
+    var email = emailName + '@' + emailDomain;
+    var isValid = (/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i).test(email);
+    
+
+    if( !isValid ){      
+      req.error = {
+        email: email,
+        message: "이메일 주소가 잘못되었습니다. 올바른 메일 주소를 넣어주세요."
       }
-          } 
+      return next();
+    }
+  
 
     req.body = {
-      email : emailName + '@' + emailDomain,
+      email : email,
       emailDomain : emailDomain,
       username : emailName, 
-      companyId: companyId,
-      message: message
+      companyId: companyId
     }
 
     next();
   },
 
   /**
-   * 2. 회원가입시 인증 코드를 생성한다.
-   */ 
-  makeAuthCode: function(req, res, next) {
-
-    console.log("2. makeAuthCode > BODY", req.body);
-    req.body.authcode = crypto.createHash('md5').update(moment().format()).digest('hex');
-
-    AuthCode
-    .findOrCreate({ 
-      where: {email: req.body.email}, 
-      defaults: {
-        email: req.body.email, 
-        code: req.body.authcode,
-        created_at: moment(),
-        expired_at: moment().add(2, 'days')
-      }
-    })
-    .spread(function(code, created) {
-
-      if( !created ) {
-        code.code = req.body.authcode;
-        code.created_at = moment();
-        code.expired_at = moment().add(2, 'days');;
-        code.save()
-      }
-
-      next();
-    });
-  },
-
-  /**
-   * 3. 검증된 이메일로 회원을 생성한다.
+   * 2. 검증된 이메일로 회원을 생성한다.
    */ 
   create: function(req, res, next) {
-    console.log("3. member.create > BODY", req.body);
 
-    if( req.body.message ){
-      req.react = {
-        component : 'Home',
-        props: {
-          title: '회원가입',
-          path: 'signup',
-          message: req.body.message,
-          email: req.body.email,
-          emailDomain: req.body.emailDomain,
-          companyId: req.body.companyId
-        }
-      }
-      next();
-      return;
+    if(req.error){
+      return next();
     }
 
+    console.log("2. member.create > BODY", req.error, req.body);
 
     Member.findOrCreate({
       where: {email: req.body.email},
@@ -292,41 +214,34 @@ module.exports = {
     })
     .spread(function(user, created){
 
-      var message = '등록된 이메일('+ req.body.email+')로 가입확인 메일을 보냈습니다.';
-      var authLink = ['http://localhost:9000', '/confirm?code=', req.body.authcode, '&email=', req.body.email].join('');
 
       if( !created ){
-        message = '이미 가입된 메일주소('+ req.body.email+')입니다.'
-      } else {
-        
-        // 인증링크 생성
-        transporter.sendMail({
-          from: 'miconblog@gmail.com',
-          to: req.body.email,
-          subject: '[DevCafe] 가입을 환영합니다.',
-          html: '개발자들의 위한 커뮤니티! DevCafe에 오신걸 환영합니다. <a href="' + authLink + '">인증링크</a>를 클릭해서 가입을 완료하세요.'
-        }, function(error, info){
-          if(error){
-              return console.log(error);
-          }
-
-          console.log('Message sent: ' + info.response);
-        });
-
-      }
-
-      req.react = {
-        component : 'Home',
-        props: {
-          title: '회원가입',
-          path: 'signup',
-          message: message,
-          companys: []
+        req.error = {
+          message: '이미 가입된 메일주소('+ req.body.email+')입니다.'
         }
-      }
-      next();
+        return next();
+      } 
 
+      // 메일 보내기
+      var authLink = ['http://localhost:9000', '/confirm?code=', req.authcode, '&email=', req.body.email].join('');
+      transporter.sendMail({
+        from: 'miconblog@gmail.com',
+        to: req.body.email,
+        subject: '[DevCafe] 가입을 환영합니다.',
+        html: '개발자들의 위한 커뮤니티! DevCafe에 오신걸 환영합니다. <a href="' + authLink + '">인증링크</a>를 클릭해서 가입을 완료하세요.'
+      }, function(error, info){
+        if(error){
+            return console.log(error);
+        }
+
+        console.log('Message sent: ' + info.response);
+      });
+
+      req.message = '등록된 이메일('+ req.body.email+')로\n가입확인 메일을 보냈습니다.';
+      req.completeSignUp = true;
+      next();
     })
   }
+
 };
 
