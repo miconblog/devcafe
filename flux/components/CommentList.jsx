@@ -18,29 +18,29 @@ module.exports = React.createClass({
     var self = this;
 
     return (
-      <article>
-        <ul id="comment-list">
-          {comments.map(function(comment, i){
+      <ul id="comment-list">
+        {comments.map(function(comment, i){
 
-            var embedClass = "list-item";
-            var ownerFunction = <a href="#" onClick={self.handleDeleteComment.bind(self, comment, i)} key={i}>삭제</a>
-            if(i === 0) {
-              embedClass += " first";
-            }else if(i === comments.length-1 ){
-              embedClass += " last";
-            }
+          var embedClass = "list-item";
+          var ownerFunction = <a href="#" onClick={self.handleDeleteComment.bind(self, comment, i)} key={i}>삭제</a>
+          if(i === 0) {
+            embedClass += " first";
+          }else if(i === comments.length-1 ){
+            embedClass += " last";
+          }
 
-            return <li key={comment.id} className={embedClass} >
+          return <li key={comment.id} className={embedClass} >      
+            <div className="info">
               <span>{comment.isOwner}</span>
               <span className="name">{comment.username}</span>
-              <span className="content" dangerouslySetInnerHTML={{__html: comment.content }} />
               <time className="time">{moment(comment.createdAt).format("LLL")}</time>
               <span className="like">{comment.likeCount}좋아요</span>
               {comment.isOwner ? ownerFunction : false }
-            </li>
-          })}
-        </ul>
-      </article>
+            </div>
+            <div className="content" dangerouslySetInnerHTML={{__html: comment.content.replace(/\n/g, '</br>') }} />
+          </li>
+        })}
+      </ul>
     );
     
   },

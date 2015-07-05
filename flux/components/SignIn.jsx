@@ -14,8 +14,8 @@ module.exports = React.createClass({
       <div id="signin">
         <form action="/" method="post">
           <div className="cell">
-            <input type="text" className="inputtext" name="email" id="email" placeholder="이메일" ref="email" />
-            <input type="password" className="inputtext" name="password" id="password" placeholder="비밀번호" ref="password" />
+            <input type="text" name="email" id="email" placeholder="이메일" ref="email" required />
+            <input type="password" name="password" id="password" placeholder="비밀번호" ref="password" required />
           </div>
           <div className="cell">
             <input type="submit" value="로그인" />
@@ -24,10 +24,7 @@ module.exports = React.createClass({
         <a href="/findPassword">비밀번호 찾기</a>
         <p>{this.props.message}</p>
       </div>
-
     );
-    
-
   },
 
   handleChangeDomain(e){

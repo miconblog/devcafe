@@ -1,19 +1,34 @@
 var React = require('react');
 var moment = require('moment');
 var Jquery = require('jquery');
+var Fluxxor = require('fluxxor');
 
 var Comments = require('./Comments.jsx');
 
 module.exports = React.createClass({
+
+  // START - Fluxxor의 스토어를 사용할 경우 END 까지는 기본으로 추가해야한다.
+  mixins: [
+    Fluxxor.FluxMixin(React),
+    Fluxxor.StoreWatchMixin('CommentStore')
+  ],
+
+  getStateFromFlux: function(){
+    var flux = this.props.flux;
+    flux.store("CommentStore").setState(this.props.post.comments);
+    return flux.store("CommentStore").getState();
+  },
+
+  componentWillReceiveProps: function (nextProps) {
+    this.setState(this.getStateFromFlux());
+  },
+  // END
  
   render() {
 
     var post = this.props.post;
     var url = "/boards/" + this.props.board.id;
     var ModifyButton = false;
-
-    // '(', post.commentCount, ')',
-    // post.username,' - ' , moment(post.updatedAt).format("LLL")
 
     if(this.props.post.isOwner){
 
@@ -37,23 +52,15 @@ module.exports = React.createClass({
             <div className="username" dangerouslySetInnerHTML={{__html: post.username }} ></div> 
             <div className="datetime" dangerouslySetInnerHTML={{__html: moment(post.updatedAt).format("LLL") }} ></div> 
             <div className="readcount">조회 {post.readCount}</div>
-          </header>
+            <div className="readcount">댓글 {this.state.comments.length}</div>
+           </header>
           <article className="article">
             <div dangerouslySetInnerHTML={{__html: post.content.replace(/\n/g, '</br>') }} />
           </article>
         </section>
-        <Comments flux={this.props.flux} user={this.props.user} post={this.props.post} board={this.props.board}/> 
+        <Comments flux={this.props.flux} user={this.props.user} post={this.props.post} board={this.props.board} comments={this.state.comments}/> 
       </section>
     );
-
-    // <footer>
-    //   <div className="title">좋아요{post.likeCount}</div>
-    // </footer>
-    // <section>
-    //   <div>
-    //     댓글이 들어갈 자리
-    //   </div>
-    // </section>
     
   },
 

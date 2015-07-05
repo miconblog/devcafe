@@ -38,12 +38,12 @@ module.exports = React.createClass({
             </select>
           </div>
           <div className="cell">
-            <input type="text" name="emailName" placeholder="이메일 아이디" ref="email" />
+            <input type="text" name="emailName" placeholder="이메일 아이디" ref="email" required />
             <input type="text" name="emailDomain" placeholder="이메일 도메인" 
                   value={this.state.domainName} 
                   disabled={this.state.disabledDomain} 
                   onChange={this.handleChangeDomain}
-                  className={this.state.disabledClass}/>
+                  className={this.state.disabledClass} required />
           </div>
           <div className="cell">
             <input type="submit" value="회원가입" />

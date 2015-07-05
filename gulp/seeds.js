@@ -181,6 +181,30 @@ function createPosts(){
     );
   }
 
+  for( var i = 0; i < 50; i++ ){
+    dummyPosts.push(
+      Post.create({
+        title: i + '번째 테스트입니다. ',
+        content: "테스트 테스트",
+        username: "테스트봇",
+        boardId: "free",
+        memberId: 2
+      })
+    );
+  }
+
+  for( var i = 0; i < 50; i++ ){
+    dummyPosts.push(
+      Post.create({
+        title: i + '번째 테스트입니다. ',
+        content: "테스트 테스트",
+        username: "테스트봇",
+        boardId: "jobs",
+        memberId: 2
+      })
+    );
+  }
+
   return Q.all([
 
     Post.create({

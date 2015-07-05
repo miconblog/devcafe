@@ -126,11 +126,11 @@
 
 /* 게시판 상세 */
 #post-detail {
-  //border: 1px solid #ccc;
+  border: 1px solid #ccc;
   position: relative;
  
   header.box {
-    border: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
     height: 40px;
     line-height: 40px;
     background-color: #eee;
@@ -145,6 +145,37 @@
 
     .ctrl-box {
       float: right;
+    }
+  }
+
+  header.actions {
+    padding: 5px 15px;
+
+    a {
+      margin-right: 10px;
+    }
+  }
+
+  form {
+    position: relative;
+    
+    div {
+      margin: 5px 78px 0px 10px;
+
+      textarea {
+        min-height: 32px;
+        width: 100%;
+      }
+    }
+
+    input[type=submit] {
+      position: absolute;
+      top: 0px;
+      right: 5px;
+      border: 1px solid #ccc;
+      border-radius: 0;
+      height: 38px;
+      width: 60px;
     }
   }
   .box.article {
@@ -166,8 +197,6 @@
   }
 
   article {
-    border: 1px solid #ccc;
-    border-top: none;
     padding: 10px;
   }
 }
@@ -222,14 +251,23 @@
 }
 
 #comment-list {
-  border: 1px solid #ccc;
+  border-top: 1px solid #ccc;
   position: relative;
 
   .list-item {
 
     border-top: 1px solid #ccc;
-    height: 40px;
-    line-height: 40px;
+    min-height: 40px;
+
+
+    .content {
+      padding: 5px 15px;
+      line-height: 20px;
+    }
+
+    .info {
+      padding: 5px;
+    }
 
     &:hover {
       background-color: #dddcd9;
@@ -247,33 +285,15 @@
     }
 
     span, time {
-      float: right;
       font-size: 12px;
       margin-right: 10px;
       color: #666;
     }
 
     a {
-      display: block;
       color: #222;
-      line-height: 40px;
-      height: 40px;
       padding: 0 10px;
-    }
-
-    .name, .content {
-      float: left;
-      margin-right:10px;
-    }
-    .time {
-      margin-right: 30px;
-    }
-    .count,  .like {
-
-    }
-
-    &:after {
-      clear: both;
+      float: right;
     }
   }
 }

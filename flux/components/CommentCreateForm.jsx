@@ -20,8 +20,11 @@ module.exports = React.createClass({
     var commentCreateUrl = "/boards/" + this.props.boardId + "/" + this.props.postId + "/comment";
     
     return (
-      <form action={commentCreateUrl} method="POST" onSubmit={this.handleCommentCreateSubmit}>
-        <input type="text" ref="commentInput" placeholder="댓글을 입력해주세요" value={this.state.content} onChange={this.handleChangeContent} />
+      <form id="createComment" action={commentCreateUrl} method="POST" onSubmit={this.handleCommentCreateSubmit}>
+        <div>
+          <textarea type="text" ref="commentInput" placeholder="댓글을 입력해주세요" value={this.state.content} onChange={this.handleChangeContent} />
+        </div>
+        <input type="submit" value="댓글달기"/>
       </form>
     ); 
   },

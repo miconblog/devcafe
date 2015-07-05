@@ -9,7 +9,7 @@ var sequelize = require('../../libs/database/instance');
 module.exports = sequelize.define('comment', {
   
   content: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     allowNull: false
   },
 

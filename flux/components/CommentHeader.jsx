@@ -8,14 +8,15 @@ module.exports = React.createClass({
 
   getInitialState() {
     return {
-      comments: this.props.comments
     }
   },
 
   render() {
     return (
-      <header>
-        <span>{this.state.comments.length}개의 댓글이 있습니다.</span>
+      <header className="actions">
+        <a href="#">좋아요</a>
+        <a href="#createComment">댓글달기</a>
+        <a href="#">공유하기</a>
       </header>
     );
   }
