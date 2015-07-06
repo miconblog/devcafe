@@ -30,3 +30,7 @@ public/js/bundle.js
 *.iml
 *.idea
 public/css
+
+# Configuations
+config/environment/development.js
+config/environment/production.js

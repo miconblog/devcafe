@@ -1,6 +1,7 @@
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize('devcafe', 'dev', 'devcafeuser', {
-  host: 'localhost',
+var dbconf = require('../../../config/environment').database;
+var sequelize = new Sequelize(dbconf.database, dbconf.user, dbconf.password, {
+  host: dbconf.host,
   dialect: 'mysql',
   pool: {
     max: 5,

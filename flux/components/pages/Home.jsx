@@ -39,19 +39,14 @@ module.exports = React.createClass({
       return <SignUp message={this.props.message} email={this.props.email} emailDomain={this.props.emailDomain} 
                      companyId={this.props.companyId} companys={this.props.companys}/>;
     }
-    if(path === 'signupDone') {
-      return <Message message={this.props.message}/>;
-    }
 
     // 비밀번호 찾기
     if(path === 'findPassword') {
       return <FindPassword path={this.props.path} message={this.props.message} email={this.props.email} />;
     }
 
-    // 비밀번호 보냈다!
-    if(path === 'findPasswordDone') {
-      return <Message message={this.props.message}/>;
-    }
+
+    return <Message message={this.props.message}/>;
   }
 
 });

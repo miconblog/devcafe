@@ -64,6 +64,25 @@ exports.index = function(req, res, next) {
   });
 };
 
+/**
+ * 인증테이블에 해당코드와 이메일이 있는지 확인하고 있으면, 
+ * user의 emailVerify=1로 바꿔준뒤에 패스워드 변경 페이지로 이동시킨다.  
+ */
+exports.confirm = function(req, res) {
+  if(req.error){
+    req.react = {
+      component : 'Home',
+      props: {
+        path: 'message',
+        isAuth: false,
+        message : req.error.message
+      }
+    }
+    return next();
+  }
+  res.redirect("/account/resetPassword");
+};
+
 exports.resetPassword = function(req, res, next) {
 
   req.react = {
@@ -125,7 +144,7 @@ exports.signup = function(req, res, next) {
     req.react = {
       component : 'Home',
       props: {
-        path: 'signupDone',
+        path: 'message',
         isAuth: false,
         message : req.message
       }

@@ -2,14 +2,15 @@
 require('./libs/database/relations')();
 
 var express = require('express');
-var path = require('path');
+var path    = require('path');
 var favicon = require('serve-favicon');
-var logger = require('morgan');
+var logger  = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
 var exphbs = require('express-handlebars');
+var config = require('../config/environment');
 var app = express();
 
 // moment locale 설정
