@@ -33,3 +33,4 @@ public/css
 
 # Configuations
 config/environment/development.js
+config/environment/production.js
