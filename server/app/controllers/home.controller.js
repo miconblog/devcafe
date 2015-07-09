@@ -114,7 +114,6 @@ exports.findPassword = function(req, res, next) {
   if(req.message) {
 
     req.react.props = {
-      path: 'findPasswordDone',
       message : req.message
     }
   }

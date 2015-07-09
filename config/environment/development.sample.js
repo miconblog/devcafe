@@ -10,6 +10,11 @@ module.exports = {
     password : 'YOUR_PASWORD',
     database:'YOUR_DATABASE'
   },
+  redis: {
+    host: '127.0.0.1',
+    port: 6379,
+    ttl: 30*30*60
+  },
   nodemailer: {
     service: 'YOUR_MAIL_SERVICE',
     auth: {
