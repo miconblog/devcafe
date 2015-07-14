@@ -2,13 +2,18 @@ var debug       = require('debug')('server:controller:mail');
 var nodemailer  = require('nodemailer');
 var config      = require('../../../config/environment');
 var transporter = nodemailer.createTransport(config.nodemailer);
+var hostname = 'http://' + config.host + ':' + config.port;
+
+if( process.env.NODE_ENV === 'production') {
+  hostname = 'http://' + config.host;
+}
 
 module.exports = {
   send : function(req, res, next){
     if( req.error ){ return next() }
 
     var email = req.body.email;
-    var authLink = ['http://',config.host,':',config.port,'/confirm?code=', req.authcode, '&email=', email].join('');
+    var authLink = [hostname, '/confirm?code=', req.authcode, '&email=', email].join('');
     
     console.log("AUTH LINK: ", authLink);
 
@@ -33,7 +38,7 @@ module.exports = {
   resetPassword : function(req, res, next){
 
     var email = req.body.email;
-    var authLink = ['http://',config.host,':',config.port,'/confirm?code=', req.authcode, '&email=', email].join('');
+    var authLink = [hostname,'/confirm?code=', req.authcode, '&email=', email].join('');
     
     console.log("AUTH LINK: ", authLink, req.error);
 
