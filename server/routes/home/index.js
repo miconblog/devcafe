@@ -19,6 +19,6 @@ router.get('/signout', home.signout);
 router.get('/confirm', authcode.confirm, home.confirm, ssr);
 
 router.get('/findPassword', home.findPassword, ssr);
-router.post('/findPassword', member.sendResetPassword, home.findPassword, ssr);
+router.post('/findPassword', member.isExist, authcode.make, mail.resetPassword, home.findPassword, ssr);
 
 module.exports = router;
