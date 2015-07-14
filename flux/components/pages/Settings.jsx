@@ -12,8 +12,8 @@ module.exports = React.createClass({
 
   render() {
     var SettingMenus = <ul>
-      <li><a href="/settings/member">사용자 정보 변경</a></li>
-      <li><a href="/settings/password">비밀번호 변경</a></li>
+      <li><a href="/account/settings/member">사용자 정보 변경</a></li>
+      <li><a href="/account/settings/password">비밀번호 변경</a></li>
     </ul>
 
     var currentComponent;
