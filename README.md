@@ -37,10 +37,18 @@
  - React + Flux
  - Gulp
  - Test(Mocha): 테스트는 제가 잘 몰라서 테스트 고수의 참여를 기대합니다.
- - AWS: EC2(1Core, 1GB), t2.micro, Free Tiar 
+
+## AWS 구성
+EC2(1Core, 1GB), t2.micro, Free Tiar 한대로 개발서버 구성했음. 
+
+### 현재의 [개발서버](http://devcafe.4hrs.net) 구성
 ```
-    // MVP - 서버가 죽기 전까지는 이렇게!!
-    ROUTE53 - EC2:EIP( [ Nginx:80 / NODE:3000 / DB:3360 ] ) 
+    ROUTE53 - ELB(80 > 3000) - EC2( [ NODE:3000 / DB:3360 / REDIS:6379 ] ) 
+```
+
+
+### 앞으로 잘되면 이렇게 되면 좋겠지..
+```
 
     // NEXT STEP - 이렇게 확장할수있는 날이 올까? ㅎㅎ 
     ROUTE53 - ELB -- [EC2] -- [RDS]:master
