@@ -4,6 +4,13 @@ var AuthCode    = require('../models/authcode.model');
 var crypto      = require('crypto');
 var moment      = require('moment');
 
+function setError(req, code){
+  req.error = {
+    message: "인증코드가 유효하지 않습니다.",
+    errcode: code
+  }
+}
+
 exports.make = function(req, res, next) {
   if( req.error){ return next() }
 
@@ -34,7 +41,6 @@ exports.make = function(req, res, next) {
 
 };
 
-
 /**
  * 인증테이블에 해당코드와 이메일이 있는지 확인하고 있으면, 
  * user의 emailVerify=1로 바꿔준뒤에 패스워드 변경 페이지로 이동시킨다.  
@@ -44,47 +50,43 @@ exports.confirm = function(req, res, next) {
   var email = req.query.email;
 
   if( !code || !email ) {
-    req.error = {
-      message: '잘못된 접근입니다. 꺼지세요!'      
-    }
+    setError(req, 404);
     return next();
-  }else {
+  }
     
-    if( code.length !== 32 ) {
-      req.error = {
-        message:"유효한 인증코드가 아닙니다. (32자리 코드여야함)" 
-      }
+  if( code.length !== 32 ) {
+    setError(req, 102);
+    return next();
+  }
+
+  AuthCode
+  .findOne({where: {email:email, code:code}})
+  .then(function(hashcode){
+
+    if(!hashcode){
+      setError(req, 100);
+      return next(); 
+    }
+
+    // 인증날짜가 유효한지 한번더 검토...
+    var expired = hashcode.get('expired_at');
+    if( moment(expired) < moment() ) {
+      setError(req, 101);
       return next();
     }
 
+    Member
+    .findOne({where: {email:email}})
+    .then(function(member){
+      member.emailVerified = 1;
+      member.save();
 
-    AuthCode.findOne({where: {email:email, code:code}})
-    .then(function(hashcode){
-
-      var hashcode = true;
-
-      if(hashcode){
-
-        Member.findOne({where: {email:email}})
-        .then(function(member){
-          member.emailVerified = 1;
-          member.save();
-
-          // 이메일 인증이 성공하면 무조건 패스워드를 설정해야한다.
-          req.session.user = member;
-          req.session.isVerified = true;
-          return next();
-        });
-
-      }else{
-
-        req.error = {
-          message: "그런 인증코드는 없습니다." 
-        };
-        return next(); 
-      }
-           
+      // 이메일 인증이 성공하면 무조건 패스워드를 설정해야한다.
+      req.session.user = member;
+      req.session.isVerified = true;
+      next();
     });
-  }
-
+ 
+  });
+  
 };
