@@ -34,7 +34,7 @@
 ## 개발 스택
  - MySQL + sequelize (ORM)
  - Nodejs + Express + Redis-session 
- - React + Flux
+ - React + Fluxxor
  - Gulp
  - Test(Mocha): 테스트는 제가 잘 몰라서 테스트 고수의 참여를 기대합니다.
 

@@ -1,30 +1,49 @@
 'use strict';
-var Member = require('../app/member/member.model');
-var Board = require('../app/board/board.model');
-var Post = require('../app/post/post.model');
-var ReadUser = require('../app/post/read_user.model');
-var Comment = require('../app/comment/comment.model');
-var Company = require('../app/company/company.model');
-var AuthCode = require('../app/authcode/authcode.model');
+var Member      = require('../../app/models/member.model');
+var Board       = require('../../app/models/board.model');
+var Post        = require('../../app/models/post.model');
+var Comment     = require('../../app/models/comment.model');
+var Company     = require('../../app/models/company.model');
+var ReadUser    = require('../../app/models/read_post.model');
+var AuthCode    = require('../../app/models/authcode.model');
+var DBRelations = require('./relations');
 
 var Q = require('q');
-Q.longStackSupport = true;
+    Q.longStackSupport = true;
+    DBRelations();
 
+function dropAllTables(){
+  var deferred = Q.defer();
+  Comment.drop().then(function(){
+    Post.drop().then(function(){
+      Board.drop().then(function(){
+        Member.drop().then(function(){
+          Company.drop().then(function(){
 
-function syncAllTables(){
+            console.log("\n----------- drop all tables ------------ \n\n")
+            deferred.resolve();
+          })
+        })    
+      })  
+    })
+  })
+    
+  return deferred.promise;
+}
+
+function syncAllTables(opt){
   var deferred = Q.defer();
 
-  AuthCode.sync();
-  Company.sync().then(function(){
-    Member.sync().then(function(){
-      Board.sync().then(function(){
-        Post.sync().then(function(){
-          ReadUser.sync().then(function(){
-            Comment.sync().then(function(){
+  AuthCode.sync(opt);
+  ReadUser.sync(opt);
+  Company.sync(opt).then(function(){
+    Member.sync(opt).then(function(){
+      Board.sync(opt).then(function(){
+        Post.sync(opt).then(function(){
+          Comment.sync(opt).then(function(){
 
-              console.log("\n----------- sync all tables ------------ \n\n")
-              deferred.resolve();
-            })
+            console.log("\n----------- sync all tables ------------ \n\n")
+            deferred.resolve();
           })
         })
       })
@@ -33,35 +52,17 @@ function syncAllTables(){
   return deferred.promise;
 }
 
-module.exports = function(){
+module.exports = function(opt){
   var deferred = Q.defer();
 
-  // 회사는 여러 사원을 가지지만 회사가 망하면 멤버는 실직하다. 즉, 회사ID는 자동으로 NULL이 된다.
-  Company.hasMany(Member);
+  opt = opt || {force:false}
 
-  // 회사는 여러개의 게시판을 가진다. 회사가 망하면 게시판도 망한다.
-  Company.hasMany(Board);
-
-  // 게시판은 여러개의 게시글을 가진다. 게시판이 사라지면 해당 게시글도 전부 지워진다.
-  Board.hasMany(Post, {onDelete: 'cascade'});
-
-  // 게시글은 여러개의 댓글을 가진다. 게시글이 사라지면 해당 댓글도 전부 사라진다.
-  Post.hasMany(Comment, {onDelete: 'cascade'})
-
-  // 게시글은 작성자가 존재한다. 회원이 삭제되도 게시글은 유지된다.
-  Post.belongsTo(Member);
-
-  // 댓글은 작성자가 존재한다.
-  Comment.belongsTo(Member);
-
-  // ReadUser는 읽은 회원과 게시글을 갖고 있는 관계 테이블이다. 게시글이나 회원이 사라지면 관계 테이블 또한 사라진다.
-  ReadUser.belongsTo(Post);
-  ReadUser.belongsTo(Member);
-
-
-  syncAllTables().then(function(){
-    deferred.resolve();
-  })
+  // 기존 DB 삭제
+  dropAllTables().then(function(){
+    syncAllTables(opt).then(function(){
+      deferred.resolve();
+    });
+  });
 
   return deferred.promise;
 };

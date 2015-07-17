@@ -2,7 +2,7 @@
 var Member  = require('../../app/models/member.model');
 var Board   = require('../../app/models/board.model');
 var Post    = require('../../app/models/post.model');
-var ReadUser= require('../../app/models/read_user.model');
+var ReadPost= require('../../app/models/read_post.model');
 var Comment = require('../../app/models/comment.model');
 var Company = require('../../app/models/company.model');
 var AuthCode= require('../../app/models/authcode.model');
@@ -27,10 +27,6 @@ module.exports = function(){
 
   // 댓글은 작성자가 존재한다.
   Comment.belongsTo(Member);
-
-  // ReadUser는 읽은 회원과 게시글을 갖고 있는 관계 테이블이다. 게시글이나 회원이 사라지면 관계 테이블 또한 사라진다.
-  ReadUser.belongsTo(Post);
-  ReadUser.belongsTo(Member);
 
 };
 

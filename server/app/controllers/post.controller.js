@@ -2,7 +2,7 @@
 var Board   = require('../models/board.model');
 var Post    = require('../models/post.model');
 var Company = require('../models/company.model');
-var ReadUser= require('../models/read_user.model');
+var ReadPost= require('../models/read_post.model');
 var Comment = require('../models/comment.model');
 var moment  = require('moment');
 
@@ -73,23 +73,23 @@ exports.show = function(req, res, next){
 
   delete req.session.board;
 
-  ReadUser.findOrCreate({
+  ReadPost.findOrCreate({
     where: {
       memberId:user.id,
       postId:post.id
     },
     defaults: {memberId:user.id, postId:post.id, lastUpdateAt:moment()}
   })
-  .spread(function(readUser, created){
+  .spread(function(readPost, created){
 
     // 마지막 Count 하며 읽은 날짜에서 하루 이상 지났을 때만 조회수 + 1 & lastUpdateAt 을 현재로 바꿔준다.
-    if( created || 0 < moment().diff(moment(readUser.lastUpdateAt), 'days')  ){
+    if( created || 0 < moment().diff(moment(readPost.lastUpdateAt), 'days')  ){
 
       // increment 를 사용하는 것이 직관적으로 보이나 updatedAt 이 갱신되는 것을 피해갈 방법이 없다.
       // Post.build(post).increment('readCount');
       post.readCount = post.get('readCount') + 1;
       post.save({silent:true});
-      readUser.update({lastUpdateAt:moment()}, {silent:true});
+      readPost.update({lastUpdateAt:moment()}, {silent:true});
     }
 
     post = post.get({plain:true});
