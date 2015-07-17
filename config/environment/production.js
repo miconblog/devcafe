@@ -21,5 +21,6 @@ module.exports = {
       user: 'YOUR_MAIL_ADDR',
       pass: 'YOUR_MAIL_PASSWORD'
     }
-  }
+  },
+  GA_KEY: 'UA-XXXXXXXX-X'
 };
