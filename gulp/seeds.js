@@ -40,23 +40,17 @@ function createMembers() {
     }),
     
     Member.create({
-      name: 'Lim SungMook',
+      name: '테스트 유저',
       password: '1234',
-      email: 'ipes4579@gmail.com',
-      companyId: 1
+      email: 'test@test.com',
+      companyId: null
     }),
 
     Member.create({
-      name: 'Kim HyunDong',
+      name: '테스트 유저2',
       password: '1234',
-      email: 'hyundong@gmail.com'
-    }),
-    
-    Member.create({
-      name: 'Kim MinJung',
-      password: '1234',
-      email: 'minjung@gmail.com',
-      companyId: 2
+      email: 'test2@test.com',
+      companyId: null
     })
 
   ]);
@@ -100,19 +94,7 @@ function createBoards(){
 function createPosts(){
 
   var dummyPosts = [];
-  for( var i = 0; i < 150; i++ ){
-    dummyPosts.push(
-      Post.create({
-        title: i + '번째 테스트입니다. ',
-        content: "테스트 테스트",
-        username: "테스트봇",
-        boardId: "skp",
-        memberId: 2
-      })
-    );
-  }
-
-  for( var i = 0; i < 50; i++ ){
+  for( var i = 0; i < 20; i++ ){
     dummyPosts.push(
       Post.create({
         title: i + '번째 테스트입니다. ',
@@ -124,7 +106,7 @@ function createPosts(){
     );
   }
 
-  for( var i = 0; i < 50; i++ ){
+  for( var i = 0; i < 20; i++ ){
     dummyPosts.push(
       Post.create({
         title: i + '번째 테스트입니다. ',
@@ -135,7 +117,7 @@ function createPosts(){
       })
     );
   }
-  
+
   return Q.all([dummyPosts])
 }
 
