@@ -1,3 +1,6 @@
+## 데이터베이스 네이밍 컨벤션
+운영체제에 따라 대소문자 구분이 달라서 snake_case로 통일한다. 자세한 내용은 [코딩 컨벤션](https://github.com/miconblog/devcafe/blob/master/docs/coding_convention.md)문서를 참고한다. 
+
 ## Fluxxor를 사용하기 위한 과정 
 1. /flux/stores/XxxxStore.js 파일 생성하고 this.bindActions 함수에 디스패처랑 맵핑되는 함수 정의하기
 3. /flux/actionCreator.js 파일에 디스패치될 상수와 메소드 정의하기

@@ -12,7 +12,7 @@
     
     .. 소스코드를 체크아웃(혹은 클론) 받고 프로젝트 폴더로 이동한다..
 
-    $> mysql -uroot < database-init.sql // MySQL 서버에 사용할 dev 유저와 devcafe 데이터 베이스를 생성한다.
+    $> mysql -uroot < database_init.sql // MySQL 서버에 사용할 dev 유저와 devcafe 데이터 베이스를 생성한다.
     $> npm install        // 노드 팩키지 설치
     $> gulp seeds         // 샘플 데이터 생성한다. 
     $> gulp               
@@ -32,9 +32,10 @@
     ```
 
 ## 문서 목록
- 1. [서버 구성 구조](https://github.com/miconblog/devcafe/blob/master/docs/infra-structure.md)
- 2. [디렉토리 폴더 구조](https://github.com/miconblog/devcafe/blob/master/docs/directory-structure.md)
- 3. [데이터 모델링](https://github.com/miconblog/devcafe/blob/master/docs/data-modeling.md)
- 4. [참고자료](https://github.com/miconblog/devcafe/blob/master/docs/reference.md): 자료조사한 내용이나 개발중에 고민한 내용들을 정리
+ 1. [서버 구성 구조](https://github.com/miconblog/devcafe/blob/master/docs/infra_structure.md)
+ 2. [디렉토리 폴더 구조](https://github.com/miconblog/devcafe/blob/master/docs/directory_structure.md)
+ 3. [데이터 모델링](https://github.com/miconblog/devcafe/blob/master/docs/data_modeling.md)
+ 4. [코딩 컨벤션](https://github.com/miconblog/devcafe/blob/master/docs/coding_convention.md)
+ 5. [참고자료](https://github.com/miconblog/devcafe/blob/master/docs/reference.md): 자료조사한 내용이나 개발중에 고민한 내용들을 정리
 
 
