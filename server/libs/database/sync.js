@@ -4,7 +4,8 @@ var Board       = require('../../app/models/board.model');
 var Post        = require('../../app/models/post.model');
 var Comment     = require('../../app/models/comment.model');
 var Company     = require('../../app/models/company.model');
-var ReadUser    = require('../../app/models/read_post.model');
+var ReadPost    = require('../../app/models/read_post.model');
+var LikePost    = require('../../app/models/like_post.model');
 var AuthCode    = require('../../app/models/authcode.model');
 var DBRelations = require('./relations');
 
@@ -35,7 +36,8 @@ function syncAllTables(opt){
   var deferred = Q.defer();
 
   AuthCode.sync(opt);
-  ReadUser.sync(opt);
+  ReadPost.sync(opt);
+  LikePost.sync(opt);
   Company.sync(opt).then(function(){
     Member.sync(opt).then(function(){
       Board.sync(opt).then(function(){

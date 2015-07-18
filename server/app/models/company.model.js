@@ -9,6 +9,12 @@ var sequelize = require('../../libs/database/instance');
 
 module.exports = sequelize.define('company', {
   
+  id:  { 
+    type: Sequelize.INTEGER(11).UNSIGNED, 
+    primaryKey: true,
+    autoIncrement: true 
+  },
+
   name: {
     type: Sequelize.STRING,
     unique: true,
@@ -38,6 +44,6 @@ module.exports = sequelize.define('company', {
   instanceMethods: {
 
   },
-
+  underscored: true,
   freezeTableName: true // Model tableName will be the same as the model name
 });

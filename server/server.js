@@ -1,5 +1,5 @@
 'use strict';
-require('./libs/database/relations')();
+//require('./libs/database/relations')();
 
 var express = require('express');
 var path    = require('path');

@@ -19,8 +19,9 @@ var Member = sequelize.define('member', {
     type: Sequelize.STRING
   },
 
-  hashed_password: {
-    type: Sequelize.STRING
+  hashedPassword: {
+    type: Sequelize.STRING,
+    field: 'hashed_password'
   },
 
   salt: {
@@ -39,66 +40,58 @@ var Member = sequelize.define('member', {
     allowNull: false
   },
 
-  should_reset_password: {
+  shouldResetPassword: {
     type: Sequelize.BOOLEAN,
-    defaultValue: true
+    defaultValue: true,
+    field: 'should_reset_password'
   },
 
-  email_verified: {
+  emailVerified: {
     type: Sequelize.BOOLEAN,
-    defaultValue: false
+    defaultValue: false,
+    field: 'email_verified'
   },
 
   // 가입자 추이를 알아낼수있다.
-  created_at: {
+  createdAt: {
     type: Sequelize.DATE,
     allowNull: false,
-    defaultValue: Sequelize.NOW
+    defaultValue: Sequelize.NOW,
+    field: 'created_at'
   },
   
   // 마지막으로 수정한 패스워드 날짜를 알아낼수있다.
-  last_modified_at: {
+  lastModifiedAt: {
     type: Sequelize.DATE,
     allowNull: false,
-    defaultValue: Sequelize.NOW
+    defaultValue: Sequelize.NOW,
+    field: 'last_modified_at'
   },
   
   // 얼마나 많은 사용자가 실제 활동하고 있는지 알아낼수있다.  
-  last_logged_at: {
+  lastLoggedAt: {
     type: Sequelize.DATE,
     allowNull: false,
-    defaultValue: Sequelize.NOW
+    defaultValue: Sequelize.NOW,
+    field: 'last_logged_at'
   },
 
   // 사용자들의 접속한 지역을 확인할수있다.
-  last_connected_ip: {
+  lastConnectedIp: {
     type: Sequelize.STRING,
     validate : {
       isIP: true,
       isIPv4: true
-    }
+    },
+    field: 'last_connected_ip'
   }
 
 }, {
 
-  getterMethods: {
-    shouldResetPassword : function()  { 
-      return this.should_reset_password 
-    },
-    emailVerified : function()  { 
-      return this.email_verified 
-    }
-  },
   setterMethods: {
     password: function(password) { 
       this.salt = Member.makeSalt();
-      this.setDataValue('hashed_password', Member.encryptPassword(password, this.salt));
-    },
-    shouldResetPassword: function(value) { 
-      this.setDataValue('should_reset_password', value);
-    },
-    emailVerified: function(value) { 
-      this.setDataValue('email_verified', value);
+      this.setDataValue('hashedPassword', Member.encryptPassword(password, this.salt));
     }
   },
   
@@ -124,7 +117,7 @@ var Member = sequelize.define('member', {
     },
 
   },
-
+  underscored: true,
   timestamps: false,
   freezeTableName: true // Model tableName will be the same as the model name
 });

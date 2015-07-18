@@ -1,6 +1,7 @@
 var gulp   = require( 'gulp' ),
     server = require( 'gulp-develop-server' ),
-    bs     = require( 'browser-sync' );
+    bs     = require( 'browser-sync' ),
+    config = require( '../config/environment');
 
 var options = {
     server: {
@@ -9,7 +10,9 @@ var options = {
         delay: 1800
     },
     bs: {
-        proxy: 'http://localhost:3000'
+        port: config.port,
+        proxy: 'http://localhost:' + config.port,
+        ui: false
     }
 };
 

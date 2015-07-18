@@ -7,7 +7,6 @@ var Board       = require('../server/app/models/board.model');
 var Post        = require('../server/app/models/post.model');
 var Comment     = require('../server/app/models/comment.model');
 var Company     = require('../server/app/models/company.model');
-var DBRelations = require('../server/libs/database/relations');
 var DBSync      = require('../server/libs/database/sync');
 
 function createCompanies() {
@@ -157,7 +156,6 @@ function excuteSample(done){
 
 gulp.task('seeds', ['dbcheck'],function(done){
 
-  DBRelations();
   DBSync({force:true}).then(function(){
     excuteSample(done);
   });

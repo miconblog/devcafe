@@ -7,7 +7,7 @@
 var Sequelize = require('sequelize');
 var sequelize = require('../../libs/database/instance');
 
-module.exports = sequelize.define('read_post', {
+module.exports = sequelize.define('like_post', {
   
   memberId: {
     type: Sequelize.INTEGER(11).UNSIGNED,

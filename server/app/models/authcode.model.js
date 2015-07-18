@@ -7,24 +7,30 @@
 var Sequelize = require('sequelize');
 var sequelize = require('../../libs/database/instance');
 
-module.exports = sequelize.define('authcode', {
+module.exports = sequelize.define('authentication_code', {
   
   email: {
     type: Sequelize.STRING(80),
     primaryKey: true
   },
+
   code: {
     type: Sequelize.STRING(32),
     unique: true,
     allowNull: false
   },
-  created_at: {
+
+  createdAt: {
     type: Sequelize.DATE,
-    allowNull: false
+    allowNull: false,
+    defaultValue: Sequelize.NOW,
+    field: 'created_at'
   },
-  expired_at: {
+
+  expiredAt: {
     type: Sequelize.DATE,
-    allowNull: false
+    allowNull: false,
+    field: 'expired_at'
   }
 
 }, {
@@ -43,6 +49,7 @@ module.exports = sequelize.define('authcode', {
   instanceMethods: {
 
   },
+  underscored: true,
   timestamps: false,
   freezeTableName: true // Model tableName will be the same as the model name
 });

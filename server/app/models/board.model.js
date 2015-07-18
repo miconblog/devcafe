@@ -30,12 +30,33 @@ module.exports = sequelize.define('board', {
     allowNull: false,
   },
 
-  openAt: {
-    type: Sequelize.DATE
+  companyId: {
+    type: Sequelize.INTEGER(11).UNSIGNED,
+    field: 'company_id'
   },
 
-  closeAt: {
-    type: Sequelize.DATE
+  createdAt: {
+    type: Sequelize.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.NOW,
+    field: 'created_at'
+  },
+
+  updatedAt: {
+    type: Sequelize.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.NOW,
+    field: 'updated_at'
+  },
+
+  openingAt: {
+    type: Sequelize.DATE,
+    field: 'opening_at'
+  },
+
+  closingAt: {
+    type: Sequelize.DATE,
+    field: 'closing_at'
   }
 
 }, {
@@ -54,7 +75,7 @@ module.exports = sequelize.define('board', {
   instanceMethods: {
 
   },
-
+  underscored: true,
   freezeTableName: true // Model tableName will be the same as the model name
 });
 
