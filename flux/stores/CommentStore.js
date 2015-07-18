@@ -29,8 +29,9 @@ module.exports = Fluxxor.createStore({
 
     Jquery.ajax({
       type: 'POST',
-      url: ['/boards', comment.boardId, comment.postId, 'comment'].join('/'),
+      url: '/api/comments',
       data: {
+        postId  : comment.postId, 
         content : comment.content
       }
     }).done(function(res){
@@ -58,7 +59,7 @@ module.exports = Fluxxor.createStore({
 
     Jquery.ajax({
       type: 'DELETE',
-      url: ['/boards', comment.boardId, comment.postId, 'comment', comment.id].join('/')
+      url: ['/api/comments', comment.id].join('/')
       //url: '/boards/' + this.props.boardId + '/' + this.props.postId + "/comment/" + this.state.comments[i].id
     }).done(function(res){
 
