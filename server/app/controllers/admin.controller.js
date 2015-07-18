@@ -3,13 +3,14 @@ var Company = require('../models/company.model');
 var Member  = require('../models/member.model');
 var Board   = require('../models/board.model');
 
+Member.belongsTo(Company, {foreignKey: 'companyId'});
 exports.index = function(req, res, next) {
 
   Member.findAll({
     include: [ { model: Company, as: 'company' } ],
   }).then(function(members){
 
-    console.log(members);
+    console.log(JSON.parse(JSON.stringify(members)));
 
     Board.all().then(function(boards){
 

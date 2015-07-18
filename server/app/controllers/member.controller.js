@@ -20,7 +20,6 @@ module.exports = {
         delete data.hashedPassword;
         delete data.salt;
 
-
         // 세션에서 redirect를 받아서 처리하자!
         var url = req.session.redirect || "/";
         req.session.user = data;

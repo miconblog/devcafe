@@ -25,6 +25,20 @@ module.exports = sequelize.define('company', {
     type: Sequelize.STRING,
     unique: true,
     allowNull: false
+  },
+
+  createdAt: {
+    type: Sequelize.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.NOW,
+    field: 'created_at'
+  },
+
+  updatedAt: {
+    type: Sequelize.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.NOW,
+    field: 'updated_at'
   }
 
 
@@ -45,5 +59,6 @@ module.exports = sequelize.define('company', {
 
   },
   underscored: true,
+  timestamps: false,
   freezeTableName: true // Model tableName will be the same as the model name
 });

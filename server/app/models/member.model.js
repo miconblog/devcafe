@@ -84,6 +84,11 @@ var Member = sequelize.define('member', {
       isIPv4: true
     },
     field: 'last_connected_ip'
+  },
+
+  companyId: {
+    type: Sequelize.INTEGER(11).UNSIGNED, 
+    field: 'company_id'
   }
 
 }, {
@@ -113,7 +118,7 @@ var Member = sequelize.define('member', {
   instanceMethods: {
 
     authenticate: function(plainText) {
-      return Member.encryptPassword(plainText, this.salt) === this.hashed_password;
+      return Member.encryptPassword(plainText, this.salt) === this.hashedPassword;
     },
 
   },
