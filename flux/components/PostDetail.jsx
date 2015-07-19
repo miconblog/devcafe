@@ -27,7 +27,8 @@ module.exports = React.createClass({
   render() {
 
     var post = this.props.post;
-    var url = "/boards/" + this.props.board.id;
+    var board = post.board;
+    var url = "/boards/" + this.props.post.board.id;
     var ModifyButton = false;
 
     if(this.props.post.isOwner){
@@ -42,7 +43,7 @@ module.exports = React.createClass({
       <section id="post-detail">
         <header className="box">
           <div className="title">
-            <h3><a href={url}> &lt; {this.props.board.name}</a></h3>
+            <h3><a href={url}> &lt; {board.name}</a></h3>
           </div>
           {ModifyButton}
         </header>
@@ -58,7 +59,7 @@ module.exports = React.createClass({
             <div dangerouslySetInnerHTML={{__html: post.content.replace(/\n/g, '</br>') }} />
           </article>
         </section>
-        <Comments flux={this.props.flux} user={this.props.user} post={this.props.post} board={this.props.board} comments={this.state.comments}/> 
+        <Comments flux={this.props.flux} user={this.props.user} post={this.props.post} comments={this.state.comments}/> 
       </section>
     );
     
@@ -67,14 +68,16 @@ module.exports = React.createClass({
   handleEditPost(e){
     e.preventDefault();
 
-    location.href = '/boards/' + this.props.board.id + '/' + this.props.post.id + '/edit';
+    location.href = '/boards/' + this.props.post.board.id + '/' + this.props.post.id + '/edit';
   },
 
   handleDeletePost(e){ 
     e.preventDefault();
 
     var post = this.props.post;
-    var redirectUrl = "/boards/"+ this.props.board.id;
+    var board = post.board;
+
+    var redirectUrl = "/boards/"+ board.id;
     var yes = confirm("정말로 삭제할까요?");
 
     if(!yes) {
@@ -83,7 +86,7 @@ module.exports = React.createClass({
 
     Jquery.ajax({
       type: 'DELETE',
-      url: '/boards/' + this.props.board.id + '/' + post.id
+      url: '/api/posts/' + post.id
     }).done(function(res){
       if(res.result === "OK") {
         location.href = redirectUrl;

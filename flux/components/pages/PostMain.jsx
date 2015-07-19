@@ -25,12 +25,12 @@ module.exports = React.createClass({
       return (<PostEditForm board={this.props.board} post={this.props.post}/>);
       
       case 'detail':
-      return (<PostDetail flux={this.props.flux} board={this.props.board} post={this.props.post}/>);
+      return (<PostDetail flux={this.props.flux} post={this.props.post}/>);
 
       case 'list':
 
       var posts = this.props.posts;
-      var linkUrl = "/boards/"+ this.props.board.id +"/newpost";
+      var linkUrl = "/boards/"+ this.props.board.id +"/write";
       return (
         <section id="post-main">
           <header className="title-box">

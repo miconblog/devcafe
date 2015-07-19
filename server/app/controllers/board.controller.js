@@ -6,7 +6,8 @@ var Company = require('../models/company.model');
 exports.canAccess = function(req, res, next){
 
   var member = req.session.user;
-  var boardId = req.params.boardId;
+  var regx = /\/boards\/(\w+)/;
+  var boardId = regx.exec(req.originalUrl)[1]; 
 
   Board.findOne({where: { id: boardId } })
   .then(function(board) {
@@ -19,7 +20,7 @@ exports.canAccess = function(req, res, next){
     var type = board.get('type');
     var companyId = board.get('companyId');
 
-    req.session.board = board;
+    req.board = board;
 
     // 관리자는 무조건 접근 가능하다.
     if( res.locals.isAdmin ){
@@ -32,7 +33,6 @@ exports.canAccess = function(req, res, next){
     } else if( type === 'N' || type === 'L' ) {
       next();
     } else {
-      delete req.session.board;
       res.sendStatus(401);
       return;
     }

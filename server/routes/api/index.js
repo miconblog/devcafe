@@ -3,6 +3,7 @@
 var express = require('express');
 var router = express.Router();
 
+router.use('/posts', require('./post'));
 router.use('/comments', require('./comment'));
 router.use('/companys', require('./company'));
 router.use('/members', require('./member'));

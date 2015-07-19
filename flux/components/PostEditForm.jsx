@@ -5,7 +5,6 @@ module.exports = React.createClass({
  
   getInitialState() {
     return {
-
       title: this.props.post.title,
       content: this.props.post.content
     }
@@ -13,14 +12,14 @@ module.exports = React.createClass({
 
   render() {
 
-    var url = "/boards/" + this.props.board.id;
+    var url = "/boards/" + this.props.post.board.id;
     var formUrl = url + '/' + this.props.post.id;
     
     return (
       <section id="post-form">
         <form action={formUrl} method="PUT" onSubmit={this.handleEditSubmit}>
           <header>
-            <h4 className="center">{this.props.board.name}</h4>
+            <h4 className="center">{this.props.post.board.name}</h4>
             <input type="button" tabIndex="1" className="btn left" value="취소" onClick={this.handleEditCancle}/>
             <input type="submit" tabIndex="4" className="btn right" value="저장" />
           </header>
@@ -54,11 +53,11 @@ module.exports = React.createClass({
   handleEditSubmit(e){
 
     e.preventDefault();
-    var redirectUrl = "/boards/"+ this.props.board.id + '/' + this.props.post.id;
+    var redirectUrl = "/boards/"+ this.props.post.board.id + '/' + this.props.post.id;
 
     Jquery.ajax({
       type: 'PUT',
-      url: '/boards/' + this.props.board.id + '/' + this.props.post.id,
+      url: '/api/posts/' + this.props.post.id,
       data: {
         title: this.state.title,
         content: this.state.content
