@@ -32,11 +32,9 @@
  7. 코드를 삽입할 경우 라인바이 라인으로 코드 리뷰(댓글) 가능
 
 ## 개발 스택
- - MySQL + sequelize (ORM)
- - Nodejs + Express + Redis-session 
- - React + Fluxxor
- - Gulp
- - Test(Mocha): 테스트는 제가 잘 몰라서 테스트 고수의 참여를 기대합니다.
+ - ParseServer(MongoDB)
+ - Redux + React + React-Router + Intl
+ 
 
 ## AWS 구성
 EC2(1Core, 1GB), t2.micro, Free Tiar 한대로 개발서버 구성했음. 
@@ -63,8 +61,8 @@ EC2(1Core, 1GB), t2.micro, Free Tiar 한대로 개발서버 구성했음.
 ```
 
 ## 참여 방법
- - [Github Issues](https://github.com/miconblog/devcafe/issues) 항목에서 본인이 해결할수있는 항목이 있다면 수정해서 커밋합니다.  - 커밋은 정규 커미터만 할 수 있습니다. 커미터가 아니라면 Fork 떠서 Pull Request로 보내주세요. 
- - 현재 정규 커미터는 4명입니다. 차후 기여도에 따라 커미터에 합류 하실수 있습니다. 
+ - [Github Issues](https://github.com/miconblog/devcafe/issues) 항목에서 본인이 해결할수있는 항목이 있다면 수정해서 커밋합니다.  
+ - 커밋은 정규 커미터만 할 수 있습니다. 커미터가 아니라면 Fork 떠서 Pull Request로 보내주세요.  
  - 정식 릴리즈 되지 않은 개발중인 버전에서는 Bug 리포트를 받지 않습니다.
  - 이런 기능도 있으면 좋겠다 싶은 것들이 있다면 [Github Issues](https://github.com/miconblog/devcafe/issues)에 등록해주세요.
  - DevCafe 멤버들과 교류를 하고 싶다면 [페이스북 그룹](https://www.facebook.com/groups/380191595497850)에 가입신청을 하세요. 
